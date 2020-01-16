@@ -1,10 +1,12 @@
-import colors from 'vuetify/es5/util/colors'
+const colors = require('vuetify/es5/util/colors').default
 
-export default {
+module.exports = {
   mode: 'spa',
   /*
   ** Headers of the page
   */
+
+
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
@@ -14,9 +16,12 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {rel:'stylesheet', href:"https://fonts.googleapis.com/css?family=Material+Icons" }
+
     ]
   },
+
   /*
   ** Customize the progress-bar color
   */
@@ -41,14 +46,23 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth'
+
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
   axios: {
+    baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost/api' : 'http://62.116.202.233/api'
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {url: 'user/login', method: 'post', propertyName:'data.token'},
+          user: { url: 'user', method: 'get', propertyName: 'data' },
+          logout: false
+        }
+      }
+    }
   },
   /*
   ** vuetify module configuration
@@ -69,6 +83,13 @@ export default {
           success: colors.green.accent3
         }
       }
+    },
+    defaultAssets: {
+      font: true,
+      icon: 'mdi',
+    },
+    icons: {
+      iconfont: 'mdi',
     }
   },
   /*
