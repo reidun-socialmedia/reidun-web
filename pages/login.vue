@@ -34,7 +34,6 @@
     import {mapMutations} from "vuex";
 
     export default {
-        middleware: 'guest',
         layout: 'loginLayout',
         name: 'login',
         data: () => ({
@@ -71,7 +70,7 @@
                           console.log(e.response)
                             if (e.response.data[0].field === 'email' || e.response.data[0].field === "password" ) {
                               self.setSnackColor("error");
-                              self.setSnack(`${e.response.data[0].message}}`);
+                              self.setSnack('Email or password incorrect');
                             } else {
                               self.setSnackColor("error");
                               self.setSnack(`${e.response.data[0].message}`);
