@@ -1,16 +1,17 @@
 <template>
   <v-app dark>
     <v-app-bar
-      :clipped-left="clipped"
-      fixed
       app
     >
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <div>
-      <v-text-field>
-      </v-text-field>
-      </div>
+        <v-text-field
+          label="search"
+          style="margin-top: 1rem; display: inline;"
+        />
+        <v-btn text style="display: inline;">
+          <v-icon>search</v-icon>
+        </v-btn>
       <v-spacer />
       <v-btn text><v-icon>notification_important</v-icon></v-btn>
       <v-divider

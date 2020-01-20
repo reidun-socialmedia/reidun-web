@@ -1,15 +1,5 @@
 <template>
   <v-app>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-
-      <v-toolbar-title style="margin-left: 1rem">Reidun</v-toolbar-title>
-
-
-    </v-app-bar>
     <v-content>
       <v-container>
         <nuxt/>
