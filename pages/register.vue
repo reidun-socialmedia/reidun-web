@@ -7,7 +7,6 @@
           <v-form
             ref="form"
             v-model="valid"
-            lazy-validation
           >
             <v-text-field
               v-model="firstName"
@@ -43,6 +42,10 @@
             />
             <v-select
               :items="genders"
+              item-value="genders.value"
+              item-text="text"
+              @change="setChoice"
+              :rules="[v => !!v || 'Item is required']"
               label="Gender"
               requried
             />
@@ -73,7 +76,7 @@
             <v-btn
               color="primary"
               class="mr-4"
-              :disabled="disabled"
+              :disabled="!valid"
               @click="register"
             >
               register
@@ -104,9 +107,9 @@
       firstName:'',
       lastName:'',
       email: '',
+      gender:'',
       newPassword: '',
       repeatPassword:'',
-      disabled:false,
       error: null,
       passwordRules:[
         v => !!v || 'Password is required'
@@ -126,19 +129,22 @@
       birthdate: new Date().toISOString().substr(0, 10),
       menu: false,
       genders:[
-          'Male',
-          'Female',
-          'Other'
+        { text:'Male',value:"male" },
+        { text:'Female',value:"female" },
+        { text:'Other',value:"other" },
+
       ]
     }),
 
     methods: {
+      setChoice(choice){
+        this.gender = choice
+      },
       validate () {
         return !!this.$refs.form.validate();
       },
       async register() {
         let self = this;
-          if (this.validate === true && this.emailRules === true && this.passwdRepeatRules() === true && this.passwordRules === true && this.firstnameRules === true && this.lastnameRules === true) {
             console.log(this.validate())
               let data = {
                 firstname: this.firstName,
@@ -152,17 +158,12 @@
                 console.log(res.data);
                 self.setSnackColor("success");
                 self.setSnack("registered successfully");
-                self.resetForm();
               }).catch( error => {
                 self.setSnackColor("error");
                 self.setSnack("Something went wrong")
               })
               this.disabled = true;
 
-          } else {
-            self.setSnackColor("error");
-            self.setSnack("Validation in fields failed");
-          }
       },
       ...mapMutations({
         setSnack: 'snackbar/setSnack',

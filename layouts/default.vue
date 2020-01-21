@@ -3,7 +3,7 @@
     <v-app-bar
       app
     >
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title @click="go('/')" style="cursor: pointer" onmouseover="this.style.color = 'red'" onmouseleave="this.style.color = ''" v-text="title" />
       <v-spacer />
         <v-text-field
           label="search"
@@ -13,7 +13,7 @@
           <v-icon>search</v-icon>
         </v-btn>
       <v-spacer />
-      <v-btn text><v-icon>notification_important</v-icon></v-btn>
+      <v-btn style="margin-right: 1rem" text><v-icon>notification_important</v-icon></v-btn>
       <v-divider
         vertical
         dark
@@ -22,14 +22,14 @@
         <template v-slot:activator="{ on }">
 
           <v-btn
-            left
-            bottom
             color="primary"
-            order-xl-last
             dark
             text
+            style="margin-left: 1rem; width: auto; height: auto"
             v-on="on">
-            <v-avatar/>
+            <v-avatar>
+              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.svg'"/>
+            </v-avatar>
             {{ loggedInUser.firstname + " " +loggedInUser.lastname}}
           </v-btn>
 
@@ -76,7 +76,7 @@ export default {
     return {
       title: 'Reidun',
       profilemenuitems: [
-        {icon: 'account-box', title: ' Account', action: "/account"},
+        {icon: 'account_box', title: ' Account', action: "/me"},
         {icon: 'settings', title: ' Settings', action: "/settings"},
 
 

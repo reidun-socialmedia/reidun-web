@@ -31,7 +31,7 @@ export default {
   data () {
     return {
       pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
+      otherError: 'An error occurred! This is most likely an exception thrown in the webapp and not the system itself'
     }
   }
 }
