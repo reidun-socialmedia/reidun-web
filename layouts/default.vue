@@ -56,6 +56,7 @@
         </v-list>
       </v-menu>
     </v-app-bar>
+
     <v-content>
       <v-container>
         <nuxt />
@@ -100,3 +101,6 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+</style>
