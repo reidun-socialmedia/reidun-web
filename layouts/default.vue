@@ -13,7 +13,35 @@
           <v-icon>search</v-icon>
         </v-btn>
       <v-spacer />
-      <v-btn style="margin-right: 1rem" text><v-icon>notification_important</v-icon></v-btn>
+
+      <v-menu>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            style="margin-right: 1rem"
+            v-on="on"
+            text>
+            <v-badge
+              :content="notifications.length"
+              :value="notifications.length"
+              color="green"
+              overlap
+            >
+              <v-icon>notification_important</v-icon>
+            </v-badge>
+          </v-btn>
+
+        </template>
+        <v-list>
+          <v-list-item
+
+            v-for="(item, index) in notifications"
+            :key="index"
+            @click="go(item.action)"
+          >
+            <v-list-item-title>{{ item.sender.firstname + " " + item.message }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-divider
         vertical
         dark
@@ -22,7 +50,6 @@
         <template v-slot:activator="{ on }">
 
           <v-btn
-            color="primary"
             dark
             text
             style="margin-left: 1rem; width: auto; height: auto"
@@ -43,8 +70,6 @@
           >
             <v-list-item-title><v-icon>{{item.icon}}</v-icon>{{ item.title }}</v-list-item-title>
           </v-list-item>
-        </v-list>
-        <v-list>
           <v-list-item
             @click="logout"
           >
@@ -76,6 +101,16 @@ export default {
   data () {
     return {
       title: 'Reidun',
+      notifications:[
+        {
+          type:"friend",
+          message:"sent you a friend request",
+          sender:{
+            userid:'default',
+            firstname:'default'
+          }
+        }
+      ],
       profilemenuitems: [
         {icon: 'account_box', title: ' Account', action: "/me"},
         {icon: 'settings', title: ' Settings', action: "/settings"},

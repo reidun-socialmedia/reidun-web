@@ -9,21 +9,32 @@
       <v-col>
         <v-card>
           <v-card-title>
+            <v-avatar>
+              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.svg'"/>
+            </v-avatar>
             {{loggedInUser.firstname + " " + loggedInUser.lastname}}
           </v-card-title>
           <v-card-text>
-
+           <v-form v-model="valid">
             <v-textarea
-              label="what's happening today?"
+              :label="'hello, ' + loggedInUser.firstname +', what\'s happening today?'"
+              clearable
+              counter
+              auto-grow
+              no-resize
+              :rules="postRules"
+
             >
-
             </v-textarea>
-
+           </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer>
             </v-spacer>
-            <v-btn>
+            <v-btn
+              color="primary"
+              :disabled="!valid"
+            >
               post
             </v-btn>
           </v-card-actions>
@@ -35,28 +46,24 @@
     </v-row>
     <v-dialog
       v-model="dialog"
-      style="height: inherit; width: inherit"
       scrollable
     >
-      <v-card>
-         <v-card-title>
+        <v-sheet>
            <v-btn
              icon
              @click="dialog = false"
            >
              <v-icon>close</v-icon>
            </v-btn>
-         </v-card-title>
-        <v-card-text>
-          <v-img id="img" :src="overlayImg"/>
-        </v-card-text>
-      </v-card>
+        </v-sheet>
+      <v-img id="img" :src="overlayImg"/>
+
     </v-dialog>
     <v-row>
       <v-col>
       </v-col>
-      <v-col v-for="post in posts">
-        <v-card>
+      <v-col>
+        <v-card style="margin-top: 1rem" :id="posts.id" v-for="post in posts" >
           <v-card-title>
             <v-avatar>
               <v-img :src="post.avatar"/>
@@ -75,8 +82,15 @@
             <v-spacer/>
             <v-btn
               color="primary"
+              icon
             >
-              action
+              <v-icon>thumb_down_alt</v-icon>
+            </v-btn>
+            <v-btn
+              color="primary"
+              icon
+            >
+              <v-icon>thumb_up_alt</v-icon>
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -94,8 +108,13 @@
   export default {
     data() {
       return {
+        valid: true,
         dialog: false,
         overlayImg: '',
+        postRules:[
+          v => !!v || 'Cannot be empty!',
+          v => !!v && v.length <= 600 || 'Can\'t be greater than 600 characters!'
+        ],
         posts: [
           {
             username: "default",
@@ -111,6 +130,14 @@
             avatar: "account.svg",
             text: "december!",
             image:"defaultpost.jpg",
+            posted: "10-12-2019",
+            likes: "5",
+            comments: [],
+          },{
+            username: "default",
+            avatar: "account.svg",
+            text: "hello again",
+            image:"defaultpost2.jpg",
             posted: "10-12-2019",
             likes: "5",
             comments: [],
@@ -134,8 +161,10 @@
 </script>
 
 <style scoped>
-    #img{
-      width: 100%;
-      height: 100%;
-    }
+  #img {
+    width: 60rem;
+    height: auto;
+    object-fit: cover;
+
+  }
 </style>

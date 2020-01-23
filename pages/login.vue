@@ -35,7 +35,6 @@
     <v-form
       ref="form"
       v-model="valid"
-      lazy-validation
     >
     <v-text-field
       v-model="email"
@@ -53,6 +52,7 @@
       <v-btn
         color="primary"
         class="mr-4"
+        :disabled="!valid"
         @click="login"
       >
         login
