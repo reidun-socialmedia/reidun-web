@@ -1,14 +1,49 @@
 <template>
-  <v-app dark>
+  <v-app :dark="setTheme">
+    <v-navigation-drawer
+      v-model="drawer"
+
+      fixed
+      clipped
+      app
+    >
+      <v-list>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"/>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-footer
+        absolute
+        color="transparent"
+      >
+        <v-divider></v-divider>
+        <v-spacer></v-spacer>
+        <v-switch :label="`Light`" style="margin-left: 8em" v-model="goLight"/>
+      </v-footer>
+    </v-navigation-drawer>
     <v-app-bar
       app
     >
       <v-toolbar-title @click="go('/')" style="cursor: pointer" onmouseover="this.style.color = 'red'" onmouseleave="this.style.color = ''" v-text="title" />
       <v-spacer />
-        <v-text-field
+      <v-spacer/>
+      <v-spacer/>
+      <v-text-field
           label="search"
           style="margin-top: 1rem; display: inline;"
         />
+
         <v-btn text style="display: inline;">
           <v-icon>search</v-icon>
         </v-btn>
@@ -50,12 +85,12 @@
         <template v-slot:activator="{ on }">
 
           <v-btn
-            dark
+            color="primary"
             text
             style="margin-left: 1rem; width: auto; height: auto"
             v-on="on">
             <v-avatar>
-              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.svg'"/>
+              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.png'"/>
             </v-avatar>
             {{ loggedInUser.firstname + " " +loggedInUser.lastname}}
           </v-btn>
@@ -101,6 +136,7 @@ export default {
   data () {
     return {
       title: 'Reidun',
+      goLight: false,
       notifications:[
         {
           type:"friend",
@@ -131,6 +167,13 @@ export default {
     },
   },
   computed:{
+    setTheme() {
+      if (this.goLight === true) {
+        return (this.$vuetify.theme.dark = false);
+      } else {
+        return (this.$vuetify.theme.dark = true);
+      }
+    },
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
 
   }

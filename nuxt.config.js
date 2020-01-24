@@ -51,7 +51,7 @@ module.exports = {
 
   ],
   axios: {
-    baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost/api' : 'http://62.116.202.233/api'
+    baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost/api' : 'http://localhost/api'
   },
   auth: {
     strategies: {

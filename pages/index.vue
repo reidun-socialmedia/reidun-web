@@ -4,13 +4,12 @@
   >
     <v-row>
       <v-col>
-
       </v-col>
       <v-col>
         <v-card>
           <v-card-title>
             <v-avatar>
-              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.svg'"/>
+              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.png'"/>
             </v-avatar>
             {{loggedInUser.firstname + " " + loggedInUser.lastname}}
           </v-card-title>
@@ -34,14 +33,13 @@
             <v-btn
               color="primary"
               :disabled="!valid"
-            >
+              >
               post
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
       <v-col>
-
       </v-col>
     </v-row>
     <v-dialog
@@ -63,14 +61,14 @@
       <v-col>
       </v-col>
       <v-col>
-        <v-card style="margin-top: 1rem" :id="posts.id" v-for="post in posts" >
-          <v-card-title>
+        <v-card style="margin-top: 1rem;" v-bind:key="post.id" :id="posts.id" v-for="post in posts" >
+          <v-card-title style="display: inline">
             <v-avatar>
               <v-img :src="post.avatar"/>
             </v-avatar>
             {{post.username}}
           </v-card-title>
-          <v-card-subtitle>
+          <v-card-subtitle style="display: inline">
             <p>{{post.posted}}</p>
           </v-card-subtitle>
           <v-card-text>
@@ -92,6 +90,7 @@
             >
               <v-icon>thumb_up_alt</v-icon>
             </v-btn>
+            {{post.likes}}
           </v-card-actions>
         </v-card>
       </v-col>
@@ -118,7 +117,7 @@
         posts: [
           {
             username: "default",
-            avatar: "account.svg",
+            avatar: "account.png",
             text: "hello world",
             image:'',
             posted: "10-10-2019",
@@ -127,7 +126,7 @@
           },
           {
             username: "default",
-            avatar: "account.svg",
+            avatar: "account.png",
             text: "december!",
             image:"defaultpost.jpg",
             posted: "10-12-2019",
@@ -135,7 +134,7 @@
             comments: [],
           },{
             username: "default",
-            avatar: "account.svg",
+            avatar: "account.png",
             text: "hello again",
             image:"defaultpost2.jpg",
             posted: "10-12-2019",
