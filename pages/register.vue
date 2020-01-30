@@ -1,8 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col></v-col>
       <v-col>
+        <h1>
+          Reidun - register
+        </h1>
         <v-card style="padding: 1rem">
           <v-form
             ref="form"
@@ -92,7 +94,6 @@
           </v-form>
         </v-card>
       </v-col>
-      <v-col></v-col>
     </v-row>
   </v-container>
 </template>

@@ -1,7 +1,10 @@
 <template>
   <v-container>
   <v-row>
-    <v-col>
+    <v-col
+      class="d-none d-lg-block"
+
+    >
       <v-carousel
         hide-delimiters
         continuous
@@ -31,6 +34,9 @@
       </v-carousel>
     </v-col>
     <v-col>
+      <h1>
+        Reidun - login
+      </h1>
    <v-card style="padding: 1rem">
     <v-form
       ref="form"
@@ -88,7 +94,7 @@
             ],
             emailRules: [
                 v => !!v || 'E-mail is required',
-                v => /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
+                v => /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel)$/.test(v) || 'E-mail must be valid',
             ],
           slides: [
             { title:'Reidun', description: 'Free open source social media'},
