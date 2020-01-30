@@ -2,46 +2,6 @@
   <v-layout
     column
   >
-    <v-row>
-      <v-col>
-      </v-col>
-      <v-col>
-        <v-card>
-          <v-card-title>
-            <v-avatar>
-              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.png'"/>
-            </v-avatar>
-            {{loggedInUser.firstname + " " + loggedInUser.lastname}}
-          </v-card-title>
-          <v-card-text>
-           <v-form v-model="valid">
-            <v-textarea
-              :label="'hello, ' + loggedInUser.firstname +', what\'s happening today?'"
-              clearable
-              counter
-              auto-grow
-              no-resize
-              :rules="postRules"
-
-            >
-            </v-textarea>
-           </v-form>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer>
-            </v-spacer>
-            <v-btn
-              color="primary"
-              :disabled="!valid"
-              >
-              post
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col>
-      </v-col>
-    </v-row>
     <v-dialog
       v-model="dialog"
       scrollable
@@ -61,6 +21,41 @@
       <v-col>
       </v-col>
       <v-col>
+        <v-card>
+          <v-card-title>
+            <v-avatar>
+              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.png'"/>
+            </v-avatar>
+            {{loggedInUser.firstname + " " + loggedInUser.lastname}}
+          </v-card-title>
+          <v-card-text>
+            <v-form v-model="valid">
+              <v-textarea
+                :label="'hello, ' + loggedInUser.firstname +', what\'s happening today?'"
+                clearable
+                outlined
+                counter
+                filled
+                single-line
+                auto-grow
+                no-resize
+                :rules="postRules"
+
+              >
+              </v-textarea>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer>
+            </v-spacer>
+            <v-btn
+              color="primary"
+              :disabled="!valid"
+            >
+              post
+            </v-btn>
+          </v-card-actions>
+        </v-card>
         <v-card style="margin-top: 1rem;" v-bind:key="post.id" :id="posts.id" v-for="post in posts" >
           <v-card-title style="display: inline">
             <v-avatar>
@@ -68,8 +63,8 @@
             </v-avatar>
             {{post.username}}
           </v-card-title>
-          <v-card-subtitle style="display: inline">
-            <p>{{post.posted}}</p>
+          <v-card-subtitle style="display: inline;">
+           {{post.posted}}
           </v-card-subtitle>
           <v-card-text>
             {{post.text}}
