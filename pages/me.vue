@@ -87,11 +87,11 @@
         getGenderIcon(sentGender){
           switch (sentGender) {
             case 'Male':
-              return  'mdi-gender-male'
+              return 'mdi-gender-male'
             case "Female":
               return 'mdi-gender-female'
             case "other":
-                return 'mdi-gender-transgender'
+              return 'mdi-gender-transgender'
             default: return 'mdi-account-question'
 
           }

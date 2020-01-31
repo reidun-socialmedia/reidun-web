@@ -117,7 +117,7 @@
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
-        v => /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || 'E-mail must be valid',
+        v => /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|local)$/.test(v) || 'E-mail must be valid',
       ],
       firstnameRules:[
         v => !!v || 'First name is required',
@@ -146,7 +146,6 @@
       },
       async register() {
         let self = this;
-            console.log(this.validate())
               let data = {
                 firstname: this.firstName,
                 lastname: this.lastName,
@@ -156,14 +155,13 @@
                 password: this.newPassword
               }
               await this.$axios.post('/user/register', data).then( res => {
-                console.log(res.data);
                 self.setSnackColor("success");
                 self.setSnack("registered successfully");
+
               }).catch( error => {
                 self.setSnackColor("error");
                 self.setSnack("Something went wrong")
               })
-              this.disabled = true;
 
       },
       ...mapMutations({

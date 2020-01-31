@@ -76,7 +76,7 @@
 
         <v-tab-item  value="tab-friends">
           <v-card>
-            <v-card-title>your friends</v-card-title>
+            <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
           </v-card>
         </v-tab-item>
 
@@ -98,7 +98,7 @@
       getUser(userid){
         let token = this.$auth.getToken('local')
 
-        this.$axios.get('/user/get/'+userid,{ headers: { Authorization: `${token}` }}).then( res => {
+        this.$axios.get('/users/'+userid,{ headers: { Authorization: `${token}` }}).then( res => {
           this.user = res.data.data
 
         }).catch( error => {
@@ -116,6 +116,13 @@
           default: return 'mdi-account-question'
 
         }
+      }
+    },
+    watch: {
+      '$route.query.id': function (id) {
+        this.user = []
+        this.getUser(this.$route.query.id)
+
       }
     },
     beforeMount() {

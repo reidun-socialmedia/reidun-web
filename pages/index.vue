@@ -32,12 +32,15 @@
             <v-form v-model="valid">
               <v-textarea
                 :label="'hello, ' + loggedInUser.firstname +', what\'s happening today?'"
+                v-model="postText"
                 clearable
                 outlined
                 counter
+                maxlength="600"
                 filled
                 single-line
                 auto-grow
+                max-
                 no-resize
                 :rules="postRules"
 
@@ -105,6 +108,7 @@
         valid: true,
         dialog: false,
         overlayImg: '',
+        postText: '',
         postRules:[
           v => !!v || 'Cannot be empty!',
           v => !!v && v.length <= 600 || 'Can\'t be greater than 600 characters!'
@@ -142,6 +146,11 @@
       }
     },
     methods:{
+      maxCharactersEvent(e){
+        if(this.postText.length >= 600){
+           e.preventDefault()
+        }
+      },
       showOverlay(img){
         this.dialog = !this.dialog
         this.overlayImg = img

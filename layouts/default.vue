@@ -221,6 +221,7 @@ export default {
   },
   watch: {
     search (val) {
+      if(val === '') return;
       // Items have already been loaded
       if (this.users.length > 0) return
 
