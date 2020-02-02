@@ -25,14 +25,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-footer
-        absolute
-        color="transparent"
-      >
-        <v-divider></v-divider>
-        <v-spacer></v-spacer>
-        <v-switch :label="`Light`" style="margin-left: 8em" v-model="goLight"/>
-      </v-footer>
     </v-navigation-drawer>
     <v-app-bar
       app
@@ -145,17 +137,14 @@
       fixed
     >
       <v-btn value="Home">
-        <span>home</span>
         <v-icon>mdi-newspaper</v-icon>
       </v-btn>
 
       <v-btn value="Search">
-        <span>search</span>
         <v-icon>search</v-icon>
       </v-btn>
 
       <v-btn value="notifications">
-        <span>notifications</span>
         <v-badge
             :content="notifications.length"
             :value="notifications.length"
@@ -166,7 +155,6 @@
           </v-badge>
       </v-btn>
       <v-btn value='messages'>
-        <span>messages</span>
         <v-icon>message</v-icon>
       </v-btn>
     </v-bottom-navigation>
@@ -186,9 +174,9 @@ export default {
       title: 'Reidun',
       bottomNav: 'recent',
       drawer:true,
+        theme:false,
       expandOnHover: true,
       searchInput:'',
-      goLight: false,
       descriptionLimit: 60,
       isLoading: false,
       model: null,
@@ -253,18 +241,18 @@ export default {
     },
   },
   computed:{
+      setTheme(){
+         if(localStorage.theme === 'light'){
+             return (this.$vuetify.theme.dark = false);
+         }else{
+             return (this.$vuetify.theme.dark = true);
+         }
+      },
     getitemvalue(){
       return this.model.id
     },
     searchItems () {
       return this.users
-    },
-    setTheme() {
-      if (this.goLight === true) {
-        return (this.$vuetify.theme.dark = false);
-      } else {
-        return (this.$vuetify.theme.dark = true);
-      }
     },
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
 
