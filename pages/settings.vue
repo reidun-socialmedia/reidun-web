@@ -35,11 +35,12 @@
          value="appearance"
        >
          <v-card>
-           <v-card-title>appearance settings</v-card-title>
+           <v-card-title>Appearance Settings</v-card-title>
            <v-list>
              <v-list-item>
-               <v-list-item-title>Theme</v-list-item-title>
-               <v-switch :label="themeMode.toString()"   v-model="themeMode"/>
+               <v-list-item-title>Light theme </v-list-item-title>
+               <appear
+               <v-switch :label="themeMode === true ? 'on' : 'off'"   v-model="themeMode"/>
              </v-list-item>
            </v-list>
          </v-card>
