@@ -31,7 +31,7 @@
       clipped-left
     >
 
-      <v-app-bar-nav-icon  class="d-lg-none" @click.stop="drawer = !drawer"/>
+      <v-app-bar-nav-icon class="d-none d-lg-block" @click.stop="drawer = !drawer"/>
       <v-toolbar-title @click="go('/')" style="cursor: pointer" onmouseover="this.style.color = 'red'" onmouseleave="this.style.color = ''" v-text="title" />
       <v-spacer />
       <v-spacer/>
@@ -136,15 +136,16 @@
       class="d-lg-none"
       fixed
     >
-      <v-btn value="Home">
+      <v-btn @click="go('/')" value="Home">
         <v-icon>mdi-newspaper</v-icon>
       </v-btn>
 
-      <v-btn value="Search">
+      <v-btn @click="go('/search')" value="Search">
         <v-icon>search</v-icon>
       </v-btn>
 
-      <v-btn value="notifications">
+      <v-btn @click="go('/notifications')"
+        value="notifications">
         <v-badge
             :content="notifications.length"
             :value="notifications.length"
@@ -153,9 +154,6 @@
           >
             <v-icon>mdi-bell</v-icon>
           </v-badge>
-      </v-btn>
-      <v-btn value='messages'>
-        <v-icon>message</v-icon>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
@@ -173,8 +171,8 @@ export default {
     return {
       title: 'Reidun',
       bottomNav: 'recent',
-      drawer:true,
-        theme:false,
+      drawer:null,
+      theme:false,
       expandOnHover: true,
       searchInput:'',
       descriptionLimit: 60,
