@@ -44,6 +44,7 @@
     data() {
       return {
         searchInput: '',
+        error:"",
         users:[]
       }
     },
@@ -54,7 +55,7 @@
           this.users = res.data.data
 
         }).catch( error => {
-
+            this.error = error.message
         })
 
       },

@@ -17,7 +17,12 @@
         components: {
             Snackbar
         },
-        name: "loginLayout"
+        name: "loginLayout",
+      mounted() {
+        console.log("%cHold Up!", "color: red; font-size:40px")
+        console.log("%cPasting suspicious code in here could give attackers access to your account.","color: red; font-size: 30px")
+        console.log("%cunless you understand exactly what you are doing, close this window and stay safe.", "color: red; font-size: 30px")
+      },
     }
 </script>
 
