@@ -1,14 +1,26 @@
 <template>
   <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
+    <v-card v-if="error.statusCode === 404">
+      <v-card-title>{{ pageNotFound }}</v-card-title>
+      <v-card-text>This page does not exist</v-card-text>
+      <v-card-actions>
+        <v-btn to="/">
+          Home page
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-card v-else>
+      <v-card-title>
+        {{ otherError }}
+      </v-card-title>
+      <v-card-text>This is most likely an exception thrown in the webapp and not the system itself</v-card-text>
+      <v-card-actions>
+        <v-btn to="/">
+          Home page
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+
   </v-app>
 </template>
 
@@ -31,7 +43,7 @@ export default {
   data () {
     return {
       pageNotFound: '404 Not Found',
-      otherError: 'An error occurred! This is most likely an exception thrown in the webapp and not the system itself'
+      otherError: 'An error occurred!'
     }
   }
 }

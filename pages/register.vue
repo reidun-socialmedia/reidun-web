@@ -157,6 +157,7 @@
               await this.$axios.post('/user/register', data).then( res => {
                 self.setSnackColor("success");
                 self.setSnack("registered successfully");
+                this.$router.push('/')
 
               }).catch( error => {
                 self.setSnackColor("error");
