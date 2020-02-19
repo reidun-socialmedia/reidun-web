@@ -24,7 +24,7 @@
         <v-card>
           <v-card-title>
             <v-avatar>
-              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.png'"/>
+              <v-img :src="'/media/avatar/'+loggedInUser.path"/>
             </v-avatar>
             {{loggedInUser.firstname + " " + loggedInUser.lastname}}
           </v-card-title>

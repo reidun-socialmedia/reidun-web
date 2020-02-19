@@ -31,7 +31,6 @@
       clipped-left
     >
 
-      <v-app-bar-nav-icon class="d-none d-lg-block" @click.stop="drawer = !drawer"/>
       <v-toolbar-title @click="go('/')" style="cursor: pointer" onmouseover="this.style.color = 'red'" onmouseleave="this.style.color = ''" v-text="title" />
       <v-spacer />
       <v-spacer/>
@@ -99,7 +98,7 @@
             style="margin-left: 1rem; width: auto; height: auto"
             v-on="on">
             <v-avatar>
-              <v-img :src="loggedInUser.avatar !== undefined ? loggedInUser.avatar : 'account.png'"/>
+              <v-img :src="'/media/avatar/'+loggedInUser.path"/>
             </v-avatar>
             {{ loggedInUser.firstname + " " +loggedInUser.lastname}}
           </v-btn>

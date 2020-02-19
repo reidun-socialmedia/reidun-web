@@ -25,7 +25,7 @@
            >
              <v-list-item-icon>
                <v-avatar>
-                 <v-img :src="user.path"></v-img>
+                   <v-img :src="'/media/avatar/'+user.path"/>
                </v-avatar>
              </v-list-item-icon>
              <v-list-item-content>
