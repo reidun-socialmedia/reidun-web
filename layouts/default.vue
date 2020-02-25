@@ -97,8 +97,8 @@
             text
             style="margin-left: 1rem; width: auto; height: auto"
             v-on="on">
-            <v-avatar>
-              <v-img :src="'/media/avatar/'+loggedInUser.path"/>
+            <v-avatar style="margin-right: .2rem">
+              <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
             </v-avatar>
             {{ loggedInUser.firstname + " " +loggedInUser.lastname}}
           </v-btn>
@@ -128,6 +128,7 @@
     <v-content>
       <v-container>
         <nuxt />
+        <snackbar></snackbar>
       </v-container>
     </v-content>
     <v-bottom-navigation
@@ -218,7 +219,7 @@ export default {
       let token = this.$auth.getToken('local')
 
       // Lazily load input items
-       this.$axios.get('/user/search',{ headers: { Authorization: `${token}` }, params: { q: val}}).then( res => {
+       this.$axios.get('/users/search',{ headers: { Authorization: `${token}` }, params: { q: val}}).then( res => {
          this.users = res.data.data
 
       }).catch( error => {

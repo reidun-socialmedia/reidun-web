@@ -23,8 +23,8 @@
       <v-col>
         <v-card>
           <v-card-title>
-            <v-avatar>
-              <v-img :src="'/media/avatar/'+loggedInUser.path"/>
+            <v-avatar style="margin-right: 0.2rem">
+              <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
             </v-avatar>
             {{loggedInUser.firstname + " " + loggedInUser.lastname}}
           </v-card-title>
@@ -77,13 +77,13 @@
           <v-card-actions>
             <v-spacer/>
             <v-btn
-              color="primary"
+              color="error"
               icon
             >
               <v-icon>thumb_down_alt</v-icon>
             </v-btn>
             <v-btn
-              color="primary"
+              color="success"
               icon
             >
               <v-icon>thumb_up_alt</v-icon>

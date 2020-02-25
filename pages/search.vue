@@ -21,11 +21,11 @@
            <v-list-item
              v-for="(user, i) in users"
              :key="i"
-             @click="go('/user?id='+user.id)"
+             @click="go('/users?id='+user.id)"
            >
              <v-list-item-icon>
                <v-avatar>
-                   <v-img :src="'/media/avatar/'+user.path"/>
+                   <v-img :src="'/media/avatar/'+user.avatar.path"/>
                </v-avatar>
              </v-list-item-icon>
              <v-list-item-content>
@@ -51,7 +51,7 @@
     methods: {
       async search() {
         let token = this.$auth.getToken('local')
-        this.$axios.get('/user/search',{ headers: { Authorization: `${token}` }, params: { q: this.searchInput}}).then( res => {
+        this.$axios.get('/users/search',{ headers: { Authorization: `${token}` }, params: { q: this.searchInput}}).then( res => {
           this.users = res.data.data
 
         }).catch( error => {

@@ -119,7 +119,6 @@
                             })
                             this.$router.push('/')
                         } catch (e) {
-                          console.log(e.response)
                             if (e.response.data[0].field === 'email' || e.response.data[0].field === "password" ) {
                               self.setSnackColor("error");
                               self.setSnack('Email or password incorrect');
@@ -135,7 +134,7 @@
                     }
                 }else{
                     self.setSnackColor("error");
-                    self.setSnack("Missing user details in fields");
+                    self.setSnack("Missing users details in fields");
                 }
 
 

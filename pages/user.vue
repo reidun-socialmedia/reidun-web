@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card v-if="this.user.firstname === undefined" >
+    <v-card v-if="this.user.firstname === undefined">
       <v-card-title>
         error
       </v-card-title>
@@ -8,19 +8,31 @@
     </v-card>
 
     <v-card v-else-if="this.user.firstname !== undefined">
-      <v-img width="1200" height="200" :src="this.user.headerimg !== undefined ? this.user.headerimg : 'defaultpost.jpg'"/>
+      <v-img width="1200" height="200"
+             :src="this.user.headerimg !== undefined ? this.user.headerimg : 'defaultpost.jpg'"/>
       <v-card-title>
-        <v-avatar style="border: cornflowerblue solid 1px; margin-right: 1rem">
-          <v-img :src="'/media/avatar/'+this.user.path"/>
-        </v-avatar>{{this.user.firstname + " " + this.user.lastname}}
-      <v-spacer></v-spacer>
-      <v-btn
-        v-if="user.who_can_add === 'everyone'"
-        @click="addFriend(user.user_id)"
+        <v-avatar @click="avatarModal = true" style="margin-right: 1rem">
+          <v-img :src="'/media/avatar/'+this.user.avatar.path"/>
+        </v-avatar>
+        {{this.user.firstname + " " + this.user.lastname}}
+        <v-spacer></v-spacer>
+        <v-btn
+          v-if="user.privacy.who_can_add === 'everyone' && relation.status === undefined"
+          @click="addFriend(user.user_id)"
 
-      >
-        <v-icon>mdi-person-add</v-icon> add friend
-      </v-btn></v-card-title>
+        >
+          <v-icon>mdi-person-add</v-icon>
+          add friend
+        </v-btn>
+        <v-btn
+          v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0"
+          @click="cancelFriendRequest(user.user_id)"
+
+        >
+          <v-icon>mdi-person-add</v-icon>
+          cancel friend request
+        </v-btn>
+      </v-card-title>
       <v-tabs
         fixed-tabs
 
@@ -45,7 +57,7 @@
         <v-tab-item
           value="tab-wall"
         >
-          <v-card v-if="this.user.profile_privacy !== 'friends'">
+          <v-card v-if="this.user.privacy.profile_privacy !== 'friends'">
             <v-card-title>{{this.user.firstname + "'s"}} wall</v-card-title>
           </v-card>
           <v-card v-else>
@@ -55,8 +67,8 @@
             </v-card-text>
           </v-card>
         </v-tab-item>
-        <v-tab-item  value="tab-about">
-          <v-card v-if="this.user.profile_privacy !== 'friends'">
+        <v-tab-item value="tab-about">
+          <v-card v-if="this.user.privacy.profile_privacy !== 'friends'">
             <v-card-title>about {{this.user.firstname}}</v-card-title>
             <v-list-item>
               <v-list-item-content>
@@ -95,87 +107,152 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item  value="tab-friends">
-          <v-card v-if="this.user.profile_privacy !== 'friends'">
+        <v-tab-item value="tab-friends">
+          <v-card v-if="this.user.privacy.profile_privacy !== 'friends'">
             <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
           </v-card>
 
-        <v-card v-else>
-          <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
-          <v-card-text>
-            You need to be friends with {{this.user.firstname}} to view his/her/their friends
-          </v-card-text>
-        </v-card>
+          <v-card v-else>
+            <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
+            <v-card-text>
+              You need to be friends with {{this.user.firstname}} to view his/her/their friends
+            </v-card-text>
+          </v-card>
         </v-tab-item>
       </v-tabs>
     </v-card>
-  </v-container></template>
+    <v-dialog
+      v-model="avatarModal"
+      max-width="800"
+    >
+      <v-card>
+        <v-carousel>
+          <v-carousel-item
+            v-for="(item,i) in userAvatars"
+            :key="i"
+            :src="'/media/avatar/'+item.path"
+            reverse-transition="fade-transition"
+            transition="fade-transition"
+          ></v-carousel-item>
+        </v-carousel>
+
+      </v-card>
+    </v-dialog>
+
+  </v-container>
+</template>
 
 <script>
-  import {mapGetters} from "vuex";
+  import {mapGetters, mapMutations} from "vuex";
 
   export default {
-    name: "me",
-    data(){
-      return{
-        user:{}
+    name: "user",
+    data() {
+      return {
+        user: {},
+        relation: {},
+        avatarModal: false,
+        userAvatars: []
       }
     },
-    methods:{
-      getUser(userId){
+    methods: {
+      async getUser(userId) {
         let token = this.$auth.getToken('local')
 
-        this.$axios.get('/users/'+userId,{ headers: { Authorization: `${token}` }}).then( res => {
+        await this.$axios.get('/user/' + userId).then(res => {
           this.user = res.data.data
-
-        }).catch( error => {
+        }).catch(error => {
 
         })
       },
-      getGenderIcon(sentGender){
+      getGenderIcon(sentGender) {
         switch (sentGender) {
           case 'Male':
-            return  'mdi-gender-male'
+            return 'mdi-gender-male'
           case "Female":
             return 'mdi-gender-female'
           case "other":
             return 'mdi-gender-transgender'
-          default: return 'mdi-account-question'
+          default:
+            return 'mdi-account-question'
 
         }
       },
-      addFriend(targetId){
+      async addFriend(targetUserId) {
+        let self = this;
+        let data = {
+          targetUserId: targetUserId,
+          senderId: this.loggedInUser.user_id,
+        }
+        await this.$axios.post('/friends/request/send', data).then(res => {
+          self.setSnackColor("success");
+          self.setSnack("Sent friend request");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("Something went wrong")
+        })
 
       },
-      checkUser(userId){
-        if(userId === this.loggedInUser.user_id){
+      checkUser(userId) {
+        if (userId === this.loggedInUser.user_id) {
           this.$router.push({
-            path:'/me'
+            path: '/me'
           })
-        }else{
+        } else {
 
         }
-      }
+      },
+      async getRelationWithLoggedInUser(id) {
+        let token = this.$auth.getToken('local')
+        let data = {
+          targetUserId: id,
+          senderId: this.loggedInUser.user_id,
+        }
+        await this.$axios.post('/friends/relation', data).then(res => {
+          this.relation = res.data.data
+        }).catch(error => {
+
+        })
+      },
+      async getUserAvatars(userId) {
+        await this.$axios.get('/users/avatars/' + userId).then(res => {
+          this.userAvatars = res.data.avatars
+          console.log(res.data.avatars)
+        }).catch(error => {
+          console.log(error)
+        })
+      },
+      ...mapMutations({
+        setSnack: 'snackbar/setSnack',
+        setSnackTop: 'snackbar/setSnackTop',
+        setSnackColor: 'snackbar/setSnackColor'
+      })
+
     },
     watch: {
       '$route.query.id': function (id) {
         this.user = []
+        this.relation = {}
         this.checkUser(this.$route.query.id)
         this.getUser(this.$route.query.id)
-        //this.getRelationWithLoggedInUser(this.$route.query.id)
+        this.getRelationWithLoggedInUser(this.$route.query.id)
+        this.getUserAvatars(this.$route.query.id)
 
 
-      }
+      },
     },
     mounted() {
     },
     beforeMount() {
-          this.checkUser(this.$route.query.id)
-          this.getUser(this.$route.query.id)
-          //this.getRelationWithLoggedInUser(this.$route.query.id)
+      this.checkUser(this.$route.query.id)
+      this.getUser(this.$route.query.id)
+      this.getRelationWithLoggedInUser(this.$route.query.id)
+      this.getUserAvatars(this.$route.query.id)
 
     },
-    computed:{
+
+    computed: {
       ...mapGetters(['isAuthenticated', 'loggedInUser']),
 
     }

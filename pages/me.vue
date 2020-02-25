@@ -4,8 +4,12 @@
       <v-img width="1200" height="200"
              :src="loggedInUser.headerimg !== undefined ? loggedInUser.headerimg : 'defaultpost.jpg'"/>
       <v-card-title>
-        <v-avatar style="border: cornflowerblue solid 1px;">
-          <v-img onmouseenter="" :src="'/media/avatar/'+loggedInUser.path"/>
+        <v-avatar style="width: 4rem; height: 4rem" @mouseenter="editIcon = true" @mouseleave="editIcon = false">
+          <v-img style="position: absolute; z-index: 1" :src="'/media/avatar/'+loggedInUser.avatar.path">
+            <v-btn style="margin: 1rem" v-show="editIcon" icon @click="avatarChangeDialog = true">
+              <v-icon>edit</v-icon>
+            </v-btn>
+          </v-img>
         </v-avatar>
         {{loggedInUser.firstname + " " + loggedInUser.lastname}}
       </v-card-title>
@@ -79,14 +83,64 @@
 
       </v-tabs>
     </v-card>
+    <v-dialog
+      v-model="avatarChangeDialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="headline">Change Avatar</v-card-title>
+
+        <v-card-text>
+          <p>Upload a image file, png, gif, jpg</p>
+          <v-file-input
+            label="Choose image"
+            v-model="imageFile"
+            show-size
+            accept=".png,.gif,.jpg,.jfif"
+            :rules="imageRules"
+          ></v-file-input>
+
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="avatarChangeDialog = false"
+          >
+            Cancel
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="changeAvatar(imageFile)"
+          >
+            Save Avatar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
-  import {mapGetters} from "vuex";
+  import {mapGetters, mapMutations} from "vuex";
 
   export default {
     name: "me",
+    data() {
+      return {
+        editIcon: false,
+        avatarChangeDialog: false,
+        imageRules: [
+          v => !!v || 'Image file is required'
+        ],
+        imageFile: null,
+      }
+    },
     methods: {
       getGenderIcon(sentGender) {
         switch (sentGender) {
@@ -100,10 +154,39 @@
             return 'mdi-account-question'
 
         }
+      },
+      async changeAvatar(avatarFile) {
+        const formData = new FormData();
+        formData.append("userid", this.loggedInUser.user_id)
+        formData.append("image", avatarFile);
+        let self = this;
+        try {
+          await this.$axios.post('user/changeavatar', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          this.avatarChangeDialog = false
+          self.setSnackColor("success");
+          self.setSnack("You have successfully changed avatar, however you need to reload page or login again to see effect");
+        } catch (e) {
+          self.setSnackColor("error");
+          self.setSnack(e.response.data.message);
+        }
+      },
+      ...mapMutations({
+        setSnack: 'snackbar/setSnack',
+        setSnackTop: 'snackbar/setSnackTop',
+        setSnackColor: 'snackbar/setSnackColor'
+      }),
+      onFileChange(e) {
+        this.imageFile = e.target.files || e.dataTransfer.files;
       }
-    },
+    }
+    ,
     computed: {
-      ...mapGetters(['isAuthenticated', 'loggedInUser']),
+      ...
+        mapGetters(['isAuthenticated', 'loggedInUser']),
 
     }
   }
