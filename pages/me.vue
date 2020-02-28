@@ -3,15 +3,15 @@
     <v-card>
       <v-img width="1200" height="200"
              :src="loggedInUser.headerimg !== undefined ? loggedInUser.headerimg : 'defaultpost.jpg'"/>
-      <v-card-title>
-        <v-avatar style="width: 4rem; height: 4rem" @mouseenter="editIcon = true" @mouseleave="editIcon = false">
-          <v-img style="position: absolute; z-index: 1" :src="'/media/avatar/'+loggedInUser.avatar.path">
+      <v-card-title style="position:relative; z-index: 1; top: -50px; ">
+        <v-avatar style="width: 6rem; height: 6rem; margin-right: 0.2rem" @mouseenter="editIcon = true" @mouseleave="editIcon = false">
+          <v-img  :src="'/media/avatar/'+loggedInUser.avatar.path">
             <v-btn style="margin: 1rem" v-show="editIcon" icon @click="avatarChangeDialog = true">
               <v-icon>edit</v-icon>
             </v-btn>
           </v-img>
         </v-avatar>
-        {{loggedInUser.firstname + " " + loggedInUser.lastname}}
+        <p style="position:relative; top: 1rem">{{loggedInUser.firstname + " " + loggedInUser.lastname}}</p>
       </v-card-title>
       <v-tabs
         fixed-tabs
@@ -78,6 +78,20 @@
         <v-tab-item value="tab-friends">
           <v-card>
             <v-card-title>your friends</v-card-title>
+            <v-list-item
+              v-for="(friend, i) in userFriends"
+              :key="i"
+              @click="go('/user?id='+friend.user.id)"
+            >
+              <v-list-item-icon>
+                <v-avatar>
+                  <v-img :src="'/media/avatar/'+friend.user.avatar.path"/>
+                </v-avatar>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="friend.user.firstname + ' ' + friend.user.lastname"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </v-card>
         </v-tab-item>
 
@@ -139,6 +153,7 @@
           v => !!v || 'Image file is required'
         ],
         imageFile: null,
+        userFriends: []
       }
     },
     methods: {
@@ -155,9 +170,14 @@
 
         }
       },
+      go: function (action) {
+        this.$router.push({
+          path: action
+        })
+      },
       async changeAvatar(avatarFile) {
         const formData = new FormData();
-        formData.append("userid", this.loggedInUser.user_id)
+        formData.append("userid", this.loggedInUser.id)
         formData.append("image", avatarFile);
         let self = this;
         try {
@@ -181,12 +201,21 @@
       }),
       onFileChange(e) {
         this.imageFile = e.target.files || e.dataTransfer.files;
+      },
+     async getUserFriends(userid) {
+        await this.$axios.get('/friends/all/' + userid).then(res => {
+          this.userFriends = res.data.data
+        }).catch(error => {
+
+        })
       }
-    }
-    ,
+    },
+    beforeMount() {
+      this.getUserFriends(this.loggedInUser.id)
+
+    },
     computed: {
-      ...
-        mapGetters(['isAuthenticated', 'loggedInUser']),
+      ...mapGetters(['isAuthenticated', 'loggedInUser']),
 
     }
   }

@@ -5,7 +5,7 @@ module.exports = {
   /*
   ** Headers of the page
   */
-
+  loading: '~/components/loading-page.vue',
 
   head: {
     titleTemplate: '%s - Reidun' ,
@@ -16,7 +16,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'A Open Source Social Media' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
       {rel:'stylesheet', href:"https://fonts.googleapis.com/css?family=Material+Icons" }
 
     ]
@@ -25,11 +25,11 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
   /*
   ** Global CSS
   */
   css: [
+    '~/assets/global.scss'
   ],
   /*
   ** Plugins to load before mounting the App

@@ -21,7 +21,7 @@
            <v-list-item
              v-for="(user, i) in users"
              :key="i"
-             @click="go('/users?id='+user.id)"
+             @click="go('/user?id='+user.id)"
            >
              <v-list-item-icon>
                <v-avatar>

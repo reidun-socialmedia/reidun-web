@@ -10,28 +10,49 @@
     <v-card v-else-if="this.user.firstname !== undefined">
       <v-img width="1200" height="200"
              :src="this.user.headerimg !== undefined ? this.user.headerimg : 'defaultpost.jpg'"/>
-      <v-card-title>
-        <v-avatar @click="avatarModal = true" style="margin-right: 1rem">
+      <v-card-title  style="position:relative; z-index: 1; top: -50px;">
+        <v-avatar @click="avatarModal = true" style="width: 6rem; height: 6rem; margin-right: 1rem">
           <v-img :src="'/media/avatar/'+this.user.avatar.path"/>
         </v-avatar>
-        {{this.user.firstname + " " + this.user.lastname}}
+        <p style="position:relative; top: 1rem">{{this.user.firstname + " " + this.user.lastname}}</p>
         <v-spacer></v-spacer>
+        <div class="buttons">
         <v-btn
           v-if="user.privacy.who_can_add === 'everyone' && relation.status === undefined"
-          @click="addFriend(user.user_id)"
+          @click="addFriend(user.id)"
 
         >
           <v-icon>mdi-person-add</v-icon>
           add friend
         </v-btn>
         <v-btn
-          v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0"
-          @click="cancelFriendRequest(user.user_id)"
-
+          v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id === loggedInUser.id"
+          @click="cancelFriendRequest(user.id)"
+          color="error"
         >
           <v-icon>mdi-person-add</v-icon>
           cancel friend request
         </v-btn>
+        <v-btn
+          v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
+          @click="acceptFriendRequest(user.id)"
+          color="primary"
+        >
+          accept friend request
+        </v-btn>
+          <v-btn
+            v-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
+            color="error"
+            @click="denyFriendRequest(user.id)"
+          >
+            Deny friend request
+          </v-btn>
+        <v-btn icon>
+           <v-icon>
+             more_vert
+           </v-icon>
+        </v-btn>
+        </div>
       </v-card-title>
       <v-tabs
         fixed-tabs
@@ -57,10 +78,10 @@
         <v-tab-item
           value="tab-wall"
         >
-          <v-card v-if="this.user.privacy.profile_privacy !== 'friends'">
+        <v-card v-if="this.user.privacy.profile_privacy === 'everyone' ||  relation.status === 1 ">
             <v-card-title>{{this.user.firstname + "'s"}} wall</v-card-title>
           </v-card>
-          <v-card v-else>
+          <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone' ||  relation.status !== 1 ">
             <v-card-title>{{this.user.firstname + "'s"}} wall</v-card-title>
             <v-card-text>
               You need to be friends with {{this.user.firstname}} to view his/her/their wall
@@ -68,7 +89,7 @@
           </v-card>
         </v-tab-item>
         <v-tab-item value="tab-about">
-          <v-card v-if="this.user.privacy.profile_privacy !== 'friends'">
+          <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  || relation.status === 1">
             <v-card-title>about {{this.user.firstname}}</v-card-title>
             <v-list-item>
               <v-list-item-content>
@@ -99,7 +120,7 @@
             </v-list-item>
 
           </v-card>
-          <v-card v-else>
+          <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone'  ||  relation.status !== 1">
             <v-card-title>About {{this.user.firstname}}</v-card-title>
             <v-card-text>
               You need to be friends with {{this.user.firstname}} to view his/her/their information
@@ -108,11 +129,27 @@
         </v-tab-item>
 
         <v-tab-item value="tab-friends">
-          <v-card v-if="this.user.privacy.profile_privacy !== 'friends'">
+          <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  ||  relation.status === 1">
             <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
+            <v-list>
+            <v-list-item
+              v-for="(friend, i) in userFriends"
+              :key="i"
+              @click="go('/user?id='+friend.user.id)"
+            >
+              <v-list-item-icon>
+                <v-avatar>
+                  <v-img :src="'/media/avatar/'+friend.user.avatar.path"/>
+                </v-avatar>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="friend.user.firstname + ' ' + friend.user.lastname"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            </v-list>
           </v-card>
 
-          <v-card v-else>
+          <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone'  ||  relation.status !== 1">
             <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
             <v-card-text>
               You need to be friends with {{this.user.firstname}} to view his/her/their friends
@@ -152,7 +189,9 @@
         user: {},
         relation: {},
         avatarModal: false,
-        userAvatars: []
+        userAvatars: [],
+        userFriends:[],
+        page:1
       }
     },
     methods: {
@@ -182,7 +221,7 @@
         let self = this;
         let data = {
           targetUserId: targetUserId,
-          senderId: this.loggedInUser.user_id,
+          senderId: this.loggedInUser.id,
         }
         await this.$axios.post('/friends/request/send', data).then(res => {
           self.setSnackColor("success");
@@ -195,12 +234,12 @@
 
       },
       checkUser(userId) {
-        if (userId === this.loggedInUser.user_id) {
+        if (userId === this.loggedInUser.id) {
           this.$router.push({
             path: '/me'
           })
         } else {
-
+          this.getRelationWithLoggedInUser(this.$route.query.id)
         }
       },
       async getRelationWithLoggedInUser(id) {
@@ -211,9 +250,13 @@
         }
         await this.$axios.post('/friends/relation', data).then(res => {
           this.relation = res.data.data
+          this.getUserAvatars(this.$route.query.id)
+          this.getUserFriends(this.$route.query.id)
         }).catch(error => {
+          this.getUser(this.$route.query.id)
 
         })
+
       },
       async getUserAvatars(userId) {
         await this.$axios.get('/users/avatars/' + userId).then(res => {
@@ -223,11 +266,44 @@
           console.log(error)
         })
       },
+      async getUserFriends(id) {
+        await this.$axios.get('/friends/all/' + id).then(res => {
+          this.userFriends = res.data.data
+        }).catch(error => {
+
+        })
+      },
+      async acceptFriendRequest(userId) {
+        let self = this;
+        let data = {
+          userId: userId,
+        }
+        await this.$axios.post('/friends/request/accept', data).then(res => {
+          self.setSnackColor("success");
+          self.setSnack("Accepted friend request");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("Something went wrong")
+        })
+      },
+      async denyFriendRequest(id) {
+      },
+      async cancelFriendRequest(id) {
+
+      },
+      go: function (action) {
+        this.$router.push({
+          path: action
+        })
+      },
       ...mapMutations({
         setSnack: 'snackbar/setSnack',
         setSnackTop: 'snackbar/setSnackTop',
         setSnackColor: 'snackbar/setSnackColor'
-      })
+      }),
+
+
 
     },
     watch: {
@@ -235,9 +311,7 @@
         this.user = []
         this.relation = {}
         this.checkUser(this.$route.query.id)
-        this.getUser(this.$route.query.id)
-        this.getRelationWithLoggedInUser(this.$route.query.id)
-        this.getUserAvatars(this.$route.query.id)
+
 
 
       },
@@ -246,9 +320,7 @@
     },
     beforeMount() {
       this.checkUser(this.$route.query.id)
-      this.getUser(this.$route.query.id)
-      this.getRelationWithLoggedInUser(this.$route.query.id)
-      this.getUserAvatars(this.$route.query.id)
+
 
     },
 
@@ -260,5 +332,8 @@
 </script>
 
 <style scoped>
-
+  .buttons{
+    position: relative;
+    top:1rem;
+  }
 </style>
