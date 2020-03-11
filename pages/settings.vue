@@ -12,7 +12,7 @@
        <v-tab>
          Account details
          <v-icon>
-           mdi-account-badge-horizontal-outline
+           mdi-account
          </v-icon>
        </v-tab>
        <v-tab>
@@ -40,7 +40,7 @@
              <v-list-item>
                <v-list-item-title>Light theme </v-list-item-title>
                <appear
-               <v-switch :label="themeMode === true ? 'on' : 'off'"   v-model="themeMode"/>
+               <v-switch @change="sendEvent($event)" :label="themeMode === true ? 'on' : 'off'"   v-model="themeMode"/>
              </v-list-item>
            </v-list>
          </v-card>
@@ -52,7 +52,9 @@
 </template>
 
 <script>
-    export default {
+  import { EventBus } from '../assets/event-bus';
+
+  export default {
         name: "settings",
         data (){
             return{
@@ -65,11 +67,18 @@
         },
         watch:{
             themeMode: function (val,oldval) {
-                localStorage.theme = this.themeMode === true ? 'light' : 'dark';
-            }
-        }
+              localStorage.theme = this.themeMode === true ? 'light' : 'dark';
 
+            }
+        },
+
+    methods: {
+     async sendEvent(e) {
+        EventBus.$emit('theme-changed',this.themeMode === true ? 'light' : 'dark');
+
+      }
     }
+  }
 </script>
 
 <style scoped>

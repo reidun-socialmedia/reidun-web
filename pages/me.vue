@@ -6,8 +6,8 @@
       <v-card-title style="position:relative; z-index: 1; top: -50px; ">
         <v-avatar style="width: 6rem; height: 6rem; margin-right: 0.2rem" @mouseenter="editIcon = true" @mouseleave="editIcon = false">
           <v-img  :src="'/media/avatar/'+loggedInUser.avatar.path">
-            <v-btn style="margin: 1rem" v-show="editIcon" icon @click="avatarChangeDialog = true">
-              <v-icon>edit</v-icon>
+            <v-btn style="margin: 2rem" v-show="editIcon" icon @click="avatarChangeDialog = true">
+              <v-icon style="filter: drop-shadow(0px 0px 3px rgba(23,23,23,0.80));">edit</v-icon>
             </v-btn>
           </v-img>
         </v-avatar>

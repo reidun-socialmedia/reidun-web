@@ -250,10 +250,10 @@
         }
         await this.$axios.post('/friends/relation', data).then(res => {
           this.relation = res.data.data
+          this.getUser(this.$route.query.id)
           this.getUserAvatars(this.$route.query.id)
           this.getUserFriends(this.$route.query.id)
         }).catch(error => {
-          this.getUser(this.$route.query.id)
 
         })
 
@@ -261,9 +261,7 @@
       async getUserAvatars(userId) {
         await this.$axios.get('/users/avatars/' + userId).then(res => {
           this.userAvatars = res.data.avatars
-          console.log(res.data.avatars)
         }).catch(error => {
-          console.log(error)
         })
       },
       async getUserFriends(id) {

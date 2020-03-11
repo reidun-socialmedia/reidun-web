@@ -1,6 +1,5 @@
 <template>
-  <v-app
-    :dark="setTheme">
+  <v-app :dark="setTheme">
     <v-navigation-drawer
       v-model="drawer"
       id="navigation-drawer"
@@ -31,8 +30,9 @@
       clipped-left
     >
 
-      <v-toolbar-title @click="go('/')" style="cursor: pointer" onmouseover="this.style.color = 'red'" onmouseleave="this.style.color = ''" v-text="title" />
-      <v-spacer />
+      <v-toolbar-title @click="go('/')" style="cursor: pointer" onmouseover="this.style.color = 'red'"
+                       onmouseleave="this.style.color = ''" v-text="title"/>
+      <v-spacer/>
       <v-spacer/>
       <v-spacer/>
       <v-autocomplete
@@ -54,7 +54,7 @@
         return-object
         style="margin-top: 1.5rem"
       />
-      <v-spacer />
+      <v-spacer/>
 
       <v-menu>
         <template v-slot:activator="{ on }">
@@ -111,7 +111,10 @@
             :key="index"
             @click="go(item.action)"
           >
-            <v-list-item-title><v-icon>{{item.icon}}</v-icon>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>
+              <v-icon>{{item.icon}}</v-icon>
+              {{ item.title }}
+            </v-list-item-title>
           </v-list-item>
           <v-list-item
             @click="logout"
@@ -127,7 +130,7 @@
 
     <v-content>
       <v-container>
-        <nuxt />
+        <nuxt/>
         <snackbar></snackbar>
       </v-container>
     </v-content>
@@ -145,15 +148,15 @@
       </v-btn>
 
       <v-btn @click="go('/notifications')"
-        value="notifications">
+             value="notifications">
         <v-badge
-            :content="notifications.length"
-            :value="notifications.length"
-            color="red"
-            overlap
-          >
-            <v-icon>mdi-bell</v-icon>
-          </v-badge>
+          :content="notifications.length"
+          :value="notifications.length"
+          color="red"
+          overlap
+        >
+          <v-icon>mdi-bell</v-icon>
+        </v-badge>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
@@ -162,105 +165,115 @@
 <script>
   import {mapGetters} from 'vuex'
   import Snackbar from "../components/Snackbar";
-export default {
-  middleware: "auth",
-  components: {
-    Snackbar
-  },
-  data () {
-    return {
-      title: 'Reidun',
-      bottomNav: 'recent',
-      drawer:null,
-      theme:false,
-      expandOnHover: true,
-      searchInput:'',
-      descriptionLimit: 60,
-      isLoading: false,
-      model: null,
-      search: null,
-      users:[],
-      items: [
-        {
-          icon: 'home',
-          title: 'Home',
-          to: '/'
-        },
-      ],
-      notifications:[
-        {
-          type:"friend",
-          message:"sent you a friend request",
-          sender:{
-            userid:'default',
-            firstname:'default'
+  import {EventBus} from '../assets/event-bus';
+
+
+  export default {
+
+    middleware: "auth",
+    components: {
+      Snackbar
+    },
+    data() {
+      return {
+        title: 'Reidun',
+        bottomNav: 'recent',
+        drawer: null,
+        expandOnHover: true,
+        searchInput: '',
+        descriptionLimit: 60,
+        isLoading: false,
+        model: null,
+        search: null,
+        users: [],
+        items: [
+          {
+            icon: 'home',
+            title: 'Home',
+            to: '/'
+          },
+        ],
+        notifications: [
+          {
+            type: "friend",
+            message: "sent you a friend request",
+            sender: {
+              userid: 'default',
+              firstname: 'default'
+            }
           }
-        }
-      ],
-      profilemenuitems: [
-        {icon: 'account_box', title: ' Account', action: "/me"},
-        {icon: 'settings', title: ' Settings', action: "/settings"},
+        ],
+        profilemenuitems: [
+          {icon: 'account_box', title: ' Account', action: "/me"},
+          {icon: 'settings', title: ' Settings', action: "/settings"},
 
 
-      ],
-    }
-  },
-  watch: {
-    search (val) {
-      if(val === '') return;
-      // Items have already been loaded
-      if (this.users.length > 0) return
-
-      // Items have already been requested
-      if (this.isLoading) return
-
-      this.isLoading = true
-
-      let token = this.$auth.getToken('local')
-
-      // Lazily load input items
-       this.$axios.get('/users/search',{ headers: { Authorization: `${token}` }, params: { q: val}}).then( res => {
-         this.users = res.data.data
-
-      }).catch( error => {
-
-      }).finally(() => (this.isLoading = false))
+        ],
+      }
     },
-  },
-  mounted() {
-    console.log("%cHold Up!", "color: red; font-size:40px")
-    console.log("%cPasting suspicious code in here could give attackers access to your account.","color: red; font-size: 30px")
-    console.log("%cunless you understand exactly what you are doing, close this window and stay safe.", "color: red; font-size: 30px")
-  },
-  methods: {
-    go: function (action) {
-      this.$router.push({
-        path: action
-      })
-    },
-    async logout() {
-      await this.$auth.logout();
-      this.$router.push('/login')
-    },
-  },
-  computed:{
-      setTheme(){
-         if(localStorage.theme === 'light'){
-             return (this.$vuetify.theme.dark = false);
-         }else{
-             return (this.$vuetify.theme.dark = true);
-         }
+    watch: {
+      search(val) {
+        if (val === '') return;
+        // Items have already been loaded
+        if (this.users.length > 0) return
+
+        // Items have already been requested
+        if (this.isLoading) return
+
+        this.isLoading = true
+
+        let token = this.$auth.getToken('local')
+
+        // Lazily load input items
+        this.$axios.get('/users/search', {headers: {Authorization: `${token}`}, params: {q: val}}).then(res => {
+          this.users = res.data.data
+
+        }).catch(error => {
+
+        }).finally(() => (this.isLoading = false))
       },
-    getitemvalue(){
-      return this.model.id
     },
-    searchItems () {
-      return this.users
+    beforeCreate() {
+      console.log("%cHold Up!", "color: red; font-size:40px")
+      console.log("%cPasting suspicious code in here could give attackers access to your account.", "color: red; font-size: 30px")
+      console.log("%cunless you understand exactly what you are doing, close this window and stay safe.", "color: red; font-size: 30px")
     },
-    ...mapGetters(['isAuthenticated', 'loggedInUser']),
+    mounted() {
+      EventBus.$on('theme-changed', response => {
+        this.$vuetify.theme.dark = localStorage.theme === 'light';
+        console.log(this.$vuetify.theme.dark)
 
+      });
+    },
+    methods: {
+      go: function (action) {
+        this.$router.push({
+          path: action
+        })
+      },
+      async logout() {
+        await this.$auth.logout();
+        this.$router.push('/login')
+      },
+    },
+    computed: {
+      setTheme() {
+        if (localStorage.theme === 'light') {
+          return (this.$vuetify.theme.dark = false);
+        } else {
+          return (this.$vuetify.theme.dark = true);
+        }
+      },
+      getitemvalue() {
+        return this.model.id
+      },
+      searchItems() {
+        return this.users
+      },
+      ...mapGetters(['isAuthenticated', 'loggedInUser']),
+
+    }
   }
-}
 </script>
 <style scoped>
 
