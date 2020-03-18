@@ -56,7 +56,7 @@
       />
       <v-spacer/>
 
-      <v-menu>
+      <v-menu offset-y bottom>
         <template v-slot:activator="{ on }">
           <v-btn
             class="d-none d-lg-block"
@@ -89,7 +89,7 @@
         vertical
         dark
       />
-      <v-menu>
+      <v-menu offset-y bottom>
         <template v-slot:activator="{ on }">
 
           <v-btn
@@ -241,7 +241,6 @@
     mounted() {
       EventBus.$on('theme-changed', response => {
         this.$vuetify.theme.dark = localStorage.theme === 'light';
-        console.log(this.$vuetify.theme.dark)
 
       });
     },

@@ -51,30 +51,12 @@
               label="Gender"
               requried
             />
-            <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :return-value.sync="birthdate"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  v-model="birthdate"
-                  label="bithdate"
-                  prepend-icon="today"
-                  readonly
-                  v-on="on"
-                />
-              </template>
-              <v-date-picker v-model="birthdate" no-title scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(birthdate)">OK</v-btn>
-              </v-date-picker>
-            </v-menu>
+            <v-text-field
+              v-model="birthdate"
+              label="birthdate"
+              v-mask="birthDayMask"
+            />
+
             <v-btn
               color="primary"
               class="mr-4"
@@ -99,84 +81,88 @@
 </template>
 
 <script>
-  import {mapMutations} from "vuex";
+    import {mapMutations} from "vuex";
+    import { mask } from 'vue-the-mask'
 
-  export default {
-    layout: 'guestlayout',
-    data: () => ({
-      valid: true,
-      firstName:'',
-      lastName:'',
-      email: '',
-      gender:'',
-      newPassword: '',
-      repeatPassword:'',
-      error: null,
-      passwordRules:[
-        v => !!v || 'Password is required'
-      ],
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|local)$/.test(v) || 'E-mail must be valid',
-      ],
-      firstnameRules:[
-        v => !!v || 'First name is required',
+    export default {
+        layout: 'guestlayout',
+        directives: {
+            mask,
+        },
+        data: () => ({
+            valid: true,
+            firstName: '',
+            lastName: '',
+            email: '',
+            gender: '',
+            newPassword: '',
+            repeatPassword: '',
+            error: null,
+            birthDayMask: '##-##-####',
+            passwordRules: [
+                v => !!v || 'Password is required'
+            ],
+            emailRules: [
+                v => !!v || 'E-mail is required',
+                v => /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|local)$/.test(v) || 'E-mail must be valid',
+            ],
+            firstnameRules: [
+                v => !!v || 'First name is required',
 
-      ],
-      lastnameRules:[
-        v => !!v || 'Last name is required',
+            ],
+            lastnameRules: [
+                v => !!v || 'Last name is required',
 
-      ],
-      birthdate: new Date().toISOString().substr(0, 10),
-      menu: false,
-      genders:[
-        { text:'Male',value:"male" },
-        { text:'Female',value:"female" },
-        { text:'Other',value:"other" },
+            ],
+            menu: false,
+            genders: [
+                {text: 'Male', value: "male"},
+                {text: 'Female', value: "female"},
+                {text: 'Other', value: "other"},
 
-      ]
-    }),
+            ]
+        }),
 
-    methods: {
-      setChoice(choice){
-        this.gender = choice
-      },
-      validate () {
-        return !!this.$refs.form.validate();
-      },
-      async register() {
-        let self = this;
-              let data = {
-                firstname: this.firstName,
-                lastname: this.lastName,
-                email: this.email,
-                gender: this.gender,
-                birthday: this.birthdate,
-                password: this.newPassword
-              }
-              await this.$axios.post('/user/register', data).then( res => {
-                self.setSnackColor("success");
-                self.setSnack("registered successfully");
-                this.$router.push('/')
+        methods: {
+            setChoice(choice) {
+                this.gender = choice
+            },
+            validate() {
+                return !!this.$refs.form.validate();
+            },
+            async register() {
+                let self = this;
+                let data = {
+                    firstname: this.firstName,
+                    lastname: this.lastName,
+                    email: this.email,
+                    gender: this.gender,
+                    birthday: this.birthdate,
+                    password: this.newPassword
+                }
+                await this.$axios.post('/user/register', data).then(res => {
+                    self.setSnackColor("success");
+                    self.setSnack("registered successfully");
+                    this.$router.push('/')
 
-              }).catch( error => {
-                self.setSnackColor("error");
-                self.setSnack("Something went wrong")
-              })
+                }).catch(error => {
+                    self.setSnackColor("error");
+                    self.setSnack("Something went wrong")
+                })
 
-      },
-      ...mapMutations({
-        setSnack: 'snackbar/setSnack',
-        setSnackTop: 'snackbar/setSnackTop',
-        setSnackColor: 'snackbar/setSnackColor'
-      }),
-    },
-    computed:{
-      passwdRepeatRules() {
-        return () => (this.repeatPassword === this.newPassword) || 'Password must match'
-      },
+            },
+            ...mapMutations({
+                setSnack: 'snackbar/setSnack',
+                setSnackTop: 'snackbar/setSnackTop',
+                setSnackColor: 'snackbar/setSnackColor'
+            }),
+        },
+        computed: {
+            passwdRepeatRules() {
+                return () => (this.repeatPassword === this.newPassword) || 'Password must match'
+            },
+        }
     }
-  }
 </script>
 
 <style scoped>

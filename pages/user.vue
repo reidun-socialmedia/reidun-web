@@ -254,7 +254,9 @@
           this.getUserAvatars(this.$route.query.id)
           this.getUserFriends(this.$route.query.id)
         }).catch(error => {
-
+            this.getUser(this.$route.query.id)
+            this.getUserAvatars(this.$route.query.id)
+            this.getUserFriends(this.$route.query.id)
         })
 
       },

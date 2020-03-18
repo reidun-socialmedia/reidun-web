@@ -78,6 +78,7 @@
         <v-tab-item value="tab-friends">
           <v-card>
             <v-card-title>your friends</v-card-title>
+            <v-list v-if="userFriends.length !== 0">
             <v-list-item
               v-for="(friend, i) in userFriends"
               :key="i"
@@ -92,6 +93,8 @@
                 <v-list-item-title v-text="friend.user.firstname + ' ' + friend.user.lastname"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
+            </v-list>
+            <v-card-text v-else> you don't have any friends</v-card-text>
           </v-card>
         </v-tab-item>
 
@@ -188,7 +191,7 @@
           })
           this.avatarChangeDialog = false
           self.setSnackColor("success");
-          self.setSnack("You have successfully changed avatar, however you need to reload page or login again to see effect");
+          self.setSnack("You have successfully changed avatar, however you need to reload page");
         } catch (e) {
           self.setSnackColor("error");
           self.setSnack(e.response.data.message);
