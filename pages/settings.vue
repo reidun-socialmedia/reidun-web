@@ -39,7 +39,6 @@
            <v-list>
              <v-list-item>
                <v-list-item-title>Light theme </v-list-item-title>
-               <appear
                <v-switch @change="sendEvent($event)" :label="themeMode === true ? 'on' : 'off'"   v-model="themeMode"/>
              </v-list-item>
            </v-list>

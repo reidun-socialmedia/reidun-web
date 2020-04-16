@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /user
+Disallow: /me
+Disallow: /notifications
+Disallow: /post
+Disallow: /search
+Disallow: /settings

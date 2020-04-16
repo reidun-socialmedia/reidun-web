@@ -35,7 +35,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    //'~/plugins/VueNativeSock'
+    '~/plugins/vue-ws'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -58,7 +58,7 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: {url: 'user/login', method: 'post', propertyName:'data.token'},
+          login: { url: 'user/login', method: 'post', propertyName:'data.token'},
           user: { url: 'user', method: 'get', propertyName: 'data' },
           logout: false
         }
@@ -75,13 +75,13 @@ module.exports = {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          primary: '#e91e63',
+          secondary: '#6d6d6d',
+          accent: '#009688',
+          error: '#f44336',
+          warning: '#ff9800',
+          info: '#607d8b',
+          success: '#4caf50'
         }
       }
     },

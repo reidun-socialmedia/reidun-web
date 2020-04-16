@@ -11,10 +11,12 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@adonisjs/websocket-client": "^1.0.9",
     "@kevinfaguiar/vue-twemoji-picker": "^5.4.1",
     "@nuxtjs/auth": "^4.8.5",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
+    "adonis-vue-websocket": "^2.0.2",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "twemoji": "^12.1.5",
