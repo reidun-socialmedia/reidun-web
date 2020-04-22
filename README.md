@@ -1,4 +1,5 @@
 # reidun-web
+[![Crowdin](https://badges.crowdin.net/reidun/localized.svg)](https://crowdin.com/project/reidun)
 
 > social media
 
