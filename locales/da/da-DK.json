@@ -1,0 +1,319 @@
+{
+  "default_layout": {
+    "navigation_drawer": {
+      "Home": {
+        "title": "Hjem"
+      }
+    },
+    "search_bar": {
+      "label": "Søg efter brugere"
+    },
+    "profile_drop_menu": {
+      "account": {
+        "title": "Konto"
+      },
+      "Settings": {
+        "title": "Indstillinger"
+      },
+      "Logout": {
+        "title": "Log ud"
+      }
+    },
+    "notifications": {
+      "no_notifications": "Ingen notifikationer",
+      "post_liked": "%s synes godt om din post",
+      "post_disliked": "%s synes ikke godt om din post",
+      "post_commented": "%s skrev en kommentar på din post"
+    },
+    "friend_requests": {
+      "no_friend_requests": "Ingen venneanmodninger",
+      "friend_request_title": "%s sendte dig en venneanmodning"
+    },
+    "developer_console_warning": {
+      "line_1": "Hold Up!",
+      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
+      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+    }
+  },
+  "home_page": {
+    "post_creation_card": {
+      "greeting": "Hej, %s, hvad sker der i dag?",
+      "post_creation_button": "Post",
+      "attach_file": "Vedhæft en fil",
+      "input_empty": "kan ikke være tom"
+    },
+    "post_card": {
+      "title": "posts",
+      "post_menu": {
+        "delete_post": "slet indlæg",
+        "edit_post": "rediger indlæg",
+        "report": "Anmeld indlæg"
+      }
+    }
+  },
+  "session_user_page": {
+    "tab_menu": {
+      "wall": "væg",
+      "about": "om",
+      "friends": "venner"
+    },
+    "change_avatar_dialog": {
+      "title": "Upload en billedfil, png, gif, jpg",
+      "change_avatar": "Change Avatar",
+      "cancel": "annuller",
+      "file_input_label": "vælg billede"
+    },
+    "Wall": {
+      "title": "din væg",
+      "posts": "Posts",
+      "files_posted": "Files Posted",
+      "no-posts": "You have not posted anything",
+      "no-files": "You have not uploaded anything"
+    },
+    "About": {
+      "title": "om dig",
+      "info": {
+        "email": "e-mail",
+        "gender": "køn",
+        "birthday": "fødselsdag"
+      }
+    },
+    "Friends": {
+      "title": "Your Friends",
+      "no-friends": "You have no friends 😟"
+    }
+  },
+  "user_page": {
+    "tab_menu": {
+      "wall": "væg",
+      "about": "om",
+      "friends": "venner"
+    },
+    "user_menu": {
+      "block": "bloker",
+      "remove_friend": "fjern ven"
+    },
+    "friend_request_buttons": {
+      "accept_request": "annuller",
+      "deny_request": "Deny Request",
+      "cancel_request": "Cancel Request"
+    },
+    "Wall": {
+      "title": "%s's wall",
+      "not_friends_message": "You need to be friends with %s to view his/her/their wall",
+      "posts": "Posts",
+      "files_posted": "Files Posted",
+      "no-posts": "%s has not posted anything",
+      "no-files": "%s has not uploaded anything"
+    },
+    "About": {
+      "title": "om %s",
+      "not_friends_message": "You need to be friends with %s to view his/her/their information",
+      "info": {
+        "email": "e-mail",
+        "gender": "køn",
+        "birthday": "fødselsdag"
+      }
+    },
+    "Friends": {
+      "title": "%s's friends",
+      "not_friends_message": "You need to be friends with %s to view his/her/their friends"
+    }
+  },
+  "search_page_mobile": {
+    "title": "søg efter brugere",
+    "search_bar": {
+      "label": "Search users"
+    }
+  },
+  "notifications_page_mobile": {
+    "title": "Notifications"
+  },
+  "settings": {
+    "settings_tab": {
+      "account_details": "Account Details",
+      "privacy": "privatliv",
+      "appearance": "udseende",
+      "account_security_log": "Account Security Log"
+    },
+    "appearance_settings_tab": {
+      "title": "Appearance Settings",
+      "theme_setting": {
+        "dark_theme_setting": {
+          "title": "Dark Theme",
+          "on": "On",
+          "off": "Off"
+        },
+        "Display_language_setting": {
+          "title": "Visningssprog",
+          "display_language_select": {
+            "albanian": "albansk",
+            "danish": "dansk",
+            "dutch": "hollandsk",
+            "english-uk": "engelsk (United Kingdom)",
+            "english-us": "engelsk (United States)",
+            "french": "fransk",
+            "german": "tysk",
+            "norwegian-bokmal": "norsk (bokmål)",
+            "norwegian-nynorsk": "norsk (nynorsk)",
+            "serbian": "serbisk",
+            "swedish": "svensk"
+          }
+        }
+      }
+    }
+  },
+  "post_page": {
+    "post_card": {
+      "post_menu": {
+        "delete_post": "slet indlæg",
+        "edit_post": "rediger indlæg",
+        "report": "rapporter indlæg"
+      },
+      "comment_creation_card": {
+        "comment_input": {
+          "label": "kommenter indlæg",
+          "input_empty": "kan ikke være tom"
+        },
+        "create_button": {
+          "label": "kommenter indlæg"
+        }
+      },
+      "comments_card": {
+        "no_comments": "No comments! Be the first to create one",
+        "title": "kommentarer"
+      }
+    }
+  },
+  "guest_layout": {
+    "developer_console_warning": {
+      "line_1": "Hold Up!",
+      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
+      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+    }
+  },
+  "login_page": {
+    "title": "Reidun - Login",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "Free, open-source social media"
+      },
+      "page_2": {
+        "title": "Reidun på mobilen",
+        "text": "On the go? Don't worry, download a native version"
+      }
+    },
+    "login_form": {
+      "email_text_field": {
+        "label": "e-mail",
+        "input_empty": "E-mail er påkrævet",
+        "email_not_valid": "E-mail skal være gyldig"
+      },
+      "password_field": {
+        "label": "adgangskode",
+        "input_empty": "adgangskode er påkrævet"
+      },
+      "login_button": {
+        "label": "Login"
+      },
+      "register_button": {
+        "label": "Register"
+      }
+    }
+  },
+  "register_page": {
+    "title": "Reidun - Register",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "Free, open-source social media"
+      },
+      "page_2": {
+        "title": "Reidun på mobilen",
+        "text": "On the go? Don't worry, download a native version"
+      }
+    },
+    "register_form": {
+      "firstname_text_field": {
+        "label": "fornavn",
+        "input_empty": "fornavn er påkrævet"
+      },
+      "lastname_text_field": {
+        "label": "efternavn",
+        "input_empty": "efternavn er påkrævet"
+      },
+      "email_text_field": {
+        "label": "e-mail",
+        "input_empty": "E-mail er påkrævet",
+        "email_not_valid": "E-mail skal være gyldig"
+      },
+      "password_field": {
+        "label": "adgangskode",
+        "input_empty": "adgangskode er påkrævet"
+      },
+      "repeat_password_field": {
+        "label": "Gentag adgangskode",
+        "password_mismatch": "adgangskode skal passe"
+      },
+      "gender_selection": {
+        "label": "Køn",
+        "input_empty": "Køn er påkrævet",
+        "genders": {
+          "male": "mand",
+          "female": "kvinde",
+          "other": "Other"
+        }
+      },
+      "birthday": {
+        "label": "Birthday",
+        "input_empty": "Birthday is required",
+        "dialog_buttons": {
+          "cancel": "Cancel",
+          "ok": "OK"
+        }
+      },
+      "register_button": {
+        "label": "Register"
+      },
+      "back_button": {
+        "label": "tilbage"
+      }
+    }
+  },
+  "emoji_picker": {
+    "search_bar": "Search here",
+    "not_found": "Emoji(s) not found",
+    "loading": "Loading"
+  },
+  "snackbar": {
+    "error_messages": {
+      "credentials_incorrect": "Email or Password is incorrect",
+      "registration_fail": "could not register account",
+      "post_creation_fail": "could not create post",
+      "post_deletion_fail": "could not delete post",
+      "post_like_fail": "could not like post",
+      "post_unlike_fail": "could not unlike post",
+      "post_dislike_fail": "could not un-dislike post",
+      "post_un_dislike_fail": "could not un-dislike post",
+      "post_un_edit_fail": "could not edit post",
+      "comment_creation_fail": "could not create comment",
+      "comment_delete_fail": "could not delete comment",
+      "comment_edit_fail": "could not edit comment"
+    },
+    "success_messages": {
+      "post_creation_success": "post created",
+      "post_deletion_success": "post deleted",
+      "post_like_success": "liked post",
+      "post_unlike_success": "un-liked post",
+      "post_dislike_success": "disliked post",
+      "post_un_dislike_success": "un-disliked post",
+      "post_un_edit_success": "edited post",
+      "comment_creation_success": "created comment",
+      "comment_delete_success": "deleted comment",
+      "comment_edit_success": "edited comment"
+    }
+  }
+}
+
+

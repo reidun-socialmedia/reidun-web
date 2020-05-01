@@ -31,7 +31,7 @@
           <v-card-text>
             <v-form v-model="valid">
               <v-textarea
-                :label="'hello, ' + loggedInUser.firstname +', what\'s happening today?'"
+                :label="this.formatString(this.$t('home_page.post_creation_card.greeting'), [loggedInUser.firstname])"
                 v-model="postText"
                 clearable
                 counter
@@ -46,7 +46,7 @@
 
               </v-textarea>
               <v-row>
-                <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"   :key="index"
                        v-for="(f,index) in this.Files">
                   <v-card v-if="f.type.startsWith('video')">
                     <video style="width: 8rem; height: auto" :src="createUrl(f)" controls></video>
@@ -89,7 +89,7 @@
                   <v-icon>mdi-image</v-icon>
                 </v-btn>
               </template>
-              <span>Attach file</span>
+              <span>{{$t('home_page.post_creation_card.attach_file')}}</span>
             </v-tooltip>
             <twemoji-picker
               :emojiData="emojiDataAll"
@@ -97,9 +97,9 @@
               @emojiUnicodeAdded="selectEmoji"
               :skinsSelection="false"
               :searchEmojisFeat="true"
-              searchEmojiPlaceholder="Search here."
-              searchEmojiNotFound="Emojis not found."
-              isLoadingLabel="Loading..."
+              :searchEmojiPlaceholder="this.$t('emoji_picker.search_bar')"
+              :searchEmojiNotFound="this.$t('emoji_picker.not_found')"
+              :isLoadingLabel="this.$t('emoji_picker.loading')"
             ></twemoji-picker>
             <v-spacer>
             </v-spacer>
@@ -108,7 +108,7 @@
               :disabled="!valid"
               @click="createPost"
             >
-              post
+              {{$t('home_page.post_creation_card.post_creation_button')}}
             </v-btn>
           </v-card-actions>
 
@@ -132,7 +132,7 @@
                 <v-list>
 
                   <!-- will figure out some other time -->
-                  <v-list-item v-for="(item, index) in this.postSortSettings">
+                  <v-list-item v-for="(item, index) in this.postSortSettings"  :key="index">
                     <v-list-item-title>{{item.name}}</v-list-item-title>
                     <v-list-item-action>
                       <v-radio @select="chooseSort(this.value)" value="true"></v-radio>
@@ -148,8 +148,8 @@
             loading
           ></v-skeleton-loader>
           <v-card onmouseenter="this.style.background = '#2b2b2a'" onmouseleave="this.style.background= ''"
-                  style="margin-top: 1rem; margin-bottom: 1rem" v-bind:key="post.id" :id="posts.id"
-                  v-for="post in posts">
+                  style="margin-top: 1rem; margin-bottom: 1rem"  :id="posts.id"
+                  v-for="(post,index) in posts" :key="index">
             <v-card-title>
               <v-avatar>
                 <v-img v-if="post.poster" :src="`/media/avatar/${post.poster.avatar.path}`"/>
@@ -172,17 +172,17 @@
                   <v-list-item @click="deletePost(post.id)" v-if="post.poster.id === loggedInUser.id">
                     <v-list-item-title>
                       <v-icon>mdi-delete</v-icon>
-                      delete post
+                     {{$t('home_page.post_card.post_menu.delete_post')}}
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item v-if="post.poster.id === loggedInUser.id">
                     <v-list-item-title>
                       <v-icon>edit</v-icon>
-                      edit post
+                      {{$t('home_page.post_card.post_menu.edit_post')}}
                     </v-list-item-title>
                   </v-list-item>
                   <v-list-item v-if="post.poster.id !== loggedInUser.id">
-                    <v-list-item-title>report post</v-list-item-title>
+                    <v-list-item-title>   {{$t('home_page.post_card.post_menu.report')}} </v-list-item-title>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -193,6 +193,7 @@
             </v-card-text>
             <v-row v-if="post.post_files.length !== 0">
               <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                     :key="index"
                      v-for="(f,index) in post.post_files">
                 <v-card
                   v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
@@ -216,7 +217,7 @@
                 v-if="post.dislikes.filter(function(e) { return e.user.id === loggedInUser.id; }).length === 0"
               >
                 <v-btn
-                  @click="dislikePost(post.id)"
+                  @click="dislikePost(post.id,post.poster.id)"
                   icon
                 >
                   <v-icon>thumb_down_alt</v-icon>
@@ -240,7 +241,7 @@
               >
                 <v-btn
                   icon
-                  @click="likePost(post.id)"
+                  @click="likePost(post.id,post.poster.id)"
                 >
                   <v-icon>thumb_up_alt</v-icon>
                 </v-btn>
@@ -302,8 +303,7 @@
                 ],
                 postText: '',
                 postRules: [
-                    v => !!v || 'Cannot be empty!',
-                    v => !!v && v.length <= 600 || 'Can\'t be greater than 600 characters!'
+                    v => { return !!v || this.$t('home_page.post_creation_card.input_empty') },
                 ],
                 imageRules: [
                     v => !!v || 'Image file is required'
@@ -314,7 +314,6 @@
                 Files: [],
                 ReachedLimit: false,
                 showEmojiPicker: false,
-                browserLang: '',
                 finishedLoading: false
             }
         },
@@ -434,11 +433,7 @@
                 })
             },
             getFormattedDate(date) {
-                return moment(date).locale(this.browserLang).fromNow()
-
-            },
-            getBrowserLang() {
-                this.browserLang = navigator.language
+                return moment(date).locale(this.userLocale).fromNow()
 
             },
             go: function (action) {
@@ -449,15 +444,16 @@
             chooseSort(value) {
 
             },
-            async likePost(postId,senderId) {
+            async likePost(postId,userId) {
                 self = this
                 const data = {
                     postId: postId,
-                    userId: this.loggedInUser.id,
-                    senderId: senderId
+                    userId: userId,
+                    senderId: this.loggedInUser.id
                 }
                 await this.$axios.post('/post/like', data).then(res => {
                     self.setSnackColor("success");
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {sender: this.loggedInUser, targetUserId: userId})
                     this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_LIKED', {sender: this.loggedInUser, postId: postId})
                     self.setSnack("liked post");
 
@@ -484,12 +480,12 @@
 
                 })
             },
-            async dislikePost(postId,senderId) {
+            async dislikePost(postId,userId) {
                 self = this
                 const data = {
                     postId: postId,
-                    userId: this.loggedInUser.id,
-                    senderId: senderId
+                    userId: userId,
+                    senderId: this.loggedInUser.id
                 }
                 await this.$axios.post('/post/dislike', data).then(res => {
                     self.setSnackColor("success");
@@ -497,6 +493,7 @@
                         sender: this.loggedInUser,
                         postId: postId
                     })
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {sender: this.loggedInUser, targetUserId: userId})
                     self.setSnack("disliked post");
 
                 }).catch(error => {
@@ -544,9 +541,12 @@
 
                 })
             },
+            formatString(string, variables){
+                return vsprintf(string,variables)
+            }
+
         },
         mounted() {
-            this.getBrowserLang()
             this.getPosts();
             this.$ws.$on('NEW_POST', (e) => this.getPosts())
             this.$ws.$on('POST_DELETED', (e) => this.getPosts())
@@ -578,7 +578,7 @@
                 return EmojiGroups;
             }
             ,
-            ...mapGetters(['isAuthenticated', 'loggedInUser']),
+            ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
 
         }
     }
@@ -592,4 +592,4 @@
 
   }
 
-</style>
+  </style>

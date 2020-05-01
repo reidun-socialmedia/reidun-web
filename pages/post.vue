@@ -42,17 +42,17 @@
                 <v-list-item v-if="post.poster.id === loggedInUser.id">
                   <v-list-item-title>
                     <v-icon>mdi-delete</v-icon>
-                    delete post
+                    {{$t('post_page.post_card.post_menu.delete_post')}}
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item v-if="post.poster.id === loggedInUser.id">
                   <v-list-item-title>
                     <v-icon>edit</v-icon>
-                    edit post
+                    {{$t('post_page.post_card.post_menu.edit_post')}}
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item v-if="post.poster.id !== loggedInUser.id">
-                  <v-list-item-title>report post</v-list-item-title>
+                  <v-list-item-title>{{$t('post_page.post_card.post_menu.report')}}</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -62,6 +62,7 @@
             <p v-html="parseEmoji(this.post.text)"></p>
             <v-row v-if="post.post_files.length !== 0">
               <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                     :key="index"
                      v-for="(f,index) in post.post_files">
                 <v-card
                   v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
@@ -130,7 +131,7 @@
           <v-card-text>
             <v-form v-model="isValid">
               <v-text-field
-                label="type comment..."
+                :label="this.$t('post_page.comment_creation_card.comment_input.label')"
                 v-model="commentContent"
                 :rules="commentRules"
               >
@@ -142,18 +143,17 @@
               :emojiData="emojiDataAll"
               :emojiGroups="emojiGroups"
               @emojiUnicodeAdded="selectEmoji"
-              :skinsSelection="false"
               :searchEmojisFeat="true"
-              searchEmojiPlaceholder="Search here."
-              searchEmojiNotFound="Emojis not found."
-              isLoadingLabel="Loading..."
+              :searchEmojiPlaceholder="this.$t('emoji_picker.search_bar')"
+              :searchEmojiNotFound="this.$t('emoji_picker.not_found')"
+              :isLoadingLabel="this.$t('emoji_picker.comment_input.loading')"
             ></twemoji-picker>
             <v-spacer></v-spacer>
             <v-btn
               :disabled="!isValid"
               @click="createComment()"
             >
-              comment post
+              {{$t('post_page.comment_creation_card.create_button.label')}}
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -161,11 +161,11 @@
           <v-list v-if="this.Comments.length !== 0">
             <v-list-item>
               <v-list-item-title>
-                Comments
+                {{$t('post_page.comment_creation_card.comment_input.label')}}
               </v-list-item-title>
             </v-list-item>
-            <v-card style="margin-top: 1rem; margin-bottom: 1rem" v-key="comment.id"
-                    v-for="(comment,index) in this.Comments">
+            <v-card style="margin-top: 1rem; margin-bottom: 1rem" :key="index"
+                    v-for="(comment,index) in this.Comments" >
               <v-card-title>
                 <v-avatar>
                   <v-img :src="'/media/avatar/'+comment.user.avatar.path"></v-img>
@@ -182,7 +182,7 @@
             </v-card>
           </v-list>
           <v-card-text v-else>
-            No comments! be the first one to create one
+           {{$t('post_page.comments_card.no_comments')}}
           </v-card-text>
         </v-card>
       </v-col>
@@ -209,13 +209,12 @@
                 post: {},
                 overlayImg: '',
                 dialog: false,
-                browserLang: '',
                 isValid: false,
                 commentContent: '',
                 commentRules: [
-                    v => !!v || 'cannot be empty'
+                    v =>{ return !!v || this.$t("post_page.comment_creation_card.comment_input.input_empty") }
                 ],
-                Comments: []
+                Comments: [],
             }
         },
         mounted(){
@@ -233,7 +232,6 @@
         },
         beforeMount() {
             this.getPost(this.$route.query.id)
-            this.getBrowserLang()
         },
         methods: {
             selectEmoji(emoji) {
@@ -260,11 +258,7 @@
                 })
             },
             getFormattedDate(date) {
-                return moment(date).locale(this.browserLang).fromNow();
-
-            },
-            getBrowserLang() {
-                this.browserLang = navigator.language
+                return moment(date).locale(this.userLocale).fromNow();
 
             },
             parseEmoji(input) {
@@ -386,7 +380,7 @@
             emojiGroups() {
                 return EmojiGroups;
             },
-            ...mapGetters(['isAuthenticated', 'loggedInUser']),
+            ...mapGetters(['isAuthenticated', 'loggedInUser','userLocale']),
 
         }
     }

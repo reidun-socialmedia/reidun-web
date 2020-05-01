@@ -1,12 +1,14 @@
 <template>
   <v-app
     :dark="setTheme"
+    :style="{background: $vuetify.theme.themes[theme].background}"
   >
     <v-navigation-drawer
       v-model="drawer"
       id="navigation-drawer"
       clipped
       app
+      :style="{background: $vuetify.theme.themes[theme].drawerBackground}"
       :expand-on-hover="expandOnHover"
       mini-variant
     >
@@ -29,6 +31,8 @@
     </v-navigation-drawer>
     <v-app-bar
       app
+      :style="{background: $vuetify.theme.themes[theme].appBarBackground + ' !important'}"
+
       clipped-left
     >
 
@@ -48,8 +52,7 @@
         :items="searchItems"
         :loading="isLoading"
         :search-input.sync="search"
-        filled
-        solo
+        solo-inverted
         dense
         rounded
         no-data
@@ -57,7 +60,7 @@
         hide-selected
         item-text="firstname"
         item-value="id"
-        label="Search users"
+        :label="this.$t('default_layout.search_bar.label')"
         return-object
         style="margin-top: 1.5rem"
       />
@@ -80,27 +83,27 @@
             </v-badge>
           </v-btn>
         </template>
-          <v-list>
-            <v-list-item v-if="friendRequests.length === 0"
-            >
-              no friend requests
-            </v-list-item>
-            <v-list-item
-              v-if="friendRequests.length !== 0"
-              v-for="(item, index) in friendRequests"
-              :key="index"
-            >
-              <v-list-item-title>{{ item.sender.firstname + " sent you a friend request" }}</v-list-item-title>
-              <v-list-item-action>
-                <v-btn
-                  color="success"
-                  icon
-                  @click="acceptFriendRequest(item.sender.id)"
-                >
-                  <v-icon>mdi-check</v-icon>
-                </v-btn>
-              </v-list-item-action>
-             <v-list-item-action>
+        <v-list>
+          <v-list-item v-if="friendRequests.length === 0"
+          >
+            {{ this.$t('default_layout.friend_requests.no_friend_requests')}}
+          </v-list-item>
+          <v-list-item
+            v-if="friendRequests.length !== 0"
+            v-for="(item, index) in friendRequests"
+            :key="index"
+          >
+            <v-list-item-title>{{ formatString($t('default_layout.friend_requests.friend_request_title'), [item.sender.firstname])}}</v-list-item-title>
+            <v-list-item-action>
+              <v-btn
+                color="success"
+                icon
+                @click="acceptFriendRequest(item.sender.id)"
+              >
+                <v-icon>mdi-check</v-icon>
+              </v-btn>
+            </v-list-item-action>
+            <v-list-item-action>
               <v-btn
                 color="error"
                 icon
@@ -108,9 +111,9 @@
               >
                 <v-icon>mdi-cancel</v-icon>
               </v-btn>
-             </v-list-item-action>
-            </v-list-item>
-          </v-list>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
 
       </v-menu>
       <v-menu offset-y bottom>
@@ -122,6 +125,7 @@
             text
           >
             <v-badge
+              :content="notificationCount"
               :value="notificationCount"
               color="red"
               overlap
@@ -134,14 +138,19 @@
         <v-list>
           <v-list-item v-if="notificationCount === 0"
           >
-            no notifications
+            {{ this.$t('default_layout.notifications.no_notifications')}}
           </v-list-item>
           <v-list-item
-            v-if="notificationCount !== 0"
-            v-for="(item, index) in notifications"
-            :key="index"
+            v-for="(n,i) in notifications"
+            :key="i"
+            :style="n.is_read === 0 ? 'background: #6d8dc2':''"
+            v-else
           >
-            <v-list-item-title>{{ item.sender.firstname + " " + getMessage(item.type) }}</v-list-item-title>
+            <v-list-item-avatar><v-img :src="'/media/avatar/'+n.sender.avatar.path"></v-img></v-list-item-avatar>
+            <v-list-item-title>{{getMessage(n.type, n.sender.firstname)}}</v-list-item-title>
+            <v-btn @click="ReadNotification(n.id)" text>
+              {{$t('notifications_page_mobile.markAsRead')}}
+            </v-btn>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -153,7 +162,6 @@
         <template v-slot:activator="{ on }">
 
           <v-btn
-            color="primary"
             text
             style="margin-left: 1rem; width: auto; height: auto"
             v-on="on">
@@ -227,7 +235,7 @@
     import Snackbar from "../components/Snackbar";
     import {EventBus} from '../assets/event-bus';
     import WsSubscriptions from '../assets/WsSubscriptions'
-
+    const vsprintf = require('sprintf-js').vsprintf
 
     export default {
 
@@ -250,7 +258,7 @@
                 items: [
                     {
                         icon: 'home',
-                        title: 'Home',
+                        title:  this.$t("default_layout.navigation_drawer.Home.title"),
                         to: '/'
                     },
                 ],
@@ -258,8 +266,8 @@
                 friendRequests: [],
 
                 profilemenuitems: [
-                    {icon: 'account_box', title: ' Account', action: "/me"},
-                    {icon: 'settings', title: ' Settings', action: "/settings"},
+                    {icon: 'account_box', title: this.$t("default_layout.profile_drop_menu.account.title"), action: "/me"},
+                    {icon: 'settings', title: this.$t("default_layout.profile_drop_menu.Settings.title"), action: "/settings"},
 
 
                 ],
@@ -278,10 +286,9 @@
 
                 this.isLoading = true
 
-                let token = this.$auth.getToken('local')
 
                 // Lazily load input items
-                this.$axios.get('/users/search', {headers: {Authorization: `${token}`}, params: {q: val}}).then(res => {
+                this.$axios.get('/users/search',{ params: {q: val}}).then(res => {
                     this.users = res.data.data
 
                 }).catch(error => {
@@ -289,13 +296,13 @@
                 }).finally(() => (this.isLoading = false))
             },
         },
-        beforeCreate() {
-            console.log("%cHold Up!", "color: red; font-size:40px")
-            console.log("%cPasting suspicious code in here could give attackers access to your account.", "color: red; font-size: 30px")
-            console.log("%cunless you understand exactly what you are doing, close this window and stay safe.", "color: red; font-size: 30px")
+        created() {
+            console.log("%c"+this.$t("default_layout.developer_console_warning.line_1"), "color: red; font-size:40px")
+            console.log("%c"+this.$t("default_layout.developer_console_warning.line_2"), "color: red; font-size: 30px")
+            console.log("%c"+this.$t("default_layout.developer_console_warning.line_3"), "color: red; font-size: 30px")
 
         },
-        beforeMount(){
+        beforeMount() {
             this.getNotifications()
             this.getFriendRequest()
             this.getUnreadNotifications()
@@ -309,15 +316,13 @@
             this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getFriendRequest(this.loggedInUser.id))
             this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
 
-            EventBus.$on('theme-changed', response => {
-                this.$vuetify.theme.dark = localStorage.theme === 'light';
-            });
+            EventBus.$on('theme-changed', response => this.changeTheme(response));
         },
         methods: {
             async logout() {
                 await this.$auth.logout();
                 this.$ws.disconnect()
-                this.$router.push('/login')
+                await this.$router.push('/login')
             },
             ...mapMutations({
                 setSnack: 'snackbar/setSnack',
@@ -325,28 +330,28 @@
                 setSnackColor: 'snackbar/setSnackColor'
             }),
             async onDisconnect(e) {
-                await this.$axios.get('/user').then(res =>{
-                    if(!res.data){
+                await this.$axios.get('/user').then(res => {
+                    if (!res.data) {
                         this.logout()
                     }
-                }).catch(err =>{
+                }).catch(err => {
                     this.logout()
                 })
             },
-            async getUnreadNotifications(){
-                await this.$axios.get('/notifications/unread').then(res =>{
-                        this.notificationCount = res.data.notification_count
+            async getUnreadNotifications() {
+                await this.$axios.get('/notifications/unread').then(res => {
+                    this.notificationCount = res.data.notification_count
 
-                }).catch(err =>{
+                }).catch(err => {
                     this.notificationCount = 0
                 })
             },
             async getNotifications() {
-                await this.$axios.get('/notifications/all').then(res =>{
-                    if(!res.data){
-                        this.notifications = res.data.data
-                    }
-                }).catch(err =>{
+                await this.$axios.get('/notifications/all').then(res => {
+
+                    this.notifications = res.data.data
+
+                }).catch(err => {
 
                 })
             },
@@ -357,7 +362,10 @@
                 }
                 await this.$axios.post('/friends/request/accept', data).then(res => {
                     self.setSnackColor("success");
-                    this.$ws.$emitToServer("event:default", 'ACCEPTED_INCOMING_REQUEST', {sender: this.loggedInUser.id, targetUserId: senderId})
+                    this.$ws.$emitToServer("event:default", 'ACCEPTED_INCOMING_REQUEST', {
+                        sender: this.loggedInUser.id,
+                        targetUserId: senderId
+                    })
                     self.setSnack("Accepted friend request");
 
                 }).catch(error => {
@@ -373,7 +381,10 @@
 
                 await this.$axios.post('/friends/request/deny', data).then(res => {
                     self.setSnackColor("success");
-                    this.$ws.$emitToServer("event:default", 'DENIED_INCOMING_REQUEST', {sender: this.loggedInUser.id, targetUserId: senderId})
+                    this.$ws.$emitToServer("event:default", 'DENIED_INCOMING_REQUEST', {
+                        sender: this.loggedInUser.id,
+                        targetUserId: senderId
+                    })
                     self.setSnack("Denied friend request");
 
                 }).catch(error => {
@@ -388,24 +399,39 @@
             },
             getFriendRequest: async function () {
                 await this.$axios.get('/friends/request/all').then(res => {
-                        this.friendRequests = res.data.data
+                    this.friendRequests = res.data.data
 
                 }).catch(err => {
                     this.friendRequests = []
                     console.log(err)
                 })
             },
-            getMessage(type) {
+            getMessage(type,name) {
                 switch (type) {
                     case 'POST_LIKED':
-                        return 'liked your post'
+                        return this.formatString(this.$t('default_layout.notifications.post_liked'),[name])
                     case 'POST_DISLIKED':
-                        return 'disliked your post'
+                        return this.formatString(this.$t('default_layout.notifications.post_disliked'),[name])
+                    case 'POST_COMMENTED':
+                        return this.formatString(this.$t('default_layout.notifications.post_commented'),[name])
                 }
             },
 
+            async changeTheme(response) {
+                this.$vuetify.theme.dark = response
+            },
+            formatString(string, variables){
+                return vsprintf(string,variables)
+            },
+
+
+            async ReadNotification(notificationId) {
+            }
         },
         computed: {
+            theme(){
+                return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+            },
             setTheme() {
                 if (localStorage.theme === 'light') {
                     return (this.$vuetify.theme.dark = false);
@@ -419,7 +445,7 @@
             searchItems() {
                 return this.users
             },
-            ...mapGetters(['isAuthenticated', 'loggedInUser']),
+            ...mapGetters(['isAuthenticated', 'loggedInUser','userLocale']),
 
         }
     }

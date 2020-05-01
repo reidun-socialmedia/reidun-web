@@ -130,7 +130,6 @@
 
 <script>
     import {mapMutations} from "vuex";
-    import { mask } from 'vue-the-mask'
     import moment from 'moment'
 
     export default {

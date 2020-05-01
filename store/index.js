@@ -5,15 +5,25 @@ export const getters = {
 
   loggedInUser(state) {
     return state.auth.user
+  },
+  userLocale(state) {
+    return state.locale
   }
 }
 
 export const state = () => ({
-  counter: 0
+  counter: 0,
+  locales: ['sq', 'da', 'de', 'en-uk', 'en-us', 'fr', 'nb' , 'nl', 'nn', 'sr', 'se',],
+  locale: 'en-us'
 })
 
 export const mutations = {
   increment (state) {
     state.counter++
+  },
+  SET_LANG (state, locale) {
+    if (state.locales.indexOf(locale) !== -1) {
+      state.locale = locale
+    }
   }
 }

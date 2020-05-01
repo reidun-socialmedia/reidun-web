@@ -35,8 +35,12 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vue-ws'
+    '~/plugins/vue-ws',
+    'plugins/i18n.js',
   ],
+  router: {
+    middleware: ['i18n']
+  },
   /*
   ** Nuxt.js dev-modules
   */
@@ -52,7 +56,7 @@ module.exports = {
 
   ],
   axios: {
-    baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost/api' : 'http://localhost/api'
+    baseURL: process.env.NODE_ENV !== 'production' ? 'http://192.168.1.11/api' : 'http://192.168.1.11/api'
   },
   auth: {
     strategies: {
@@ -72,9 +76,12 @@ module.exports = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
+          background: '#212121',
+          appBarBackground: '#e3314c',
+          drawerBackground: '#2c2c2c',
           primary: '#e91e63',
           secondary: '#6d6d6d',
           accent: '#009688',
@@ -82,8 +89,20 @@ module.exports = {
           warning: '#ff9800',
           info: '#607d8b',
           success: '#4caf50'
+        },
+        light: {
+          background: '#eaeaea',
+          appBarBackground: '#e3314c',
+          drawerBackground: '#dbdbdb',
+          primary: '#e91e63',
+          secondary: '#6d6d6d',
+          accent: '#009688',
+          error: '#f44336',
+          warning: '#ff9800',
+          info: '#607d8b',
+          success: '#4caf50'
+           },
         }
-      }
     },
     defaultAssets: {
       font: true,

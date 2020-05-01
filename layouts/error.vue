@@ -13,7 +13,10 @@
       <v-card-title>
         {{ otherError }}
       </v-card-title>
-      <v-card-text>This is most likely an exception thrown in the webapp and not the system itself</v-card-text>
+      <v-card-text>
+        <br>
+        {{error}}
+      </v-card-text>
       <v-card-actions>
         <v-btn to="/">
           Home page

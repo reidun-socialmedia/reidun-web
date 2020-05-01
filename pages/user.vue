@@ -38,7 +38,7 @@
 
           >
             <v-icon>mdi-person-add</v-icon>
-            add friend
+            {{this.$t("user_page.friend_request_buttons.add_friend")}}
           </v-btn>
           <v-btn
             v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id === loggedInUser.id"
@@ -46,21 +46,21 @@
             color="error"
           >
             <v-icon>mdi-person-add</v-icon>
-            cancel friend request
+            {{this.$t("user_page.friend_request_buttons.cancel_request")}}
           </v-btn>
           <v-btn
             v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
             @click="acceptFriendRequest(user.id)"
             color="primary"
           >
-            accept friend request
+            {{this.$t("user_page.friend_request_buttons.accept_request")}}
           </v-btn>
           <v-btn
             v-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
             color="error"
             @click="denyFriendRequest(user.id)"
           >
-            Deny friend request
+            {{this.$t("user_page.friend_request_buttons.cancel_request")}}
           </v-btn>
           <v-menu offset-y bottom>
             <template v-slot:activator="{ on }">
@@ -76,12 +76,12 @@
             <v-list>
               <v-list-item>
                 <v-list-item-title>
-                  block
+                  {{this.$t("user_page.user_menu.block")}}
                 </v-list-item-title>
               </v-list-item>
               <v-list-item @click="removeFriend(user.id)" v-if="relation.status === 1">
                 <v-list-item-title>
-                  remove friend
+                  {{this.$t("user_page.user_menu.remove_friend")}}
                 </v-list-item-title>
               </v-list-item>
             </v-list>
@@ -96,130 +96,188 @@
         <v-tab
           href="#tab-wall"
         >
-          Wall
+          {{this.$t("user_page.tab_menu.wall")}}
         </v-tab>
         <v-tab
           href="#tab-about"
-
         >
-          About
-
+          {{this.$t("user_page.tab_menu.about")}}
         </v-tab>
         <v-tab
           href="#tab-friends"
         >
-          Friends
+          {{this.$t("user_page.tab_menu.friends")}}
         </v-tab>
+
         <v-tab-item
           value="tab-wall"
         >
           <div v-if="this.user.privacy.profile_privacy === 'everyone' ||  relation.status === 1 ">
             <v-card>
-              <v-card-title>{{this.user.firstname + "'s"}} wall</v-card-title>
+              <v-card-title>{{formatString(this.$t("user_page.Wall.title"),[this.user.firstname])}}</v-card-title>
             </v-card>
             <v-row>
               <v-col>
+                <v-card v-if="userFiles.length === 0">
+                  <v-card-title>
+                    {{this.$t("user_page.Wall.files_posted")}}
+                  </v-card-title>
+                  <v-card-text>{{formatString(this.$t("user_page.Wall.no-files"),[this.user.firstname])}}</v-card-text>
+                </v-card>
+                <v-card v-if="userFiles.length !== 0">
+                  <v-card-title>
+                    {{formatString(this.$t("user_page.Wall.files_posted"),[this.user.firstname])}}
+                  </v-card-title>
+                  <v-row>
+                    <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                           :key="index"
+                           v-for="(f,index) in userFiles">
+                      <v-card
+                        v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
+                        <v-img @click="showOverlay(f.path)" style="width: 6rem; height: 6rem"
+                               :src="'/media/post/'+f.path"></v-img>
 
+                      </v-card>
+                      <v-card style="width: 20rem; height: auto" v-else-if="f.path.endsWith('.mp4')">
+                        <video style="width: 20rem; height: auto" :src="'/media/post/'+f.path" controls></video>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-card>
               </v-col>
               <v-col>
-                <v-list style="margin-top: 1rem;">
+                <v-card>
+                  <v-card-title>posts</v-card-title>
+                  <v-list style="margin-top: 1rem; overflow-y: scroll">
 
-                  <v-list-item>
-                    <v-list-item-title>posts</v-list-item-title>
-                  </v-list-item>
-                  <v-skeleton-loader
-                    type="card, text, actions, card-avatar"
-                    v-if="!finishedLoading"
-                    loading
-                  ></v-skeleton-loader>
-                  <v-card
-                    onmouseenter="this.style.background = '#2b2b2a'"
-                    onmouseleave="this.style.background = ''"
-                    style="margin-top: 1rem; margin-bottom: 1rem"
-                    v-bind:key="post.id"
-                    :id="posts.id"
-                    v-for="post in Posts"
-                  >
-                    <v-card-title>
-                      <v-avatar>
-                        <v-img v-if="post.poster" :src="`/media/avatar/${post.poster.avatar.path}`"/>
-                      </v-avatar>
-                      <nuxt-link style="color: white; text-decoration: none; margin-right: 1rem; margin-left: 1rem"
-                                 :to="'/user?id='+post.poster.id">{{post.poster.firstname + " " + post.poster.lastname}}
-                      </nuxt-link>
-                      <span style="font-size: 0.8rem; color: #c7c5c7">
+
+                    <v-skeleton-loader
+                      type="card, text, actions, card-avatar"
+                      v-if="!finishedLoading"
+                      loading
+                    ></v-skeleton-loader>
+                    <v-card
+                      onmouseenter="this.style.background = '#2b2b2a'"
+                      onmouseleave="this.style.background = ''"
+                      style="margin-top: 1rem; margin-bottom: 1rem"
+                      v-bind:key="post.id"
+                      :id="posts.id"
+                      v-for="post in Posts"
+                    >
+                      <v-card-title>
+                        <v-avatar>
+                          <v-img v-if="post.poster" :src="`/media/avatar/${post.poster.avatar.path}`"/>
+                        </v-avatar>
+                        <nuxt-link style="color: white; text-decoration: none; margin-right: 1rem; margin-left: 1rem"
+                                   :to="'/user?id='+post.poster.id">{{post.poster.firstname + " " +
+                          post.poster.lastname}}
+                        </nuxt-link>
+                        <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(post.dateposted)}}
                </span>
-                      <v-spacer>
-                      </v-spacer>
-                      <v-menu offset-y bottom>
-                        <template v-slot:activator="{ on }">
-                          <v-btn v-on="on" icon>
-                            <v-icon>more_vert</v-icon>
+                        <v-spacer>
+                        </v-spacer>
+                        <v-menu offset-y bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" icon>
+                              <v-icon>more_vert</v-icon>
+                            </v-btn>
+                          </template>
+                          <v-list>
+                            <v-list-item @click="deletePost(post.id)" v-if="post.poster.id === loggedInUser.id">
+                              <v-list-item-title>
+                                <v-icon>mdi-delete</v-icon>
+                                delete post
+                              </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item v-if="post.poster.id === loggedInUser.id">
+                              <v-list-item-title>
+                                <v-icon>edit</v-icon>
+                                edit post
+                              </v-list-item-title>
+                            </v-list-item>
+                            <v-list-item v-if="post.poster.id !== loggedInUser.id">
+                              <v-list-item-title>report post</v-list-item-title>
+                            </v-list-item>
+                          </v-list>
+                        </v-menu>
+                      </v-card-title>
+
+                      <v-card-text @click="go('/post?id='+post.id)">
+                        <p v-html="parseEmoji(post.text)"></p>
+                      </v-card-text>
+                      <v-row v-if="post.post_files.length !== 0">
+                        <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                               :key="index"
+                               v-for="(f,index) in post.post_files">
+                          <v-card
+                            v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
+                            <v-img @click="showOverlay(f.path)" style="width: 12rem; height: 12rem"
+                                   :src="'/media/post/'+f.path"></v-img>
+
+                          </v-card>
+                          <v-card style="width: 20rem; height: auto" v-else-if="f.path.endsWith('.mp4')">
+                            <video style="width: 20rem; height: auto" :src="'/media/post/'+f.path" controls></video>
+                          </v-card>
+                        </v-col>
+                      </v-row>
+                      <v-card-actions>
+
+                        <v-spacer/>
+                        <v-btn @click="go('/post?id='+post.id)" icon>
+                          <v-icon>mdi-comment-text</v-icon>
+                          {{post.comments}}
+                        </v-btn>
+                        <div
+                          v-if="post.dislikes.filter(function(e) { return e.user.id === loggedInUser.id; }).length === 0"
+                        >
+                          <v-btn
+                            @click="dislikePost(post.id)"
+                            icon
+                          >
+                            <v-icon>thumb_down_alt</v-icon>
                           </v-btn>
-                        </template>
-                        <v-list>
-                          <v-list-item @click="deletePost(post.id)" v-if="post.poster.id === loggedInUser.id">
-                            <v-list-item-title>
-                              <v-icon>mdi-delete</v-icon>
-                              delete post
-                            </v-list-item-title>
-                          </v-list-item>
-                          <v-list-item v-if="post.poster.id === loggedInUser.id">
-                            <v-list-item-title>
-                              <v-icon>edit</v-icon>
-                              edit post
-                            </v-list-item-title>
-                          </v-list-item>
-                          <v-list-item v-if="post.poster.id !== loggedInUser.id">
-                            <v-list-item-title>report post</v-list-item-title>
-                          </v-list-item>
-                        </v-list>
-                      </v-menu>
-                    </v-card-title>
-
-                    <v-card-text @click="go('/post?id='+post.id)">
-                      <p v-html="parseEmoji(post.text)"></p>
-                    </v-card-text>
-                    <v-row v-if="post.post_files.length !== 0">
-                      <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
-                             v-for="(f,index) in post.post_files">
-                        <v-card
-                          v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
-                          <v-img @click="showOverlay(f.path)" style="width: 12rem; height: 12rem"
-                                 :src="'/media/post/'+f.path"></v-img>
-
-                        </v-card>
-                        <v-card style="width: 20rem; height: auto" v-else-if="f.path.endsWith('.mp4')">
-                          <video style="width: 20rem; height: auto" :src="'/media/post/'+f.path" controls></video>
-                        </v-card>
-                      </v-col>
-                    </v-row>
-                    <v-card-actions>
-
-                      <v-spacer/>
-                      <v-btn @click="go('/post?id='+post.id)" icon>
-                        <v-icon>mdi-comment-text</v-icon>
-                        {{post.comments}}
-                      </v-btn>
-                      <v-btn
-                        color="error"
-                        @click="likePost(id)"
-                        icon
-                      >
-                        <v-icon>thumb_down_alt</v-icon>
-                        {{post.likes.length}}
-                      </v-btn>
-                      <v-btn
-                        color="success"
-                        icon
-                      >
-                        <v-icon>thumb_up_alt</v-icon>
-                        {{post.likes.length}}
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-list>
+                          {{post.dislikes.length}}
+                        </div>
+                        <div
+                          v-if="post.dislikes.filter(function(e) { return e.user.id === loggedInUser.id; }).length !== 0"
+                        >
+                          <v-btn
+                            @click="undislikePost(post.id)"
+                            icon
+                            color="primary"
+                          >
+                            <v-icon>thumb_down_alt</v-icon>
+                          </v-btn>
+                          {{post.dislikes.length}}
+                        </div>
+                        <div
+                          v-if="post.likes.filter(function(e) { return e.user.id === loggedInUser.id; }).length === 0"
+                        >
+                          <v-btn
+                            icon
+                            @click="likePost(post.id)"
+                          >
+                            <v-icon>thumb_up_alt</v-icon>
+                          </v-btn>
+                          {{post.likes.length}}
+                        </div>
+                        <div
+                          v-if="post.likes.filter(function(e) { return e.user.id === loggedInUser.id; }).length !== 0"
+                        >
+                          <v-btn
+                            icon
+                            color="success"
+                            @click="unlikePost(post.id)"
+                          >
+                            <v-icon>thumb_up_alt</v-icon>
+                          </v-btn>
+                          {{post.likes.length }}
+                        </div>
+                      </v-card-actions>
+                    </v-card>
+                  </v-list>
+                </v-card>
               </v-col>
 
             </v-row>
@@ -227,18 +285,18 @@
           <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone' ||  relation.status !== 1 ">
             <v-card-title>{{this.user.firstname + "'s"}} wall</v-card-title>
             <v-card-text>
-              You need to be friends with {{this.user.firstname}} to view his/her/their wall
+              {{formatString(this.$t("user_page.Wall.not_friends_message"),[this.user.firstname])}}
             </v-card-text>
           </v-card>
         </v-tab-item>
         <v-tab-item value="tab-about">
           <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  || relation.status === 1">
-            <v-card-title>about {{this.user.firstname}}</v-card-title>
+            <v-card-title>{{formatString(this.$t("user_page.About.title"),[this.user.firstname])}}</v-card-title>
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
                   <v-icon>email</v-icon>
-                  email
+                  {{this.$t("user_page.About.info.email")}}
                 </v-list-item-title>
                 <v-list-item-subtitle>{{this.user.email}}</v-list-item-subtitle>
               </v-list-item-content>
@@ -247,7 +305,7 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <v-icon>{{getGenderIcon(this.user.gender) }}</v-icon>
-                  gender
+                  {{this.$t("user_page.About.info.gender")}}
                 </v-list-item-title>
                 <v-list-item-subtitle>{{this.user.gender}}</v-list-item-subtitle>
               </v-list-item-content>
@@ -256,7 +314,7 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <v-icon>today</v-icon>
-                  birthday
+                  {{this.$t("user_page.About.info.birthday")}}
                 </v-list-item-title>
                 <v-list-item-subtitle>{{this.user.birthday}}</v-list-item-subtitle>
               </v-list-item-content>
@@ -264,16 +322,16 @@
 
           </v-card>
           <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone'  ||  relation.status !== 1">
-            <v-card-title>About {{this.user.firstname}}</v-card-title>
+            <v-card-title>{{formatString(this.$t("user_page.About.title"),[this.user.firstname])}}</v-card-title>
             <v-card-text>
-              You need to be friends with {{this.user.firstname}} to view his/her/their information
+              {{formatString(this.$t("user_page.About.not_friends_message"),[this.user.firstname])}}
             </v-card-text>
           </v-card>
         </v-tab-item>
 
         <v-tab-item value="tab-friends">
           <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  ||  relation.status === 1">
-            <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
+            <v-card-title>{{formatString(this.$t("user_page.Friends.title"),[this.user.firstname])}}</v-card-title>
             <v-list>
               <v-list-item
                 v-for="(friend, i) in userFriends"
@@ -293,9 +351,9 @@
           </v-card>
 
           <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone'  ||  relation.status !== 1">
-            <v-card-title>{{user.firstname+"'s "}}friends</v-card-title>
+            <v-card-title>{{formatString(this.$t("user_page.Friends.title"),[this.user.firstname])}}</v-card-title>
             <v-card-text>
-              You need to be friends with {{this.user.firstname}} to view his/her/their friends
+              {{formatString(this.$t("user_page.Friends.not_friends_message"),[this.user.firstname])}}
             </v-card-text>
           </v-card>
         </v-tab-item>
@@ -309,6 +367,7 @@
         <v-carousel>
           <v-carousel-item
             v-for="(item,i) in userAvatars"
+
             :key="i"
             :src="'/media/avatar/'+item.path"
             reverse-transition="fade-transition"
@@ -340,13 +399,12 @@
                 dialog: false,
                 overlayImg: '',
                 posts: [],
-                browserLang: '',
-                finishedLoading: false
+                finishedLoading: false,
+                userFiles: []
             }
         },
         methods: {
             async getUser(userId) {
-                let token = this.$auth.getToken('local')
 
                 await this.$axios.get('/user/' + userId).then(res => {
                     this.user = res.data.data
@@ -404,10 +462,11 @@
                 }
                 await this.$axios.post('/friends/relation', data).then(res => {
                     this.relation = res.data.data
-                    this.getUser(this.$route.query.id)
-                    this.getUserAvatars(this.$route.query.id)
-                    this.getUserFriends(this.$route.query.id)
-                    this.getUserPosts(this.$route.query.id)
+                    this.getUser(id)
+                    this.getUserAvatars(id)
+                    this.getUserFriends(id)
+                    this.getUserPosts(id)
+                    this.getUserPostFiles(id)
                 }).catch(error => {
                     this.getUser(this.$route.query.id)
                     this.getUserAvatars(this.$route.query.id)
@@ -432,6 +491,13 @@
             async getUserFriends(id) {
                 await this.$axios.get('/friends/all/' + id).then(res => {
                     this.userFriends = res.data.data
+                }).catch(error => {
+
+                })
+            },
+            async getUserPostFiles(id) {
+                await this.$axios.get('/post/user/files/' + id).then(res => {
+                    this.userFiles = res.data.data
                 }).catch(error => {
 
                 })
@@ -529,11 +595,7 @@
             }),
 
             getFormattedDate(date) {
-                return moment(date).locale(this.browserLang).fromNow()
-
-            },
-            getBrowserLang() {
-                this.browserLang = navigator.language
+                return moment(date).locale(this.userLocale).fromNow()
 
             },
             showOverlay(img) {
@@ -544,6 +606,93 @@
             parseEmoji(input) {
                 return twemoji.parse(input)
             },
+
+            async likePost(postId,userId) {
+                self = this
+                const data = {
+                    postId: postId,
+                    userId: userId,
+                    senderId: this.loggedInUser.id
+                }
+                await this.$axios.post('/post/like', data).then(res => {
+                    self.setSnackColor("success");
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_LIKED', {sender: this.loggedInUser, postId: postId})
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {sender: this.loggedInUser, targetUserId: userId})
+                    self.setSnack("liked post");
+
+                }).catch(error => {
+                    self.setSnackColor("error");
+                    self.setSnack("could not like post");
+                })
+            },
+            async unlikePost(postId) {
+                self = this
+                await this.$axios.delete('/post/unlike', {
+                    data: {
+                        postId: postId,
+                        userId: this.loggedInUser.id
+                    }
+                }).then(res => {
+                    self.setSnackColor("success");
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNLIKED', {sender: this.loggedInUser, postId: postId})
+                    self.setSnack("un-liked post");
+
+                }).catch(error => {
+                    self.setSnackColor("error");
+                    self.setSnack("could not un-like post");
+
+                })
+            },
+            async dislikePost(postId,userId) {
+                self = this
+                const data = {
+                    postId: postId,
+                    userId: userId,
+                    senderId: this.loggedInUser.id
+                }
+                await this.$axios.post('/post/dislike', data).then(res => {
+                    self.setSnackColor("success");
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_DISLIKED', {
+                        sender: this.loggedInUser,
+                        postId: postId
+                    })
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {sender: this.loggedInUser, targetUserId: userId})
+                    self.setSnack("disliked post");
+
+                }).catch(error => {
+
+                    self.setSnackColor("error");
+                    self.setSnack("could not dislike post");
+
+                })
+            },
+            async undislikePost(postId) {
+                self = this
+                const data = {
+                    postId: postId,
+                    userId: this.loggedInUser.id
+                }
+                await this.$axios.delete('/post/undislike', {
+                    data: {
+                        postId: postId,
+                        userId: this.loggedInUser.id
+                    }
+                }).then(res => {
+                    self.setSnackColor("success");
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNDISLIKED', {
+                        sender: this.loggedInUser,
+                        postId: postId
+                    })
+                    self.setSnack("un-disliked post");
+
+                }).catch(error => {
+                    self.setSnackColor("error");
+                    self.setSnack("could not un-dislike post");
+                })
+            },
+            formatString(string, variables){
+                return vsprintf(string,variables)
+            }
 
         },
         watch: {
@@ -561,6 +710,11 @@
             this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
             this.$ws.$on('DELETED_FRIEND', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
             this.$ws.$on('SENT_REQUEST', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
+            this.$ws.$on('POST_LIKED', (e) =>   this.getUserPosts(this.$route.query.id))
+            this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.$route.query.id))
+            this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.$route.query.id))
+            this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.$route.query.id))
+
 
         },
         beforeMount() {
@@ -568,7 +722,7 @@
         },
 
         computed: {
-            ...mapGetters(['isAuthenticated', 'loggedInUser']),
+            ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
 
         }
     }
