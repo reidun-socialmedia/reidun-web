@@ -117,7 +117,7 @@
         <v-list style="margin-top: 1rem;">
 
           <v-list-item>
-            <v-list-item-title>posts</v-list-item-title>
+            <v-list-item-title>{{$t('home_page.post_card.title')}}</v-list-item-title>
             <v-list-item-action>
               <v-menu
                 :close-on-content-click="false"

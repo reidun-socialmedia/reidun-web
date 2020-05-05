@@ -35,7 +35,11 @@
 
       clipped-left
     >
-
+      <v-btn icon v-if="this.$vuetify.breakpoint.smAndDown" @click="$router.back()" :disabled="this.$route.path === '/' || this.$route.path === '/home'">
+        <v-icon>
+          keyboard_arrow_left
+        </v-icon>
+      </v-btn>
       <v-toolbar-title
         @click="go('/')"
         style="cursor: pointer"
@@ -272,7 +276,7 @@
 
                 ],
                 notificationCount: 0,
-                friendRequestCount: 0
+                friendRequestCount: 0,
             }
         },
         watch: {

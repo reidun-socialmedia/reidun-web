@@ -2,27 +2,27 @@
   "default_layout": {
     "navigation_drawer": {
       "Home": {
-        "title": "Home"
+        "title": "主页"
       }
     },
     "search_bar": {
-      "label": "Search users"
+      "label": "搜索用户"
     },
     "profile_drop_menu": {
       "account": {
-        "title": "Account"
+        "title": "账号"
       },
       "Settings": {
-        "title": "Settings"
+        "title": "设置"
       },
       "Logout": {
-        "title": "Log Out"
+        "title": "登出"
       }
     },
     "notifications": {
-      "no_notifications": "No notifications",
-      "post_liked": "%s liked your post",
-      "post_disliked": "%s disliked your post",
+      "no_notifications": "没有通知",
+      "post_liked": "%s喜欢了您的帖子",
+      "post_disliked": "%s不喜欢您的帖子",
       "post_commented": "%s commented on your post"
     },
     "friend_requests": {
@@ -30,144 +30,123 @@
       "friend_request_title": "%s sent you a friend request"
     },
     "developer_console_warning": {
-      "line_1": "Hold Up!",
+      "line_1": "等一下！",
       "line_2": "Pasting suspicious code in here could give attackers access to your account.",
       "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
     }
   },
   "home_page": {
     "post_creation_card": {
-      "greeting": "Hey %s, what's happening today?",
-      "post_creation_button": "Post",
+      "greeting": "你好%s，今天咋么样？",
+      "post_creation_button": "帖子",
       "attach_file": "Attach a file",
       "input_empty": "Post cannot be empty"
     },
     "post_card": {
-      "title": "Posts",
+      "title": "帖子",
       "post_menu": {
-        "delete_post": "Delete Post",
-        "edit_post": "Edit Post",
-        "report": "Report Post"
+        "delete_post": "删除帖子",
+        "edit_post": "更改帖子",
+        "report": "举报帖子"
       }
     }
   },
   "session_user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "墙",
+      "about": "关于",
+      "friends": "朋友"
     },
     "change_avatar_dialog": {
       "title": "Upload a image file: png, gif, or jpg",
-      "change_avatar": "Change Avatar",
-      "cancel": "Cancel",
-      "file_input_label": "Choose Image"
+      "change_avatar": "更改头像",
+      "cancel": "取消",
+      "file_input_label": "选择照片"
     },
     "Wall": {
-      "title": "Your Wall",
-      "posts": "Posts",
+      "title": "您的墙",
+      "posts": "帖子",
       "files_posted": "Files Posted",
       "no-posts": "You haven't posted anything!",
       "no-files": "You haven't uploaded anything!"
     },
     "About": {
-      "title": "About You",
+      "title": "关于您",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "电子邮箱",
+        "gender": "性别",
+        "birthday": "生日"
       }
     },
     "Friends": {
-      "title": "Your Friends",
-      "no-friends": "You have no friends 😟"
+      "title": "您的朋友",
+      "no-friends": "您没有朋友😟"
     }
   },
   "user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "墙",
+      "about": "关于",
+      "friends": "朋友"
     },
     "user_menu": {
-      "block": "Block",
-      "remove_friend": "Remove Friend"
+      "block": "屏蔽",
+      "remove_friend": "删除朋友"
     },
     "friend_request_buttons": {
-      "add_friend": "Add as friend",
-      "accept_request": "Cancel",
-      "deny_request": "Deny Request",
-      "cancel_request": "Cancel Request"
+      "add_friend": "加朋友",
+      "accept_request": "取消",
+      "deny_request": "拒绝请求",
+      "cancel_request": "取消请求"
     },
     "Wall": {
-      "title": "%s's wall",
+      "title": "%s的墙",
       "not_friends_message": "You need to be friends with %s to view their wall",
-      "posts": "Posts",
+      "posts": "帖子",
       "files_posted": "Files Posted",
       "no-posts": "%s has not posted anything",
       "no-files": "%s has not uploaded anything"
     },
     "About": {
-      "title": "About %s",
+      "title": "关于%s",
       "not_friends_message": "You need to be friends with %s to view their information",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "电子邮箱",
+        "gender": "性别",
+        "birthday": "生日"
       }
     },
     "Friends": {
-      "title": "%s's friends",
+      "title": "%s的朋友",
       "not_friends_message": "You need to be friends with %s to view their friends"
     }
   },
   "search_page_mobile": {
     "title": "Search for users",
     "search_bar": {
-      "label": "Search users"
+      "label": "搜索用户"
     },
     "list_empty": "Type in the search bar to see results"
   },
   "notifications_page_mobile": {
-    "title": "Notifications",
+    "title": "通知",
     "no_notifications": "No notifications",
     "markAsRead": "Mark as read"
   },
   "settings": {
     "settings_tab": {
-      "account_details": "Account Details",
-      "privacy": "Privacy",
+      "account_details": "账号信息",
+      "privacy": "隐私",
       "appearance": "Appearance",
       "account_security_log": "Account Security Log"
     },
     "account_settings_tab": {
-      "title": "Account settings",
+      "title": "account settings",
       "information": {
         "title": "Change information"
       },
       "password": {
-        "title": "Change password",
-        "new_password_input": {
-          "label":"New password"
-        },
-        "repeat_password_input": {
-          "label":"Repeat password"
-        },
-        "input_empty": "Password is required",
-        "password_mismatch": "Passwords doesn't match",
-        "security_dialog": {
-          "title": "Password verification",
-          "text": "Before we can let you change your password, we need you to type your current password in again, for safety measures",
-          "password_input": {
-            "label": "Type password",
-            "password_incorrect": "Password is incorrect"
-          }
-        },
-        "buttons":{
-          "authorize": "Authorize",
-          "cancel": "Cancel",
-          "save": "Save"
-        }
+        "title": "Change password"
       }
     },
     "appearance_settings_tab": {
@@ -175,25 +154,25 @@
       "theme_setting": {
         "dark_theme_setting": {
           "title": "Dark Theme",
-          "on": "On",
-          "off": "Off"
+          "on": "开",
+          "off": "关"
         },
         "Display_language_setting": {
-          "title": "Display Language",
+          "title": "显示语言",
           "display_language_select": {
-            "label": "Language",
+            "label": "语言",
             "albanian": "Albanian",
             "danish": "Danish",
-            "chinese": "Chinese (Simplified)",
+            "chinese": "中文（简体）",
             "dutch": "Dutch",
-            "english-uk": "English (United Kingdom)",
-            "english-us": "English (United States)",
-            "french": "French",
-            "german": "German",
+            "english-uk": "英文（英国）",
+            "english-us": "英文（美国）",
+            "french": "法文",
+            "german": "德文",
             "norwegian-bokmal": "Norwegian (Bokmal)",
             "norwegian-nynorsk": "Norwegian (Nynorsk)",
             "serbian": "Serbian",
-            "spanish": "Spanish",
+            "spanish": "西班牙文",
             "swedish": "Swedish"
           }
         }
@@ -210,7 +189,7 @@
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Type a comment",
+        "label": "Type comment",
         "input_empty": "Comment cannot be empty"
       },
       "create_button": {
@@ -218,13 +197,13 @@
       }
     },
     "comments_card": {
-      "no_comments": "No comments yet! Be the first to create one",
+      "no_comments": "No comments! Be the first to create one",
       "title": "Comments"
     }
   },
   "guest_layout": {
     "developer_console_warning": {
-      "line_1": "Hold Up!",
+      "line_1": "等一下！",
       "line_2": "Pasting suspicious code in here could give attackers access to your account.",
       "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
     }
@@ -321,28 +300,28 @@
   "emoji_picker": {
     "search_bar": "Search here",
     "not_found": "Emoji(s) not found",
-    "loading": "Loading"
+    "loading": "加载中"
   },
   "snackbar": {
     "error_messages": {
-      "credentials_incorrect": "Email or Password is incorrect",
-      "registration_fail": "Failed to register account\n",
-      "post_creation_fail": "Failed to create post\n",
-      "post_deletion_fail": "Failed to delete post\n",
-      "post_like_fail": "Failed to like post\n",
-      "post_unlike_fail": "Failed to remove like from post\n",
-      "post_dislike_fail": "Failed to dislike post\n",
-      "post_un_dislike_fail": "Failed to remove dislike for post\n",
+      "credentials_incorrect": "电子邮件或密码错误",
+      "registration_fail": "注册失败",
+      "post_creation_fail": "发帖失败",
+      "post_deletion_fail": "Failed to delete post",
+      "post_like_fail": "Failed to like post",
+      "post_unlike_fail": "Failed to remove like from post",
+      "post_dislike_fail": "Failed to dislike post",
+      "post_un_dislike_fail": "Failed to remove dislike for post",
       "post_edit_fail": "Failed to edit post",
-      "comment_creation_fail": "Failed to create comment\n",
-      "comment_delete_fail": "Failed to delete comment\n",
-      "comment_edit_fail": "Failed to edit comment\n"
+      "comment_creation_fail": "Failed to create comment",
+      "comment_delete_fail": "Failed to delete comment",
+      "comment_edit_fail": "Failed to edit comment"
     },
     "success_messages": {
-      "post_creation_success": "Post created\n",
-      "post_deletion_success": "Post deleted\n",
-      "post_like_success": "Liked post\n",
-      "post_unlike_success": "Removed like for post\n",
+      "post_creation_success": "Post created",
+      "post_deletion_success": "Post deleted",
+      "post_like_success": "Liked post",
+      "post_unlike_success": "Removed like for post",
       "post_dislike_success": "Disliked post",
       "post_un_dislike_success": "Removed dislike for post",
       "post_edit_success": "Edited post",
@@ -352,9 +331,9 @@
     }
   },
   "error_page": {
-    "error_title": "error",
+    "error_title": "错误",
     "exception_thrown": "This is most likely an exception thrown in the webapp and not the system itself",
-    "not_found_title": "404 Not Found",
+    "not_found_title": "404 找不到",
     "not_found": "This page does not exist"
   }
 }

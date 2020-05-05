@@ -31,7 +31,7 @@
     },
     "developer_console_warning": {
       "line_1": "Warte kurz!",
-      "line_2": "Die Eingabe von verdächtigem Code könnte Angreifern Zugang zu deinem Benutzerkonto ermöglichen.",
+      "line_2": "Die leichtsinnige Eingabe von Code könnte Angreifern Zugang zu deinem Benutzerkonto ermöglichen.",
       "line_3": "Bleibe besser auf der sicheren Seite und schließe dieses Fenster, außer du weißt genau was du tust!"
     }
   },
@@ -66,9 +66,9 @@
     "Wall": {
       "title": "Deine Beiträge",
       "posts": "Beiträge",
-      "files_posted": "Dateien veröffentlicht",
-      "no-posts": "Du hast bisher nichts veröffentlicht",
-      "no-files": "Du hast bisher nichts hochgeladen"
+      "files_posted": "Veröffentlichte Dateien",
+      "no-posts": "Du hast bisher nichts veröffentlicht!",
+      "no-files": "Du hast bisher nichts hochgeladen!"
     },
     "About": {
       "title": "Über dich",
@@ -94,6 +94,7 @@
       "remove_friend": "Freund entfernen"
     },
     "friend_request_buttons": {
+      "add_friend": "Als Freund hinzufügen",
       "accept_request": "Abbrechen",
       "deny_request": "Anfrage ablehnen",
       "cancel_request": "Anfrage abbrechen"
@@ -102,7 +103,7 @@
       "title": "%s's Beiträge",
       "not_friends_message": "Du musst mit %s befreundet sein, um seine/ihre Beiträge zu sehen",
       "posts": "Beiträge",
-      "files_posted": "Dateien veröffentlicht",
+      "files_posted": "Veröffentlichte Dateien",
       "no-posts": "%s hat bisher nichts veröffentlicht",
       "no-files": "%s hat bisher nichts hochgeladen"
     },
@@ -116,7 +117,7 @@
       }
     },
     "Friends": {
-      "title": "%s's Freund",
+      "title": "%s's Freunde",
       "not_friends_message": "Du musst mit %s befreundet sein, um seine/ihre Freunde zu sehen"
     }
   },
@@ -124,10 +125,13 @@
     "title": "Nach Benutzern suchen",
     "search_bar": {
       "label": "Benutzer suchen"
-    }
+    },
+    "list_empty": "Suchbegriff in der Suchleiste eingeben, um Ergebnisse zu sehen"
   },
   "notifications_page_mobile": {
-    "title": "Benachrichtigungen"
+    "title": "Benachrichtigungen",
+    "no_notifications": "Keine Benachrichtigungen",
+    "markAsRead": "Als gelesen markieren"
   },
   "settings": {
     "settings_tab": {
@@ -135,6 +139,15 @@
       "privacy": "Privatsphäre",
       "appearance": "Benutzeroberfläche",
       "account_security_log": "Sicherheitshistorie"
+    },
+    "account_settings_tab": {
+      "title": "Benutzerkontoeinstellungen",
+      "information": {
+        "title": "Informationen anpassen"
+      },
+      "password": {
+        "title": "Passwort ändern"
+      }
     },
     "appearance_settings_tab": {
       "title": "Einstellen der Benutzeroberfläche",
@@ -147,8 +160,10 @@
         "Display_language_setting": {
           "title": "Anzeigesprache",
           "display_language_select": {
+            "label": "Sprache",
             "albanian": "Albanisch",
             "danish": "Dänisch",
+            "chinese": "Chinesisch (Vereinfacht)",
             "dutch": "Niederländisch",
             "english-uk": "Englisch (Vereinigtes Königreich)",
             "english-us": "Englisch (Vereinigte Staaten)",
@@ -157,6 +172,7 @@
             "norwegian-bokmal": "Norwegisch (Bokmal)",
             "norwegian-nynorsk": "Norwegisch (Nynorsk)",
             "serbian": "Serbisch",
+            "spanish": "Spanisch",
             "swedish": "Schwedisch"
           }
         }
@@ -169,20 +185,20 @@
         "delete_post": "Beitrag löschen",
         "edit_post": "Beitrag bearbeiten",
         "report": "Beitrag melden"
-      },
-      "comment_creation_card": {
-        "comment_input": {
-          "label": "Beitrag kommentieren",
-          "input_empty": "Der Kommentar darf nicht leer sein"
-        },
-        "create_button": {
-          "label": "Beitrag kommentieren"
-        }
-      },
-      "comments_card": {
-        "no_comments": "Bisher keine Kommentare! Sei der Erste",
-        "title": "Kommentare"
       }
+    },
+    "comment_creation_card": {
+      "comment_input": {
+        "label": "Kommentar eingeben",
+        "input_empty": "Kommentar darf nicht leer sein"
+      },
+      "create_button": {
+        "label": "Kommentar"
+      }
+    },
+    "comments_card": {
+      "no_comments": "Bisher keine Kommentare! Sei der Erste",
+      "title": "Kommentare"
     }
   },
   "guest_layout": {
@@ -296,10 +312,10 @@
       "post_unlike_fail": "Entfernen der positiven Bewertung fehlgeschlagen",
       "post_dislike_fail": "Entfernen der negativen Bewertung fehlgeschlagen",
       "post_un_dislike_fail": "Entfernen der negativen Bewertung fehlgeschlagen",
-      "post_un_edit_fail": "Bearbeiten des Beitrags fehlgeschlagen",
+      "post_edit_fail": "Bearbeiten des Beitrags fehlgeschlagen",
       "comment_creation_fail": "Erstellen des Kommentars fehlgeschlagen",
       "comment_delete_fail": "Löschen des Kommentars fehlgeschlagen",
-      "comment_edit_fail": "Bearbeiten des Beitrags fehlgeschlagen"
+      "comment_edit_fail": "Bearbeiten des Kommentars fehlgeschlagen"
     },
     "success_messages": {
       "post_creation_success": "Beitrag wurde erstellt",
@@ -308,11 +324,17 @@
       "post_unlike_success": "Positive Bewertung wurde entfernt",
       "post_dislike_success": "Beitrag negativ bewertet",
       "post_un_dislike_success": "Negative Bewertung wurde entfernt",
-      "post_un_edit_success": "Beitrag wurde bearbeitet",
+      "post_edit_success": "Beitrag wurde bearbeitet",
       "comment_creation_success": "Kommentar wurde erstellt",
       "comment_delete_success": "Kommentar wurde gelöscht",
-      "comment_edit_success": "Beitrag wurde bearbeitet"
+      "comment_edit_success": "Kommentar wurde bearbeitet"
     }
+  },
+  "error_page": {
+    "error_title": "Fehler",
+    "exception_thrown": "Dies ist höchst wahrscheinlich ein Ausnahmefall, der in der Web-Applikation aufgetreten ist und nicht im zugrunde liegenden System",
+    "not_found_title": "404 Seite nicht gefunden",
+    "not_found": "Diese Seite existiert nicht"
   }
 }
 
