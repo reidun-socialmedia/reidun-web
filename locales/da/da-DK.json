@@ -1,0 +1,341 @@
+{
+  "default_layout": {
+    "navigation_drawer": {
+      "Home": {
+        "title": "Hjem"
+      }
+    },
+    "search_bar": {
+      "label": "Søg efter brugere"
+    },
+    "profile_drop_menu": {
+      "account": {
+        "title": "Konto"
+      },
+      "Settings": {
+        "title": "Indstillinger"
+      },
+      "Logout": {
+        "title": "Log ud"
+      }
+    },
+    "notifications": {
+      "no_notifications": "Ingen notifikationer",
+      "post_liked": "%s synes godt om din post",
+      "post_disliked": "%s synes ikke godt om din post",
+      "post_commented": "%s skrev en kommentar på din post"
+    },
+    "friend_requests": {
+      "no_friend_requests": "Ingen venneanmodninger",
+      "friend_request_title": "%s sendte dig en venneanmodning"
+    },
+    "developer_console_warning": {
+      "line_1": "Prøliåhørher!",
+      "line_2": "Det kan give andre adgang til din profil at indsætte kode her.",
+      "line_3": "Medmindre du ved hvad du gør luk dette vindue og forbliv i sikkerhed!"
+    }
+  },
+  "home_page": {
+    "post_creation_card": {
+      "greeting": "Hej, %s, hvad sker der i dag?",
+      "post_creation_button": "Opret",
+      "attach_file": "Vedhæft en fil",
+      "input_empty": "Indlæg kan ikke være tom"
+    },
+    "post_card": {
+      "title": "Indlæg",
+      "post_menu": {
+        "delete_post": "Slet indlæg",
+        "edit_post": "Rediger indlæg",
+        "report": "Anmeld indlæg"
+      }
+    }
+  },
+  "session_user_page": {
+    "tab_menu": {
+      "wall": "Væg",
+      "about": "Om",
+      "friends": "Venner"
+    },
+    "change_avatar_dialog": {
+      "title": "Upload en billedfil: png, gif, jpg",
+      "change_avatar": "Skift profilbillede",
+      "cancel": "Annuller",
+      "file_input_label": "Vælg billede"
+    },
+    "Wall": {
+      "title": "Din væg",
+      "posts": "Opslag",
+      "files_posted": "Delte Filer",
+      "no-posts": "Du har ikke delt noget endnu!",
+      "no-files": "Du har ikke lagt noget op!"
+    },
+    "About": {
+      "title": "Om dig",
+      "info": {
+        "email": "E-mail",
+        "gender": "Køn",
+        "birthday": "Fødselsdag"
+      }
+    },
+    "Friends": {
+      "title": "Dine venner",
+      "no-friends": "Du har ingen venner 😟"
+    }
+  },
+  "user_page": {
+    "tab_menu": {
+      "wall": "Væg",
+      "about": "Om",
+      "friends": "Venner"
+    },
+    "user_menu": {
+      "block": "Bloker",
+      "remove_friend": "Fjern ven"
+    },
+    "friend_request_buttons": {
+      "add_friend": "Add as friend",
+      "accept_request": "Annuller",
+      "deny_request": "Afvis andmodning",
+      "cancel_request": "Annuller anmodning"
+    },
+    "Wall": {
+      "title": "%ss væg",
+      "not_friends_message": "Du skal være venner med %s for at kunne se deres væg",
+      "posts": "Opslag",
+      "files_posted": "Delte Filer",
+      "no-posts": "%s har ikke delt noget endnu",
+      "no-files": "%s har ikke uploadet noget"
+    },
+    "About": {
+      "title": "Om %s",
+      "not_friends_message": "Du skal være venner med %s for at se deres information",
+      "info": {
+        "email": "E-mail",
+        "gender": "Køn",
+        "birthday": "Fødselsdag"
+      }
+    },
+    "Friends": {
+      "title": "%ss venner",
+      "not_friends_message": "Du skal være venner med %s for at se deres venner"
+    }
+  },
+  "search_page_mobile": {
+    "title": "Søg efter brugere",
+    "search_bar": {
+      "label": "Søg efter brugere"
+    },
+    "list_empty": "Type in the search bar to see results"
+  },
+  "notifications_page_mobile": {
+    "title": "Ingen notifikationer",
+    "no_notifications": "No notifications",
+    "markAsRead": "Mark as read"
+  },
+  "settings": {
+    "settings_tab": {
+      "account_details": "Bruger oplysninger",
+      "privacy": "Privatliv",
+      "appearance": "Udseende",
+      "account_security_log": "Bruger Sikkerhedslog"
+    },
+    "account_settings_tab": {
+      "title": "account settings",
+      "information": {
+        "title": "Change information"
+      },
+      "password": {
+        "title": "Change password"
+      }
+    },
+    "appearance_settings_tab": {
+      "title": "Udseende Indstillinger",
+      "theme_setting": {
+        "dark_theme_setting": {
+          "title": "Mørkt Tema",
+          "on": "Tændt",
+          "off": "Slukket"
+        },
+        "Display_language_setting": {
+          "title": "Visningssprog",
+          "display_language_select": {
+            "label": "Language",
+            "albanian": "Albansk",
+            "danish": "Dansk",
+            "chinese": "Kinesisk (forenklet)",
+            "dutch": "Hollandsk",
+            "english-uk": "Engelsk (United Kingdom)",
+            "english-us": "Engelsk (United States)",
+            "french": "Fransk",
+            "german": "Tysk",
+            "norwegian-bokmal": "Norsk (bokmål)",
+            "norwegian-nynorsk": "Norsk (nynorsk)",
+            "serbian": "Serbisk",
+            "spanish": "Spansk",
+            "swedish": "Svensk"
+          }
+        }
+      }
+    }
+  },
+  "post_page": {
+    "post_card": {
+      "post_menu": {
+        "delete_post": "Slet indlæg",
+        "edit_post": "Rediger indlæg",
+        "report": "Anmeld indlæg"
+      }
+    },
+    "comment_creation_card": {
+      "comment_input": {
+        "label": "Skriv kommentar",
+        "input_empty": "Kommentar kan ikke være tom"
+      },
+      "create_button": {
+        "label": "Kommentér"
+      }
+    },
+    "comments_card": {
+      "no_comments": "Ingen kommentar! Vær' den første til at oprette en",
+      "title": "Kommentarer"
+    }
+  },
+  "guest_layout": {
+    "developer_console_warning": {
+      "line_1": "Prøliåhørher!",
+      "line_2": "Indsættelse af mistænkelig kode her kan give andre adgang til din bruger.",
+      "line_3": "Med mindre du ved præcist hvad du gør, så luk dette vindue og forbliv sikker!"
+    }
+  },
+  "login_page": {
+    "title": "Reduin - Log ind",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "Gratis, åbent-source socialt medie"
+      },
+      "page_2": {
+        "title": "Reidun på mobilen",
+        "text": "På farten? Vær ikke bekymret, download en passende udgave"
+      }
+    },
+    "login_form": {
+      "email_text_field": {
+        "label": "E-mail",
+        "input_empty": "E-mail er påkrævet",
+        "email_not_valid": "E-mail skal være gyldig"
+      },
+      "password_field": {
+        "label": "Adgangskode",
+        "input_empty": "Adgangskode er påkrævet"
+      },
+      "login_button": {
+        "label": "Log ind"
+      },
+      "register_button": {
+        "label": "Registrer"
+      }
+    }
+  },
+  "register_page": {
+    "title": "Reduin - Registrer",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "Gratis, åbent-source socialt medie"
+      },
+      "page_2": {
+        "title": "Reidun på mobilen",
+        "text": "På farten? Vær ikke bekymret, download en passende udgave"
+      }
+    },
+    "register_form": {
+      "firstname_text_field": {
+        "label": "Fornavn",
+        "input_empty": "Fornavn er påkrævet"
+      },
+      "lastname_text_field": {
+        "label": "Efternavn",
+        "input_empty": "Efternavn er påkrævet"
+      },
+      "email_text_field": {
+        "label": "E-mail",
+        "input_empty": "E-mail er påkrævet",
+        "email_not_valid": "E-mail skal være gyldig"
+      },
+      "password_field": {
+        "label": "Adgangskode",
+        "input_empty": "Adgangskode er påkrævet"
+      },
+      "repeat_password_field": {
+        "label": "Gentag adgangskode",
+        "password_mismatch": "Adgangskoderne skal passe"
+      },
+      "gender_selection": {
+        "label": "Køn",
+        "input_empty": "Køn er påkrævet",
+        "genders": {
+          "male": "Mand",
+          "female": "Kvinde",
+          "other": "Andet"
+        }
+      },
+      "birthday": {
+        "label": "Fødselsdag",
+        "input_empty": "Fødselsdag er påkrævet",
+        "dialog_buttons": {
+          "cancel": "Annuller",
+          "ok": "OK"
+        }
+      },
+      "register_button": {
+        "label": "Registrer"
+      },
+      "back_button": {
+        "label": "Tilbage"
+      }
+    }
+  },
+  "emoji_picker": {
+    "search_bar": "Søg her",
+    "not_found": "Emoji(er) ikke fundet",
+    "loading": "Indlæser"
+  },
+  "snackbar": {
+    "error_messages": {
+      "credentials_incorrect": "Email eller Kodeord er ukorrekt",
+      "registration_fail": "Kunne ikke registrere konto",
+      "post_creation_fail": "Mislykkedes at lave et indlæg",
+      "post_deletion_fail": "Mislykkedes at slette et indlæg",
+      "post_like_fail": "Mislykkedes at syntes godt om et indlæg",
+      "post_unlike_fail": "Mislykkedes at fjerne at syntes godt om fra indlæg",
+      "post_dislike_fail": "Mislykkedes at ikke kunne lide indlæg",
+      "post_un_dislike_fail": "Mislykkedes at fjerne ikke at syntes godt om fra indlæg",
+      "post_edit_fail": "Mislykkedes at rette indlæg",
+      "comment_creation_fail": "Mislykkedes at lave kommentar",
+      "comment_delete_fail": "Mislykkedes at slette kommentar",
+      "comment_edit_fail": "Mislykkedes at ændre kommentar"
+    },
+    "success_messages": {
+      "post_creation_success": "Indlæg skabt",
+      "post_deletion_success": "Indlæg slettet",
+      "post_like_success": "Syntes godt om indlæg",
+      "post_unlike_success": "Fjernede at syntes godt om indlæg",
+      "post_dislike_success": "Syntes ikke godt om indlæg",
+      "post_un_dislike_success": "Fjernede ikke at syntes godt om indlæg",
+      "post_edit_success": "Ændrede indlæg",
+      "comment_creation_success": "Skrev en kommentar",
+      "comment_delete_success": "Slettede kommentar",
+      "comment_edit_success": "Ændrede kommentar"
+    }
+  },
+  "error_page": {
+    "error_title": "fejl",
+    "exception_thrown": "This is most likely an exception thrown in the webapp and not the system itself",
+    "not_found_title": "404 Not Found",
+    "not_found": "This page does not exist"
+  }
+}
+
+

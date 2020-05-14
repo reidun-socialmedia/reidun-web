@@ -28,7 +28,6 @@
           this.$store.watch(state => state.snackbar.top, () => {
               const tp = this.$store.state.snackbar.top;
               if(tp !== false){
-                  console.log(tp)
                   this.top = this.$store.state.snackbar.top;
                   this.$store.commit('snackbar/setSnackTop', false);
               }

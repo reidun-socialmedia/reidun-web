@@ -5,7 +5,7 @@ module.exports = {
   /*
   ** Headers of the page
   */
-
+  loading: '~/components/loading-page.vue',
 
   head: {
     titleTemplate: '%s - Reidun' ,
@@ -16,7 +16,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'A Open Source Social Media' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
       {rel:'stylesheet', href:"https://fonts.googleapis.com/css?family=Material+Icons" }
 
     ]
@@ -25,17 +25,23 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
   /*
   ** Global CSS
   */
   css: [
+    '~/assets/global.scss'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-ws',
+    '~/plugins/i18n.js',
+
   ],
+  router: {
+    middleware: ['i18n']
+  },
   /*
   ** Nuxt.js dev-modules
   */
@@ -51,13 +57,13 @@ module.exports = {
 
   ],
   axios: {
-    baseURL: process.env.NODE_ENV !== 'production' ? 'http://localhost/api' : 'http://localhost/api'
+    baseURL: process.env.NODE_ENV !== 'production' ? `http://192.168.1.11/api` :  `http://192.168.1.11/api`
   },
   auth: {
     strategies: {
       local: {
         endpoints: {
-          login: {url: 'user/login', method: 'post', propertyName:'data.token'},
+          login: { url: 'user/login', method: 'post', propertyName:'data.token'},
           user: { url: 'user', method: 'get', propertyName: 'data' },
           logout: false
         }
@@ -71,18 +77,33 @@ module.exports = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          background: '#212121',
+          appBarBackground: '#e3314c',
+          drawerBackground: '#2c2c2c',
+          primary: '#e91e63',
+          secondary: '#6d6d6d',
+          accent: '#009688',
+          error: '#f44336',
+          warning: '#ff9800',
+          info: '#607d8b',
+          success: '#4caf50'
+        },
+        light: {
+          background: '#eaeaea',
+          appBarBackground: '#e3314c',
+          drawerBackground: '#dbdbdb',
+          primary: '#e91e63',
+          secondary: '#6d6d6d',
+          accent: '#009688',
+          error: '#f44336',
+          warning: '#ff9800',
+          info: '#607d8b',
+          success: '#4caf50'
+           },
         }
-      }
     },
     defaultAssets: {
       font: true,
@@ -92,10 +113,12 @@ module.exports = {
       iconfont: 'mdi',
     }
   },
+
   /*
   ** Build configuration
   */
   build: {
+
     /*
     ** You can extend webpack config here
     */

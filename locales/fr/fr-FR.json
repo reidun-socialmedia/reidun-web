@@ -1,0 +1,341 @@
+{
+  "default_layout": {
+    "navigation_drawer": {
+      "Home": {
+        "title": "Accueil"
+      }
+    },
+    "search_bar": {
+      "label": "Rechercher des utilisateurs"
+    },
+    "profile_drop_menu": {
+      "account": {
+        "title": "Compte"
+      },
+      "Settings": {
+        "title": "Paramètres"
+      },
+      "Logout": {
+        "title": "Se déconnecter"
+      }
+    },
+    "notifications": {
+      "no_notifications": "Aucune notification",
+      "post_liked": "%s a aimé votre publication",
+      "post_disliked": "%s n'aime pas votre publication",
+      "post_commented": "%s a commenté votre publication"
+    },
+    "friend_requests": {
+      "no_friend_requests": "Aucune demande d'ami",
+      "friend_request_title": "%s vous a envoyé une demande d'ami"
+    },
+    "developer_console_warning": {
+      "line_1": "Attention!",
+      "line_2": "Coller du code suspect ici pourrait accorder l’accès a votre compte a des personnes malveillantes.",
+      "line_3": "A moins de savoir exactement ce que vous faites, fermez cette fenêtre et restez en sécurité!"
+    }
+  },
+  "home_page": {
+    "post_creation_card": {
+      "greeting": "Salut %s, que se passe-t-il aujourd'hui?",
+      "post_creation_button": "Publication",
+      "attach_file": "Ajouter un fichier",
+      "input_empty": "Votre publication ne peut pas être vide"
+    },
+    "post_card": {
+      "title": "Publications",
+      "post_menu": {
+        "delete_post": "Supprimer la publication",
+        "edit_post": "Modifier la publication",
+        "report": "Signaler la publication"
+      }
+    }
+  },
+  "session_user_page": {
+    "tab_menu": {
+      "wall": "Mur",
+      "about": "A propos",
+      "friends": "Amis"
+    },
+    "change_avatar_dialog": {
+      "title": "Charge un fichier image: png, gif, ou jpg",
+      "change_avatar": "Change ton Avatar",
+      "cancel": "Annuler",
+      "file_input_label": "Choisis une image"
+    },
+    "Wall": {
+      "title": "Ton mur",
+      "posts": "Publications",
+      "files_posted": "Fichiers publiés",
+      "no-posts": "Tu n'as rien publié!",
+      "no-files": "Tu n'as rien mis en ligne!"
+    },
+    "About": {
+      "title": "A propos de toi",
+      "info": {
+        "email": "E-mail",
+        "gender": "Sexe",
+        "birthday": "Anniversaire"
+      }
+    },
+    "Friends": {
+      "title": "Tes amis",
+      "no-friends": "Tu n'a pas d'ami 😟"
+    }
+  },
+  "user_page": {
+    "tab_menu": {
+      "wall": "Mur",
+      "about": "A propos",
+      "friends": "Amis"
+    },
+    "user_menu": {
+      "block": "Bloquer",
+      "remove_friend": "Retirer l'ami"
+    },
+    "friend_request_buttons": {
+      "add_friend": "Ajouter comme ami",
+      "accept_request": "Annuler",
+      "deny_request": "Ignorer la demande",
+      "cancel_request": "Annuler la demande"
+    },
+    "Wall": {
+      "title": "Mur de %s",
+      "not_friends_message": "Tu as besoin d'ètre ami avec %s pour voir son mur",
+      "posts": "Publications",
+      "files_posted": "Fichiers publiés",
+      "no-posts": "%s n'a rien publié",
+      "no-files": "%s n'a rien mis en ligne"
+    },
+    "About": {
+      "title": "A propos de %s",
+      "not_friends_message": "Tu as besoin d'être ami avec %s pour voir ses informations",
+      "info": {
+        "email": "E-mail",
+        "gender": "Sexe",
+        "birthday": "Anniversaire"
+      }
+    },
+    "Friends": {
+      "title": "Amis de %s",
+      "not_friends_message": "Tu as besoin d'être ami avec %s pour voir ses amis"
+    }
+  },
+  "search_page_mobile": {
+    "title": "Rechercher des utilisateurs",
+    "search_bar": {
+      "label": "Rechercher des utilisateurs"
+    },
+    "list_empty": "Écris dans la barre de recherche pour voir les résultats"
+  },
+  "notifications_page_mobile": {
+    "title": "Notifications",
+    "no_notifications": "Aucune notification",
+    "markAsRead": "Marquer comme lu"
+  },
+  "settings": {
+    "settings_tab": {
+      "account_details": "Détails du compte",
+      "privacy": "Vie privée ",
+      "appearance": "Apparence",
+      "account_security_log": "Détails sur la sécurité du compte"
+    },
+    "account_settings_tab": {
+      "title": "paramètres du compte",
+      "information": {
+        "title": "Changer les informations"
+      },
+      "password": {
+        "title": "Change de mot de passe"
+      }
+    },
+    "appearance_settings_tab": {
+      "title": "Paramètres d'apparence",
+      "theme_setting": {
+        "dark_theme_setting": {
+          "title": "Thème sombre",
+          "on": "On",
+          "off": "Off"
+        },
+        "Display_language_setting": {
+          "title": "Afficher la langue ",
+          "display_language_select": {
+            "label": "Langage",
+            "albanian": "Albanais",
+            "danish": "Danois",
+            "chinese": "Chinois (Simplifié)",
+            "dutch": "Néerlandais",
+            "english-uk": "Anglais (Royaume-Unis)",
+            "english-us": "Anglais (Etats-Unis)",
+            "french": "Français",
+            "german": "Allemand",
+            "norwegian-bokmal": "Norvégien (Bokmal)",
+            "norwegian-nynorsk": "Norvégien (Nynorsk)",
+            "serbian": "Serbe",
+            "spanish": "Espagnol",
+            "swedish": "Suèdois"
+          }
+        }
+      }
+    }
+  },
+  "post_page": {
+    "post_card": {
+      "post_menu": {
+        "delete_post": "Supprimer la publication",
+        "edit_post": "Modifier la publication",
+        "report": "Signaler la publication"
+      }
+    },
+    "comment_creation_card": {
+      "comment_input": {
+        "label": "Écrire un commentaire",
+        "input_empty": "Votre commentaire ne peut pas être vide"
+      },
+      "create_button": {
+        "label": "Commenter"
+      }
+    },
+    "comments_card": {
+      "no_comments": "Pas de commentaire! Sois le premier à en créer un",
+      "title": "Commentaires"
+    }
+  },
+  "guest_layout": {
+    "developer_console_warning": {
+      "line_1": "Attention!",
+      "line_2": "Coller du code suspect ici pourrait accorder l’accès a votre compte a des personnes malveillantes.",
+      "line_3": "A moins de savoir exactement ce que vous faites, fermez cette fenêtre et restez en sécurité!"
+    }
+  },
+  "login_page": {
+    "title": "Reidun - Connexion ",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "Réseau social open-source, gratuit"
+      },
+      "page_2": {
+        "title": "Reidun sur mobile",
+        "text": "Pret à partir? Ne vous inquiétez pas, téléchargez une version native"
+      }
+    },
+    "login_form": {
+      "email_text_field": {
+        "label": "E-mail",
+        "input_empty": "E-mail requis",
+        "email_not_valid": "L'e-mail dois être valide"
+      },
+      "password_field": {
+        "label": "Mot de passe",
+        "input_empty": "Mot de passe requis"
+      },
+      "login_button": {
+        "label": "Connexion"
+      },
+      "register_button": {
+        "label": "Inscription"
+      }
+    }
+  },
+  "register_page": {
+    "title": "Reidun - Inscription",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "Réseau social open-source, gratuit"
+      },
+      "page_2": {
+        "title": "Reidun sur mobile",
+        "text": "Pret à partir? Ne vous inquiétez pas, téléchargez une version native"
+      }
+    },
+    "register_form": {
+      "firstname_text_field": {
+        "label": "Prénom",
+        "input_empty": "Prénom requis"
+      },
+      "lastname_text_field": {
+        "label": "Nom",
+        "input_empty": "Nom requis"
+      },
+      "email_text_field": {
+        "label": "E-mail",
+        "input_empty": "E-mail requis",
+        "email_not_valid": "L'e-mail dois être valide"
+      },
+      "password_field": {
+        "label": "Mot de passe",
+        "input_empty": "Mot de passe requis"
+      },
+      "repeat_password_field": {
+        "label": "Confirmer mot de passe",
+        "password_mismatch": "Les mots de passes doivent concordé"
+      },
+      "gender_selection": {
+        "label": "Genre",
+        "input_empty": "Genre requis",
+        "genders": {
+          "male": "Homme",
+          "female": "Femme",
+          "other": "Autres"
+        }
+      },
+      "birthday": {
+        "label": "Anniversaire",
+        "input_empty": "Anniversaire requis",
+        "dialog_buttons": {
+          "cancel": "Annulé",
+          "ok": "OK"
+        }
+      },
+      "register_button": {
+        "label": "Inscription"
+      },
+      "back_button": {
+        "label": "Retour"
+      }
+    }
+  },
+  "emoji_picker": {
+    "search_bar": "Chercher ici",
+    "not_found": "Emoji(s) non trouvé",
+    "loading": "Chargement"
+  },
+  "snackbar": {
+    "error_messages": {
+      "credentials_incorrect": "E-mail ou mot de passe erroné ",
+      "registration_fail": "Échec pendant la création du compte",
+      "post_creation_fail": "Échec pendant la création de la publication",
+      "post_deletion_fail": "Échec de la suppression de la publication",
+      "post_like_fail": "Échec de \"Aime\"",
+      "post_unlike_fail": "Échec pour supprimer \"Aime\"",
+      "post_dislike_fail": "Échec de \"Vous n'aimez pas\"",
+      "post_un_dislike_fail": "Échec pour supprimer \"Vous n'aimez pas\"",
+      "post_edit_fail": "Échec de la modification de publication",
+      "comment_creation_fail": "Échec pendant la création du commentaire",
+      "comment_delete_fail": "Échec de la suppression du commentaire",
+      "comment_edit_fail": "Échec de la modification du commentaire"
+    },
+    "success_messages": {
+      "post_creation_success": "Publication créer",
+      "post_deletion_success": "Publication supprimer",
+      "post_like_success": "Publication aimer",
+      "post_unlike_success": "Vous n'aimez plus",
+      "post_dislike_success": "N'aime pas la publication",
+      "post_un_dislike_success": "\"Vous n'aimez pas\" supprimer",
+      "post_edit_success": "Publication modifié",
+      "comment_creation_success": "Commentaire créer",
+      "comment_delete_success": "Commentaire supprimer",
+      "comment_edit_success": "Commentaire modifié"
+    }
+  },
+  "error_page": {
+    "error_title": "érreur",
+    "exception_thrown": "Il s'agit très probablement d'une exception levée dans l'application Web et non dans le système lui-même",
+    "not_found_title": "404 Not Found",
+    "not_found": "Cette page n'éxiste pas"
+  }
+}
+
+
