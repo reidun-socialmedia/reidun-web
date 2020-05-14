@@ -207,7 +207,6 @@
                 return !!this.$refs.form.validate();
             },
             async register() {
-
                 let self = this;
                 let data = {
                     firstname: this.firstName,

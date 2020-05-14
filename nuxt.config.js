@@ -36,7 +36,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/vue-ws',
-    'plugins/i18n.js',
+    '~/plugins/i18n.js',
+
   ],
   router: {
     middleware: ['i18n']
@@ -56,7 +57,7 @@ module.exports = {
 
   ],
   axios: {
-    baseURL: process.env.NODE_ENV !== 'production' ? 'http://192.168.1.11/api' : 'http://192.168.1.11/api'
+    baseURL: process.env.NODE_ENV !== 'production' ? `http://192.168.1.11/api` :  `http://192.168.1.11/api`
   },
   auth: {
     strategies: {
@@ -112,10 +113,12 @@ module.exports = {
       iconfont: 'mdi',
     }
   },
+
   /*
   ** Build configuration
   */
   build: {
+
     /*
     ** You can extend webpack config here
     */

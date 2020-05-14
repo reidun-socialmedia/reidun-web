@@ -170,13 +170,37 @@
         }
       }
     },
+    "privacy_tab":{
+      "title":"Privacy Settings",
+      "profile_privacy": {
+         "title": "Profile viewing setting",
+         "description": "Choose who can see your profile",
+         "label": "Change setting",
+          "select_items":{
+            "everyone":"Everyone",
+            "friends":"Friends"
+          }
+      },
+      "friend_request_privacy": {
+        "title": "Friend requests",
+        "description": "Choose who can add you as friend",
+        "label": "Change setting",
+        "select_items":{
+          "everyone":"Everyone",
+          "friends_of_friends":"Friends of friends",
+          "none":"No one"
+
+        }
+      }
+    },
     "appearance_settings_tab": {
       "title": "Appearance Settings",
       "theme_setting": {
         "dark_theme_setting": {
-          "title": "Dark Theme",
-          "on": "On",
-          "off": "Off"
+          "dark": "Dark Theme",
+          "light": "Light Theme",
+          "System_theme": "System theme",
+          "title": "Theme"
         },
         "Display_language_setting": {
           "title": "Display Language",
@@ -326,23 +350,24 @@
   "snackbar": {
     "error_messages": {
       "credentials_incorrect": "Email or Password is incorrect",
-      "registration_fail": "Failed to register account\n",
-      "post_creation_fail": "Failed to create post\n",
-      "post_deletion_fail": "Failed to delete post\n",
-      "post_like_fail": "Failed to like post\n",
-      "post_unlike_fail": "Failed to remove like from post\n",
-      "post_dislike_fail": "Failed to dislike post\n",
-      "post_un_dislike_fail": "Failed to remove dislike for post\n",
+      "registration_fail": "Failed to register account",
+      "post_creation_fail": "Failed to create post",
+      "post_deletion_fail": "Failed to delete post",
+      "post_like_fail": "Failed to like post",
+      "post_unlike_fail": "Failed to remove like from post",
+      "post_dislike_fail": "Failed to dislike post",
+      "post_un_dislike_fail": "Failed to remove dislike for post",
       "post_edit_fail": "Failed to edit post",
-      "comment_creation_fail": "Failed to create comment\n",
-      "comment_delete_fail": "Failed to delete comment\n",
-      "comment_edit_fail": "Failed to edit comment\n"
+      "comment_creation_fail": "Failed to create comment",
+      "comment_delete_fail": "Failed to delete comment",
+      "comment_edit_fail": "Failed to edit comment",
+      "password_change_failed": "Failed to change password"
     },
     "success_messages": {
-      "post_creation_success": "Post created\n",
-      "post_deletion_success": "Post deleted\n",
-      "post_like_success": "Liked post\n",
-      "post_unlike_success": "Removed like for post\n",
+      "post_creation_success": "Post created",
+      "post_deletion_success": "Post deleted",
+      "post_like_success": "Liked post",
+      "post_unlike_success": "Removed like for post",
       "post_dislike_success": "Disliked post",
       "post_un_dislike_success": "Removed dislike for post",
       "post_edit_success": "Edited post",

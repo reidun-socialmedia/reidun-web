@@ -1,14 +1,14 @@
 <template>
   <v-app
     :dark="setTheme"
-    :style="{background: $vuetify.theme.themes[theme].background}"
+    :style="{background: $vuetify.theme.themes[getTheme].background}"
   >
     <v-navigation-drawer
       v-model="drawer"
       id="navigation-drawer"
       clipped
       app
-      :style="{background: $vuetify.theme.themes[theme].drawerBackground}"
+      :style="{background: $vuetify.theme.themes[getTheme].drawerBackground}"
       :expand-on-hover="expandOnHover"
       mini-variant
     >
@@ -31,7 +31,7 @@
     </v-navigation-drawer>
     <v-app-bar
       app
-      :style="{background: $vuetify.theme.themes[theme].appBarBackground + ' !important'}"
+      :style="{background: $vuetify.theme.themes[getTheme].appBarBackground + ' !important'}"
 
       clipped-left
     >
@@ -235,11 +235,11 @@
 </template>
 
 <script>
-    import {mapGetters, mapMutations} from 'vuex'
-    import Snackbar from "../components/Snackbar";
-    import {EventBus} from '../assets/event-bus';
-    import WsSubscriptions from '../assets/WsSubscriptions'
-    const vsprintf = require('sprintf-js').vsprintf
+  import {mapGetters, mapMutations} from 'vuex'
+  import Snackbar from "../components/Snackbar";
+  import WsSubscriptions from '../assets/WsSubscriptions'
+
+  const vsprintf = require('sprintf-js').vsprintf
 
     export default {
 
@@ -249,6 +249,8 @@
         },
         data() {
             return {
+                theme:{},
+                dark: false,
                 title: 'Reidun',
                 bottomNav: 'recent',
                 drawer: null,
@@ -319,8 +321,25 @@
             this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getFriendRequest(this.loggedInUser.id))
             this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getFriendRequest(this.loggedInUser.id))
             this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
+          if (!localStorage.theme) {
+            let defaultTheme = {
+              text: 'System Theme',
+              value: 'systemTheme'
+            }
+            localStorage.theme = JSON.stringify(defaultTheme)
+          }else{
+            this.theme = JSON.parse(localStorage.theme)
 
-            EventBus.$on('theme-changed', response => this.changeTheme(response));
+          }
+          this.theme = JSON.parse(localStorage.theme)
+          if (this.theme.value === 'systemTheme') {
+
+            this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+              this.dark = e.matches
+            });
+          }
+          this.$ws.$on('theme-changed', (e) => this.changeTheme(e))
         },
         methods: {
             async logout() {
@@ -366,7 +385,7 @@
                 }
                 await this.$axios.post('/friends/request/accept', data).then(res => {
                     self.setSnackColor("success");
-                    this.$ws.$emitToServer("event:default", 'ACCEPTED_INCOMING_REQUEST', {
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`,  'ACCEPTED_INCOMING_REQUEST', {
                         sender: this.loggedInUser.id,
                         targetUserId: senderId
                     })
@@ -375,7 +394,7 @@
                 }).catch(error => {
                     self.setSnackColor("error");
                     self.setSnack("Something went wrong")
-                })
+               })
             },
             async denyFriendRequest(senderId) {
                 let self = this;
@@ -385,7 +404,7 @@
 
                 await this.$axios.post('/friends/request/deny', data).then(res => {
                     self.setSnackColor("success");
-                    this.$ws.$emitToServer("event:default", 'DENIED_INCOMING_REQUEST', {
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`,  'DENIED_INCOMING_REQUEST', {
                         sender: this.loggedInUser.id,
                         targetUserId: senderId
                     })
@@ -407,7 +426,6 @@
 
                 }).catch(err => {
                     this.friendRequests = []
-                    console.log(err)
                 })
             },
             getMessage(type,name) {
@@ -421,27 +439,35 @@
                 }
             },
 
-            async changeTheme(response) {
-                this.$vuetify.theme.dark = response
-            },
+
             formatString(string, variables){
                 return vsprintf(string,variables)
             },
 
-
             async ReadNotification(notificationId) {
+
+            },
+           async changeTheme(e){
+              const theme = JSON.parse(localStorage.theme)
+              switch (theme.value) {
+                case 'dark':
+                  this.dark = true
+                  break;
+                case 'light':
+                  this.dark = false
+                  break;
+                case 'systemTheme':
+                  this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+                  break;
+              }
             }
         },
         computed: {
-            theme(){
+            getTheme(){
                 return (this.$vuetify.theme.dark) ? 'dark' : 'light'
             },
-            setTheme() {
-                if (localStorage.theme === 'light') {
-                    return (this.$vuetify.theme.dark = false);
-                } else {
-                    return (this.$vuetify.theme.dark = true);
-                }
+            setTheme(){
+              return (this.$vuetify.theme.dark = this.dark)
             },
             getitemvalue() {
                 return this.model.id

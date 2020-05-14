@@ -5,9 +5,17 @@
       <v-list-item>
         <v-list-item-title>{{$t("settings.appearance_settings_tab.theme_setting.dark_theme_setting.title")}}
         </v-list-item-title>
-        <v-switch @change="sendEvent($event)"
-                  :label="themeMode === true ? this.$t('settings.appearance_settings_tab.theme_setting.dark_theme_setting.on') : this.$t('settings.appearance_settings_tab.theme_setting.dark_theme_setting.off') "
-                  v-model="themeMode"/>
+        <v-select
+          @change="changeTheme"
+          :items="Themes"
+          :label="this.$t('settings.appearance_settings_tab.theme_setting.dark_theme_setting.title') "
+          v-model="themeMode"
+          hide-details
+          item-text="text"
+          item-value="value"
+          return-object
+
+        />
       </v-list-item>
       <v-list-item>
         <v-list-item-title>
@@ -19,16 +27,13 @@
         </v-list-item-title>
         <v-list-item-action>
           <v-select
-            :items="languages.sort(function(a, b){
-                     if(a.text < b.text) { return -1; }
-                      if(a.text > b.text) { return 1; }
-                      return 0;
-                    })"
-            item-value="genders.value"
-            item-text="text"
+            :items="languages"
             @change="changeLang"
             label="Language"
-            requried
+            v-model="userSpecifiedLang"
+            item-text="text"
+            item-value="value"
+            return-object
           />
         </v-list-item-action>
       </v-list-item>
@@ -37,91 +42,138 @@
 </template>
 
 <script>
-    import {EventBus} from "../assets/event-bus";
 
-    export default {
-        name: "appearance-settings",
-       data(){
-          return{
-            themeMode: '',
-            languages: [
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.albanian'),
-                value: "sq"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.danish'),
-                value: "da"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.chinese'),
-                value: "zh"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.dutch'),
-                value: "nl"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.english-uk'),
-                value: "en-uk"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.english-us'),
-                value: "en-us"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.french'),
-                value: "fr"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.german'),
-                value: "de"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.norwegian-bokmal'),
-                value: "nb"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.norwegian-nynorsk'),
-                value: "nn",
+  import {mapGetters} from "vuex";
 
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.serbian'),
-                value: "sr"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.spanish'),
-                value: "sr"
-              },
-              {
-                text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.swedish'),
-                value: "se"
-              }
-
-            ]
+  export default {
+    name: "appearance-settings",
+    data() {
+      return {
+        themeMode: {},
+        userSpecifiedLang: '',
+        Themes: [
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.dark_theme_setting.dark'),
+            value: 'dark'
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.dark_theme_setting.light'),
+            value: 'light'
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.dark_theme_setting.System_theme'),
+            value: 'systemTheme'
           }
-       },
-      mounted() {
-        this.themeMode = localStorage.theme !== 'light'
+        ],
+        languages: [
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.albanian'),
+            value: "sq"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.danish'),
+            value: "da"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.chinese'),
+            value: "zh"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.dutch'),
+            value: "nl"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.english-uk'),
+            value: "en-uk"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.english-us'),
+            value: "en-us"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.french'),
+            value: "fr"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.german'),
+            value: "de"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.norwegian-bokmal'),
+            value: "nb"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.norwegian-nynorsk'),
+            value: "nn",
 
-      },
-      watch: {
-        themeMode: function (val, oldval) {
-          localStorage.theme = this.themeMode === true ? 'dark' : 'light';
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.serbian'),
+            value: "sr"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.spanish'),
+            value: "sr"
+          },
+          {
+            text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.swedish'),
+            value: "se"
+          }
 
-        }
-      },
-
-      methods: {
-        async sendEvent(e) {
-          EventBus.$emit('theme-changed', this.themeMode);
-
-        },
-        changeLang(e) {
-        }
+        ]
       }
-    }
+    },
+    mounted() {
+      if (localStorage.theme !== undefined) {
+        this.themeMode = JSON.parse(localStorage.theme);
+      } else {
+        this.themeMode = {}
+      }
+
+
+      this.userSpecifiedLang = this.languages.filter((item) => this.filterLangs(item))[0]
+
+      this.languages.sort(function (a, b) {
+        if (a.text < b.text) {
+          return -1;
+        }
+        if (a.text > b.text) {
+          return 1;
+        }
+        return 0;
+      })
+    },
+
+    methods: {
+      async changeTheme(item) {
+        localStorage.theme = JSON.stringify(item)
+        this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'theme-changed', JSON.stringify(item));
+      },
+      filterLangs(item) {
+        return item.value === this.userLocale
+      },
+      changeLang(item) {
+        localStorage.userSpecLang = item.value
+        this.languages.sort(function (a, b) {
+          if (a.text < b.text) {
+            return -1;
+          }
+          if (a.text > b.text) {
+            return 1;
+          }
+          return 0;
+        })
+
+        this.$store.commit('SET_LANG', item.value)
+        this.$root.$i18n.locale = item.value
+
+      }
+    },
+    computed: {
+      ...mapGetters(['isAuthenticated', 'loggedInUser', 'userLocale']),
+
+    },
+  }
 </script>
 
 <style scoped>

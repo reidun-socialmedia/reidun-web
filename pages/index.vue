@@ -580,6 +580,7 @@
             ,
             ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
 
+
         }
     }
 </script>

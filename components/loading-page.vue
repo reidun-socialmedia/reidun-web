@@ -1,6 +1,5 @@
 <template>
   <div v-if="loading" class="loading-page">
-    <v-img src="/favicon.png"></v-img>
     <h1>
       Reidun
     </h1>

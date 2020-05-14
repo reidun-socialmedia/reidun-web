@@ -18,14 +18,17 @@
 
         <v-card-text>
           {{$t('settings.account_settings_tab.password.security_dialog.text')}}
-          <form>
+          <v-form v-model="authValid">
             <v-text-field
-              type="password"
-              :label="'type password'"
+              :type="'password'"
+              v-model="currentPassword"
+              :rules="passwordRules"
+              :label="this.$t('settings.account_settings_tab.password.security_dialog.password_input.label')"
+              required
             >
 
             </v-text-field>
-          </form>
+          </v-form>
         </v-card-text>
 
 
@@ -42,6 +45,7 @@
             color="primary"
             text
             @click="authoriseAction()"
+            :disabled="!authValid"
           >
             {{$t("settings.account_settings_tab.password.buttons.authorize")}}
           </v-btn>
@@ -83,11 +87,25 @@
         </v-btn>
       </v-card-title>
      <v-card-text>
-       <v-form>
-         <v-text-field type="password" id="password" :label="this.$t('settings.account_settings_tab.password.new_password_input.label')" :disabled="!passwordChange"></v-text-field>
+       <v-form   v-model="passwordChangeValid">
+           <v-text-field
+               type="password"
+               id="password"
+               v-model="newPassword"
+               :rules="[NewPasswordRules,passwordConfirmationRule]"
+               :label="$t('settings.account_settings_tab.password.new_password_input.label')"
+               :disabled="!passwordChange"
+         >
+         </v-text-field>
+         <v-text-field
+           type="password"
+           id="repeat-password"
+           v-model="repeatedPassword"
+           :rules="[RepeatPasswordRules,passwordConfirmationRule]"
+           :label="this.$t('settings.account_settings_tab.password.repeat_password_input.label')"
+           :disabled="!passwordChange"></v-text-field>
 
-         <v-text-field type="password" id="repeat-password"  :label="this.$t('settings.account_settings_tab.password.repeat_password_input.label')" :disabled="!passwordChange"></v-text-field>
-         <v-btn :disabled="!passwordChange">
+         <v-btn @click="changePassword()" :disabled="!passwordChange || !passwordChangeValid">
            {{$t("settings.account_settings_tab.password.buttons.save")}}
          </v-btn>
          <v-btn @click="passwordChange = false" :disabled="!passwordChange">
@@ -102,27 +120,96 @@
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
+  import {mapGetters, mapMutations} from "vuex";
 
     export default {
-        name: "account-settings",
+      name: "account-settings",
+
       data(){
           return{
              informationEdit:false,
              passwordChange:false,
-            securityDialog:false,
+             securityDialog:false,
+             currentPassword: '',
+             repeatedPassword:'',
+             newPassword: '',
+             passwordChangeValid:false,
+             authValid:false,
+             passwordRules:[
+               v => {
+                    return !!v || this.$t('settings.account_settings_tab.password.input_empty')
+               },
+             ],
+             RepeatPasswordRules:[
+              v => {
+                return !!v || this.$t('settings.account_settings_tab.password.input_empty')
+              },
+            ],
+             NewPasswordRules:[
+              v => {
+                return !!v || this.$t('settings.account_settings_tab.password.input_empty')
+              },
+            ],
+
           }
       },
       methods:{
         authoriseAction(){
-          this.securityDialog = false;
-          this.passwordChange = true;
-        }
+          let data = {
+            password: this.currentPassword
+          }
+          self = this
+          this.$axios.post('/user/comparepassword',data).then(res => {
+            this.securityDialog = false;
+            this.passwordChange = true;
+            this.currentPassword = ''
+
+          }).catch(err => {
+            self.setSnack(this.$t('settings.account_settings_tab.password.security_dialog.password_input.password_incorrect'))
+            self.setSnackColor('error')
+            this.currentPassword = ''
+
+          })
+
+        },
+        changePassword(){
+          let data = {
+            first_name: this.loggedInUser.firstname,
+            last_name: this.loggedInUser.lastname,
+            gender: this.loggedInUser.gender,
+            birthday: this.loggedInUser.birthday,
+            email: this.loggedInUser.email,
+            password: this.newPassword,
+
+          }
+          self = this
+          this.$axios.patch('/user/update',data).then(res => {
+            this.passwordChange = false;
+            this.newPassword = ''
+            this.repeatedPassword = ''
+
+
+          }).catch(err => {
+            self.setSnack(this.$t('snackbar.error_messages.password_change_failed'))
+            self.setSnackColor('error')
+            this.currentPassword = ''
+
+          })
+        },
+        ...mapMutations({
+          setSnack: 'snackbar/setSnack',
+          setSnackTop: 'snackbar/setSnackTop',
+          setSnackColor: 'snackbar/setSnackColor'
+        }),
       },
       computed:{
         ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
+        passwordConfirmationRule() {
+          return () => (this.newPassword === this.repeatedPassword) || this.$t('settings.account_settings_tab.password.password_mismatch')
+        },
 
-      }
+      },
+
     }
 </script>
 
