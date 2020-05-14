@@ -3,6 +3,8 @@
 
 Reidun webapp/frontend made in vue + nuxt and vuetify
 
+Translated by contributors on crowdin
+
 ## Build Setup
 
 ``` bash
