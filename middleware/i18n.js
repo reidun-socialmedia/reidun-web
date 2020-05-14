@@ -8,7 +8,6 @@ export default function ({ isHMR, app, store, route, params, error, redirect }) 
       localStorage.userSpecLang = ''
     }
     if(localStorage.userSpecLang !== ''){
-      console.log(localStorage.userSpecLang)
       store.commit('SET_LANG',  localStorage.userSpecLang)
       app.i18n.locale = localStorage.userSpecLang
     }else if(localStorage.userSpecLang === ''){
