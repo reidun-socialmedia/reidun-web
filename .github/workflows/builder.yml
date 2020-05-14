@@ -1,0 +1,17 @@
+name: reidun-webapp-build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Installing/Updating packages
+      run: npm i
+    - name: Building webapp
+      run: |
+        npm run build
+    - name: Moving dist
+      run: mv  -v ~/dist/* ~/opt/reidun-web/
