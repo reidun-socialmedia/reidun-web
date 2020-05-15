@@ -1,5 +1,6 @@
 # reidun-web
 [![Crowdin](https://badges.crowdin.net/reidun/localized.svg)](https://crowdin.com/project/reidun)
+![reidun-webapp-build](https://github.com/reidun-socialmedia/reidun-web/workflows/reidun-webapp-build/badge.svg)
 
 Reidun webapp/frontend made in vue + nuxt and vuetify
 
