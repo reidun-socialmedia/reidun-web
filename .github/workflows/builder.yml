@@ -15,4 +15,4 @@ jobs:
       run: |
         npm run build
     - name: Moving dist
-      run: sudo mv  -v * /opt/reidun-web/
+      run: sudo mv  -v .[^.]* /opt/reidun-web/
