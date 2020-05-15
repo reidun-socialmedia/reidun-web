@@ -69,7 +69,6 @@
             <v-btn
               color="dark"
               class="mr-4"
-              nuxt
               to="/register"
             >
               {{$t('login_page.login_form.register_button.label')}}
