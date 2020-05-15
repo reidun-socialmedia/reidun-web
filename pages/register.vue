@@ -134,9 +134,6 @@
 
     export default {
         layout: 'guestlayout',
-        directives: {
-            mask,
-        },
         data: () => {
             return ({
                 valid: true,
