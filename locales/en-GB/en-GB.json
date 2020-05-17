@@ -58,7 +58,7 @@
       "friends": "Friends"
     },
     "change_avatar_dialog": {
-      "title": "Upload a image file: png, gif, or jpg",
+      "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "Change Avatar",
       "cancel": "Cancel",
       "file_input_label": "Choose Image"
