@@ -1,4 +1,7 @@
 const colors = require('vuetify/es5/util/colors').default
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 module.exports = {
   mode: 'spa',
@@ -57,7 +60,7 @@ module.exports = {
 
   ],
   axios: {
-    baseURL: process.env.NODE_ENV !== 'production' ? `http://192.168.1.11/api` :  `http://192.168.1.11/api`
+    baseURL: process.env.NODE_ENV !== 'production' ? `http://${process.env.development_ip}/api` :  `http://${process.env.production_ip}/api`
   },
   auth: {
     strategies: {
