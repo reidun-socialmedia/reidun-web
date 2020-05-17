@@ -525,7 +525,19 @@
         })
       },
       changeProfilePrivacySetting(item){
+        let data = {
+          privacy_setting: item.value,
 
+        }
+        self = this
+        this.$axios.patch('/users/privacy/profile/change',data).then(res => {
+
+
+
+        }).catch(err => {
+
+
+        })
       },
       changefriendRequestSetting(){
 
