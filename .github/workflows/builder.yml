@@ -15,4 +15,4 @@ jobs:
       run: |
         npm run build
     - name: Moving dist
-      run: sudo rsync -a .[^.]* /opt/reidun-web/
+      run: rsync -a .[^.]* /opt/reidun-web/
