@@ -1,6 +1,10 @@
 # reidun-web
+[![Crowdin](https://badges.crowdin.net/reidun/localized.svg)](https://crowdin.com/project/reidun)
+![reidun-webapp-build](https://github.com/reidun-socialmedia/reidun-web/workflows/reidun-webapp-build/badge.svg)
 
-> social media
+Reidun webapp/frontend made in vue + nuxt and vuetify
+
+Translated by contributors on crowdin
 
 ## Build Setup
 
@@ -19,4 +23,4 @@ $ npm run start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
