@@ -60,7 +60,7 @@ module.exports = {
 
   ],
   axios: {
-    baseURL: process.env.NODE_ENV !== 'production' ? `http://${process.env.development_ip}/api` :  `http://${process.env.production_ip}/api`
+    baseURL: process.env.NODE_ENV !== 'production' ? `http://${process.env.development_ip}/api` :  `https://${process.env.production_ip}/api`
   },
   auth: {
     strategies: {
