@@ -365,6 +365,10 @@
             value: "zh"
           },
           {
+            text:this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.japanese'),
+            value: 'ja'
+          },
+          {
             text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.dutch'),
             value: "nl"
           },
@@ -539,7 +543,19 @@
 
         })
       },
-      changefriendRequestSetting(){
+      changefriendRequestSetting(item){
+        let data = {
+          friend_request_privacy: item.value,
+
+        }
+        self = this
+        this.$axios.patch('/users/privacy/request/change',data).then(res => {
+
+
+        }).catch(err => {
+
+
+        })
 
       },
       ...mapMutations({
