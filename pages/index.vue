@@ -433,7 +433,7 @@
                 })
             },
             getFormattedDate(date) {
-                return moment(date).locale(this.userLocale).format('DD-MM-YYYY HH:mm') + " : " + moment(date).locale(this.userLocale).fromNow()
+                return moment(date).locale(this.userLocale).fromNow()
 
             },
             go: function (action) {
