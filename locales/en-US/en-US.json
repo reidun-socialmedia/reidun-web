@@ -329,6 +329,7 @@
       "birthday": {
         "label": "Birthday",
         "input_empty": "Birthday is required",
+        "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
           "cancel": "Cancel",
           "ok": "OK"

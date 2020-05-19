@@ -413,7 +413,7 @@
                     this.finishedLoading = true
 
                 }).catch(error => {
-
+                    this.posts = []
                 })
             },
             async deletePost(postId) {
@@ -549,7 +549,7 @@
         mounted() {
             this.getPosts();
             this.$ws.$on('NEW_POST', (e) => this.getPosts())
-            this.$ws.$on('POST_DELETED', (e) => this.getPosts())
+            this.$ws.$on('POST_DELETE', (e) => this.getPosts())
             this.$ws.$on('POST_LIKED', (e) => this.getPosts())
             this.$ws.$on('POST_UNLIKED', (e) => this.getPosts())
             this.$ws.$on('POST_DISLIKED', (e) => this.getPosts())

@@ -32,7 +32,7 @@
       </v-col>
       <v-col>
         <h1>
-          Reidun - register
+          {{$t("register_page.title")}}
         </h1>
         <v-card style="padding: 1rem">
           <v-form
@@ -42,42 +42,43 @@
             <v-text-field
               v-model="firstName"
               :rules="firstnameRules"
-              label="first name"
+              :label="this.$t('register_page.register_form.firstname_text_field.label')"
               required
             />
             <v-text-field
               v-model="lastName"
-              label="last name"
+              :label="this.$t('register_page.register_form.lastname_text_field.label')"
               :rules="lastnameRules"
               required
             />
             <v-text-field
               v-model="email"
               :rules="emailRules"
-              label="E-mail"
+              :label="this.$t('register_page.register_form.email_text_field.label')"
               required
             />
             <v-text-field
               v-model="newPassword"
               :rules="passwordRules"
-              label="Password"
-              :type="'password'"
+              :label="this.$t('register_page.register_form.password_field.label')"
+               type="password"
               required
             />
             <v-text-field
               v-model="repeatPassword"
               :rules="[passwdRepeatRules]"
               label="Repeat password"
-              :type="'password'"
+              :label="this.$t('register_page.register_form.repeat_password_field.label')"
+              type="password"
               required
             />
             <v-select
               :items="genders"
-              item-value="genders.value"
+              item-value="value"
               item-text="text"
               @change="setChoice"
-              :rules="[v => !!v || 'Item is required']"
-              label="Gender"
+              :rules="[v => { !!v || this.$t('register_page.register_form.gender_selection.input_empty') }]"
+              :label="this.$t('register_page.register_form.gender_selection.label')"
               requried
             />
             <v-menu
@@ -92,17 +93,17 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   v-model="birthday"
-                  label="birthdate"
+                  :label="$t('register_page.register_form.birthday.label')"
                   :rules="birthDayRules"
                   prepend-icon="event"
                   readonly
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="birthday" no-title scrollable>
+              <v-date-picker :locale="userLocale"  :first-day-of-week="firstDayOfWeek" v-model="birthday" no-title scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(birthday)">OK</v-btn>
+                <v-btn text color="primary" @click="menu = false">{{this.$t('register_page.register_form.birthday.dialog_buttons.cancel')}}</v-btn>
+                <v-btn text color="primary" @click="$refs.menu.save(birthday)">{{this.$t('register_page.register_form.birthday.dialog_buttons.ok')}}</v-btn>
               </v-date-picker>
             </v-menu>
             <v-btn
@@ -129,73 +130,97 @@
 </template>
 
 <script>
-    import {mapMutations} from "vuex";
+  import {mapGetters, mapMutations} from "vuex";
     import moment from 'moment'
 
     export default {
         layout: 'guestlayout',
-        data: () => {
-            return ({
+        data () {
+            return {
                 valid: true,
                 firstName: '',
                 lastName: '',
                 email: '',
+                firstDayOfWeek:'',
                 gender: '',
                 newPassword: '',
                 repeatPassword: '',
                 birthday: '',
                 error: null,
                 slides: [
-                    { title:'Reidun', description: 'Free open source social media'},
-                    { title:'Reidun on mobile', description: 'On the go? \n don\'t worry, download native version'},
-                ],
+                {
+                  title: this.$t('register_page.slide_show.page_1.title'),
+                  description: this.$t('register_page.slide_show.page_1.text')
+                },
+                {
+                  title: this.$t('register_page.slide_show.page_2.title'),
+                  description: this.$t('register_page.slide_show.page_2.text')
+                },
+              ],
                 passwordRules: [
-                    v => !!v || 'Password is required'
+                    v => {
+                          return !!v || this.$t('register_page.register_form.password_field.input_empty')
+                    }
                 ],
                 emailRules: [
-                    v => !!v || 'E-mail is required',
-                    v => /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|local)$/.test(v) || 'E-mail must be valid',
+                  v => {
+                    return !!v || this.$t('register_page.register_form.email_text_field.input_empty')
+                  },
+                    v => {
+                          return /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|local|space|dk|de)$/.test(v)
+                          || this.$t('register_page.register_form.email_text_field.email_not_valid')
+                    }
                 ],
                 firstnameRules: [
-                    v => !!v || 'First name is required',
+                  v => {
+                    return !!v || this.$t('register_page.register_form.firstname_text_field.input_empty')
+                  }
 
                 ],
                 lastnameRules: [
-                    v => !!v || 'Last name is required',
+                  v => {
+                    return !!v || this.$t('register_page.register_form.lastname_text_field.input_empty')
+                  }
 
                 ],
                 menu: false,
                 genders: [
                     {
-                        text: 'Male',
+                        text: this.$t('register_page.register_form.gender_selection.genders.male'),
                         value: "male"
                     },
                     {
-                        text: 'Female',
+                        text:  this.$t('register_page.register_form.gender_selection.genders.female'),
                         value: "female"
                     },
                     {
-                        text: 'Other',
+                        text: this.$t('register_page.register_form.gender_selection.genders.other'),
                         value: "other"
                     },
 
                 ],
                 birthDayRules: [
-                    v => !!v || 'Birthday cannot be empty',
+                    v => { !!v ||  this.$t('register_page.register_form.birthday.input_empty') },
                     v => {
                         const checkingDate = moment(v)
                         const maxDate = moment().subtract(16, 'y').endOf('year')
-                        const minDate = moment('01-01-1945')
-                            if(checkingDate.isBetween(minDate, maxDate)){
+                        const minDate = moment().subtract(100,'y').startOf('year')
+                        console.log(checkingDate)
+                        console.log(maxDate)
+                        console.log(minDate)
+                        if(checkingDate.isBetween(minDate, maxDate)){
                                 return true
                             }else{
-                                return 'must be 16 or older'
+                                return this.$t('register_page.register_form.birthday.younger_than_16')
                             }
                     }
                 ]
-            });
+            }
         },
+        mounted() {
+          this.firstDayOfWeek = moment.localeData(this.userLocale).firstDayOfWeek();
 
+        },
         methods: {
             setChoice(choice) {
                 this.gender = choice
@@ -231,7 +256,8 @@
             }),
         },
         computed: {
-            passwdRepeatRules() {
+          ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
+          passwdRepeatRules() {
                 return () => (this.repeatPassword === this.newPassword) || 'Password must match'
             },
         }
