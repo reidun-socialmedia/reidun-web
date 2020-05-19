@@ -205,9 +205,7 @@
                         const checkingDate = moment(v)
                         const maxDate = moment().subtract(16, 'y').endOf('year')
                         const minDate = moment().subtract(100,'y').startOf('year')
-                        console.log(checkingDate)
-                        console.log(maxDate)
-                        console.log(minDate)
+
                         if(checkingDate.isBetween(minDate, maxDate)){
                                 return true
                             }else{
