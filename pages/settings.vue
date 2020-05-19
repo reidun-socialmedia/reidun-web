@@ -539,8 +539,20 @@
 
         })
       },
-      changefriendRequestSetting(){
+      changefriendRequestSetting(item){
+        let data = {
+          privacy_setting: item.value,
 
+        }
+        self = this
+        this.$axios.patch('/users/privacy/request/change',data).then(res => {
+
+
+
+        }).catch(err => {
+
+
+        })
       },
       ...mapMutations({
         setSnack: 'snackbar/setSnack',

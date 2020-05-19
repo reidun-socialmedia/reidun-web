@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>search for users</v-card-title>
+    <v-card-title>{{$t('search_page_mobile.title')}}</v-card-title>
     <v-card-text>
       <v-text-field
         v-model="searchInput"
@@ -10,13 +10,14 @@
         rounded
         no-data
         @keypress="search()"
-        label="Search users"
+        :label="$t('search_page_mobile.search_bar.label')"
       />
      <v-card
       flat
      >
        <v-list
         v-scroll
+        v-if="users.length !== 0"
        >
            <v-list-item
              v-for="(user, i) in users"
@@ -33,12 +34,16 @@
              </v-list-item-content>
            </v-list-item>
       </v-list>
+       <p v-else>
+         {{$t('search_page_mobile.list_empty')}}
+       </p>
      </v-card>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+
   export default {
     name: "search",
     data() {
