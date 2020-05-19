@@ -14,7 +14,7 @@ export const getters = {
 
 export const state = () => ({
   counter: 0,
-  locales: ['sq', 'da', 'zh-cn','de', 'en-uk', 'en-us', 'fr', 'nb' , 'nl', 'nn', 'sr', 'se','es'],
+  locales: ['sq', 'da', 'zh-cn','de', 'en-uk', 'en-us', 'fr', 'nb' , 'nl', 'nn', 'ja', 'sr', 'se','es'],
   locale: 'en-us',
 })
 

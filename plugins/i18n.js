@@ -16,6 +16,7 @@ export default ({app, store}) => {
       'en-uk': require('~/locales/en-GB/en-GB.json'),
       'en-us': require('~/locales/en-US/en-US.json'),
       'fr': require('~/locales/fr/fr-FR.json'),
+      'ja': require('~/locales/ja-JP/ja-JP.json'),
       'nb': require('~/locales/nb/nb-NO.json'),
       'nl': require('~/locales/nl/nl-NL.json'),
       'nn': require('~/locales/nn-NO/nn-NO.json'),

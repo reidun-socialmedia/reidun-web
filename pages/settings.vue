@@ -385,6 +385,10 @@
             value: "de"
           },
           {
+            text:this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.japanese'),
+            value: 'ja'
+          },
+          {
             text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.norwegian-bokmal'),
             value: "nb"
           },
