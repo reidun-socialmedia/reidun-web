@@ -27,6 +27,12 @@
           console.log("%c"+this.$t("default_layout.developer_console_warning.line_1"), "color: red; font-size:40px")
           console.log("%c"+this.$t("default_layout.developer_console_warning.line_2"), "color: red; font-size: 30px")
           console.log("%c"+this.$t("default_layout.developer_console_warning.line_3"), "color: red; font-size: 30px")
+        let defaultTheme = {
+          text: 'System Theme',
+          value: 'systemTheme'
+        }
+          this.theme = defaultTheme
+
         if (!localStorage.theme) {
           let defaultTheme = {
             text: 'System Theme',

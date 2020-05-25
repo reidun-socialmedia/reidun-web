@@ -376,7 +376,7 @@
                         this.isValid = false;
                         self.setSnackColor("success");
                         this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_CREATE', {sender: this.loggedInUser})
-                        self.setSnack("You post has successfully been created");
+                        self.setSnack(this.$t('snackbar.success_messages.post_created'));
                     }).catch((e) => {
                         self.setSnackColor("error");
                         self.setSnack(e.response.data.message);
