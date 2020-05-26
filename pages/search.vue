@@ -7,9 +7,8 @@
         filled
         solo
         dense
-        rounded
         no-data
-        @keypress="search()"
+        @change="search"
         :label="$t('search_page_mobile.search_bar.label')"
       />
      <v-card
@@ -53,14 +52,20 @@
         users:[]
       }
     },
+    watch: {
+      searchInput: function(val, oldVal) {
+        this.search(val)
+      }
+    },
     methods: {
-      async search() {
+      async search(input) {
         let token = this.$auth.getToken('local')
-        this.$axios.get('/users/search',{ headers: { Authorization: `${token}` }, params: { q: this.searchInput}}).then( res => {
+        this.$axios.get('/users/search',{ params: { q: input}}).then( res => {
           this.users = res.data.data
 
         }).catch( error => {
             this.error = error.message
+            this.users = []
         })
 
       },
