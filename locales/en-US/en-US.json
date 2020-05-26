@@ -6,7 +6,8 @@
       }
     },
     "search_bar": {
-      "label": "Search users"
+      "label": "Search users",
+       "no_results":"No results"
     },
     "profile_drop_menu": {
       "account": {
