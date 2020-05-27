@@ -4,10 +4,52 @@
     :style="{background: $vuetify.theme.themes[getTheme].background}"
   >
     <v-navigation-drawer
+      id="mobile-navigation-drawer"
+      v-model="mobileDrawer"
+      app
+      v-if="this.$vuetify.breakpoint.smAndDown"
+      :style="{background: $vuetify.theme.themes[getTheme].drawerBackground}"
+    >
+      <v-list>
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title style="margin-left: 1rem; margin-bottom: 0;">{{loggedInUser.firstname + " " +
+              loggedInUser.lastname}}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{this.loggedInUser.email}}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider vertical>
+
+        </v-divider>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"/>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-navigation-drawer
       v-model="drawer"
       id="navigation-drawer"
       clipped
       app
+      v-if="this.$vuetify.breakpoint.mdAndUp"
       :style="{background: $vuetify.theme.themes[getTheme].drawerBackground}"
       :expand-on-hover="expandOnHover"
       mini-variant
@@ -41,6 +83,9 @@
           keyboard_arrow_left
         </v-icon>
       </v-btn>
+      <v-avatar v-if="this.$vuetify.breakpoint.smAndDown" @click="mobileDrawer = true">
+        <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
+      </v-avatar>
       <v-toolbar-title
         @click="go('/')"
         style="cursor: pointer"
@@ -63,13 +108,13 @@
             style="margin-top: 1.5rem"
           />
         </template>
-        <v-list  v-if="users.length !== 0" :loading="isLoading">
+        <v-list v-if="users.length !== 0" :loading="isLoading">
           <v-list-item
 
-              v-for="(item, index) in users.slice(0, 5)"
-              :key="index"
-              @click="go('/user?id='+item.id)"
-            >
+            v-for="(item, index) in users.slice(0, 5)"
+            :key="index"
+            @click="go('/user?id='+item.id)"
+          >
             <v-list-item-title>{{ item.firstname + " " + item.lastname }}</v-list-item-title>
             <v-list-item-avatar>
               <v-img :src="'/media/avatar/'+item.avatar.path"></v-img>
@@ -109,7 +154,8 @@
             v-for="(item, index) in friendRequests"
             :key="index"
           >
-            <v-list-item-title>{{ formatString($t('default_layout.friend_requests.friend_request_title'),
+            <v-list-item-title>
+              {{ formatString($t('default_layout.friend_requests.friend_request_title'),
               [item.sender.firstname])}}
             </v-list-item-title>
             <v-list-item-action>
@@ -178,7 +224,10 @@
         vertical
         dark
       />
-      <v-menu offset-y bottom>
+      <v-menu
+        v-if="$vuetify.breakpoint.mdAndUp"
+        offset-y bottom>
+
         <template v-slot:activator="{ on }">
 
           <v-btn
@@ -225,6 +274,8 @@
     <v-bottom-navigation
       v-model="bottomNav"
       class="d-lg-none"
+      :style="{background: $vuetify.theme.themes[getTheme].buttomNavbackground}"
+
       fixed
     >
       <v-btn @click="go('/')" value="Home">
@@ -277,10 +328,23 @@
         model: null,
         search: null,
         users: [],
-        items: [
+        mobileDrawer: false,
+        items:[
           {
-            icon: 'home',
-            title: this.$t("default_layout.navigation_drawer.Home.title"),
+          icon: 'home',
+          title: this.$t("default_layout.navigation_drawer.home.title"),
+            to: '/'
+        }
+        ],
+        mobileDrawerItems: [
+          {
+            icon: 'mdi-account-box',
+            title: this.$t("default_layout.profile_drop_menu.account.title"),
+            to: '/'
+          },
+          {
+            icon: 'mdi-settings',
+            title: this.$t("default_layout.profile_drop_menu.settings.title"),
             to: '/'
           },
         ],

@@ -8,7 +8,6 @@ module.exports = {
   /*
   ** Headers of the page
   */
-  loading: '~/components/loading-page.vue',
 
   head: {
     titleTemplate: '%s - Reidun' ,
@@ -82,10 +81,12 @@ module.exports = {
     theme: {
       dark: false,
       themes: {
+
         dark: {
           background: '#212121',
           appBarBackground: '#e3314c',
           drawerBackground: '#2c2c2c',
+          buttomNavbackground:'#2c2c2c',
           primary: '#e91e63',
           secondary: '#6d6d6d',
           accent: '#009688',
@@ -98,6 +99,7 @@ module.exports = {
           background: '#eaeaea',
           appBarBackground: '#e3314c',
           drawerBackground: '#dbdbdb',
+          buttomNavbackground:'#dbdbdb',
           primary: '#e91e63',
           secondary: '#6d6d6d',
           accent: '#009688',

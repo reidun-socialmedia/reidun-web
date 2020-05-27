@@ -277,7 +277,7 @@
     import {TwemojiPicker} from '@kevinfaguiar/vue-twemoji-picker';
     import EmojiAllData from '@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json';
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
-    import {compile} from "../.nuxt/utils";
+    import tz from 'moment-timezone'
 
     export default {
         components: {
@@ -433,7 +433,8 @@
                 })
             },
             getFormattedDate(date) {
-              return moment(date).locale(this.userLocale).format('DD-MM-YYYY HH:mm') + " : " + moment(date).locale(this.userLocale).fromNow()
+              const postDate = moment(date)
+              return postDate.tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('DD-MM-YYYY HH:mm')
 
             },
             go: function (action) {

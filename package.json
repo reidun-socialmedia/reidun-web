@@ -19,6 +19,7 @@
     "adonis-vue-websocket": "^2.0.2",
     "dotenv": "^8.2.0",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.31",
     "nuxt": "^2.0.0",
     "sprintf-js": "^1.1.2",
     "twemoji": "^12.1.5",
