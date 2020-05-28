@@ -32,6 +32,9 @@
         </span>
             <v-spacer>
             </v-spacer>
+
+
+            <!-- delete and edit post -->
             <v-menu offset-y bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon>
@@ -39,13 +42,13 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item v-if="post.poster.id === loggedInUser.id">
+                <v-list-item v-if="post.poster.id === loggedInUser.id" @click="deletePost(post.id)">
                   <v-list-item-title>
                     <v-icon>mdi-delete</v-icon>
                     {{$t('post_page.post_card.post_menu.delete_post')}}
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item v-if="post.poster.id === loggedInUser.id">
+                <v-list-item v-if="post.poster.id === loggedInUser.id" @click="editFieldState = true">
                   <v-list-item-title>
                     <v-icon>edit</v-icon>
                     {{$t('post_page.post_card.post_menu.edit_post')}}
@@ -56,10 +59,34 @@
                 </v-list-item>
               </v-list>
             </v-menu>
+
           </v-card-title>
 
           <v-card-text>
-            <p v-html="parseEmoji(this.post.text)"></p>
+            <div v-if="!editFieldState">
+              <p v-html="parseEmoji(this.post.text)"></p>
+
+            </div>
+            <div v-else>
+            <v-textarea
+
+              v-model="editFieldInput"
+
+              counter
+              maxlength="600"
+              outlined
+              single-line
+              auto-grow
+              no-resize
+              :rules="postRules"
+
+            >
+
+            </v-textarea>
+            <v-btn @click="saveEditedPost(post.id)">{{$t('post_page.post_card.save_button')}}</v-btn>
+              <v-btn @click="cancelEdit()">{{$t('post_page.post_card.cancel_button')}}</v-btn>
+
+            </div>
             <v-row v-if="post.post_files.length !== 0">
               <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
                      :key="index"
@@ -207,6 +234,8 @@
         data() {
             return {
                 post: {},
+                editFieldInput:'',
+                editFieldState: false,
                 overlayImg: '',
                 dialog: false,
                 isValid: false,
@@ -222,7 +251,7 @@
             this.$ws.$on('POST_UNLIKED', (e) => this.getPost(this.$route.query.id))
             this.$ws.$on('POST_DISLIKED', (e) => this.getPost(this.$route.query.id))
             this.$ws.$on('POST_UNDISLIKED', (e) => this.getPost(this.$route.query.id))
-            this.$ws.$on('POST_EDIT', (e) => this.getPost(this.$route.query.id))
+            this.$ws.$on('POST_EDITED', (e) => this.getPost(this.$route.query.id))
             this.$ws.$on('COMMENT_CREATED', (e) => this.getComments(this.$route.query.id))
             this.$ws.$on('COMMENT_DELETED', (e) => this.getComments(this.$route.query.id))
             this.$ws.$on('COMMENT_EDIT', (e) => this.getComments(this.$route.query.id))
@@ -234,6 +263,47 @@
             this.getPost(this.$route.query.id)
         },
         methods: {
+            cancelEdit(){
+                this.editFieldInput = this.post.text;
+                this.editFieldState = false;
+            },
+            async saveEditedPost(postId){
+                let data = {
+                    postId: postId,
+                    userId: this.loggedInUser.id,
+                    newText: this.editFieldInput
+                }
+
+                await this.$axios.patch('/post/update',data).then(res => {
+                    this.editFieldState = false;
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_EDIT', {sender: this.loggedInUser})
+
+                }).catch(error => {
+                    self = this
+                    self.setSnackColor("error");
+                    self.setSnack("Your post could not be edited!");
+
+                })
+            },
+            async deletePost(postId) {
+                self = this
+                await this.$axios.delete('/post/delete', {
+                    data: {
+                        postId: postId
+                    }
+                }).then(res => {
+                    self.setSnackColor("success");
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_DELETE', {sender: this.loggedInUser})
+                    self.setSnack("Your post has successfully been deleted");
+                    this.$router.push({
+                        path: '/'
+                    })
+                }).catch(error => {
+                    console.log(error)
+                    self.setSnackColor("error");
+                    self.setSnack("Your post could not be deleted!");
+                })
+            },
             selectEmoji(emoji) {
                 this.commentContent += emoji
             },
@@ -244,6 +314,7 @@
             async getPost(postId) {
                 await this.$axios.get('/post/get?id=' + postId).then(res => {
                     this.post = res.data.data
+                    this.editFieldInput = this.post.text
                     this.getComments(postId)
                 }).catch(error => {
 
@@ -286,21 +357,22 @@
                     self.setSnack(err.response.data.message);
                 })
             },
-            async likePost(postId,senderId) {
+            async likePost(postId,userId) {
                 self = this
                 const data = {
                     postId: postId,
-                    userId: this.loggedInUser.id,
-                    senderId: senderId
+                    userId: userId,
+                    senderId: this.loggedInUser.id
                 }
                 await this.$axios.post('/post/like', data).then(res => {
                     self.setSnackColor("success");
-                    this.$ws.$emitToServer("event:default", 'ACCEPTED_INCOMING_REQUEST', {sender: this.loggedInUser.id, targetUserId: senderId})
+                    this.$ws.$emitToServer("event:default", 'POST_LIKED', {sender: this.loggedInUser.id, targetUserId: userId})
                     self.setSnack("liked post");
 
                 }).catch(error => {
                     self.setSnackColor("error");
                     self.setSnack("could not like post");
+
                 })
             },
             async unlikePost(postId) {
@@ -321,12 +393,12 @@
 
                 })
             },
-            async dislikePost(postId,senderId) {
+            async dislikePost(postId,userId) {
                 self = this
                 const data = {
                     postId: postId,
-                    userId: this.loggedInUser.id,
-                    senderId: senderId
+                    userId: userId ,
+                    senderId: this.loggedInUser.id
                 }
                 await this.$axios.post('/post/dislike', data).then(res => {
                     self.setSnackColor("success");
