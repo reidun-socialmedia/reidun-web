@@ -116,6 +116,7 @@ module.exports = {
     },
     icons: {
       iconfont: 'mdi',
+
     }
   },
 
