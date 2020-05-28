@@ -13,11 +13,11 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
+            <v-img  :src="'/media/avatar/'+loggedInUser.avatar.path"/>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title style="margin-left: 1rem; margin-bottom: 0;">{{loggedInUser.firstname + " " +
-              loggedInUser.lastname}}
+            <v-list-item-title>
+              {{loggedInUser.firstname + " " + loggedInUser.lastname}}
             </v-list-item-title>
             <v-list-item-subtitle>
               {{this.loggedInUser.email}}
@@ -27,8 +27,9 @@
         <v-divider vertical>
 
         </v-divider>
+
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in mobileDrawerItems"
           :key="i"
           :to="item.to"
           router
@@ -42,6 +43,14 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <v-footer
+        absolute
+      >
+        <v-spacer></v-spacer>
+        <v-btn @click="logout" v-on="on" icon>
+              <v-icon>exit_to_app</v-icon>
+        </v-btn>
+      </v-footer>
     </v-navigation-drawer>
 
     <v-navigation-drawer
@@ -77,17 +86,18 @@
 
       clipped-left
     >
-      <v-btn icon v-if="this.$vuetify.breakpoint.smAndDown" @click="$router.back()"
+      <!--<v-btn icon v-if="this.$vuetify.breakpoint.smAndDown" @click="$router.back()"
              :disabled="this.$route.path === '/' || this.$route.path === '/home'">
         <v-icon>
           keyboard_arrow_left
         </v-icon>
-      </v-btn>
+      </v-btn>-->
       <v-avatar v-if="this.$vuetify.breakpoint.smAndDown" @click="mobileDrawer = true">
         <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
       </v-avatar>
       <v-toolbar-title
         @click="go('/')"
+        v-if="$vuetify.breakpoint.mdAndUp"
         style="cursor: pointer"
         onmouseover="this.style.color = 'red'"
         onmouseleave="this.style.color = ''"
@@ -95,7 +105,9 @@
       />
       <v-spacer/>
       <v-spacer/>
+
       <v-spacer/>
+
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-text-field
@@ -126,6 +138,14 @@
         </v-card>
       </v-menu>
       <v-spacer/>
+      <v-toolbar-title
+        @click="go('/')"
+        v-if="$vuetify.breakpoint.smAndDown"
+        style="cursor: pointer"
+        onmouseover="this.style.color = 'red'"
+        onmouseleave="this.style.color = ''"
+        v-text="title"
+      />
       <v-menu offset-y bottom>
         <template v-slot:activator="{ on }">
           <v-btn
@@ -222,6 +242,7 @@
       </v-menu>
       <v-divider
         vertical
+        class="d-none d-lg-block"
         dark
       />
       <v-menu
@@ -258,7 +279,7 @@
           >
             <v-list-item-title>
               <v-icon>exit_to_app</v-icon>
-              Logout
+              {{$t("default_layout.profile_drop_menu.Logout.title")}}
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -273,7 +294,7 @@
     </v-content>
     <v-bottom-navigation
       v-model="bottomNav"
-      class="d-lg-none"
+      v-if="$vuetify.breakpoint.smAndDown"
       :style="{background: $vuetify.theme.themes[getTheme].buttomNavbackground}"
 
       fixed
@@ -332,7 +353,7 @@
         items:[
           {
           icon: 'home',
-          title: this.$t("default_layout.navigation_drawer.home.title"),
+          title: this.$t("default_layout.navigation_drawer.Home.title"),
             to: '/'
         }
         ],
@@ -340,12 +361,12 @@
           {
             icon: 'mdi-account-box',
             title: this.$t("default_layout.profile_drop_menu.account.title"),
-            to: '/'
+            to: '/me'
           },
           {
-            icon: 'mdi-settings',
-            title: this.$t("default_layout.profile_drop_menu.settings.title"),
-            to: '/'
+            icon: 'settings',
+            title: this.$t("default_layout.profile_drop_menu.Settings.title"),
+            to: '/settings'
           },
         ],
         notifications: [],
