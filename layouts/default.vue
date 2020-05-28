@@ -415,7 +415,9 @@
       this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getFriendRequest(this.loggedInUser.id))
       this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getFriendRequest(this.loggedInUser.id))
       this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
-      if (!localStorage.theme) {
+        this.$ws.$on('fullNameChanged', (e) => this.changeFullName())
+
+        if (!localStorage.theme) {
         let defaultTheme = {
           text: 'System Theme',
           value: 'systemTheme'
@@ -436,6 +438,13 @@
       this.$ws.$on('theme-changed', (e) => this.changeTheme(e))
     },
     methods: {
+        async changeFullName(){
+            await this.$axios.get('/user').then(res => {
+                this.$store.commit('UpdateUser',res.data.data);
+            }).catch(err => {
+
+            })
+        },
       async logout() {
         await this.$auth.logout();
         this.$ws.disconnect()

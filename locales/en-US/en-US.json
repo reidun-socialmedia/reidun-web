@@ -167,7 +167,8 @@
         "buttons":{
           "authorize": "Authorize",
           "cancel": "Cancel",
-          "save": "Save"
+          "save": "Save",
+          "ok": "Ok"
         }
       }
     },
@@ -233,7 +234,9 @@
         "delete_post": "Delete Post",
         "edit_post": "Edit Post",
         "report": "Report Post"
-      }
+      },
+      "save_button": "Save",
+      "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {

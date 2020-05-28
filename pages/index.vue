@@ -162,30 +162,7 @@
                </span>
               <v-spacer>
               </v-spacer>
-              <v-menu offset-y bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" icon>
-                    <v-icon>more_vert</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item @click="deletePost(post.id)" v-if="post.poster.id === loggedInUser.id">
-                    <v-list-item-title>
-                      <v-icon>mdi-delete</v-icon>
-                     {{$t('home_page.post_card.post_menu.delete_post')}}
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item v-if="post.poster.id === loggedInUser.id">
-                    <v-list-item-title>
-                      <v-icon>edit</v-icon>
-                      {{$t('home_page.post_card.post_menu.edit_post')}}
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item v-if="post.poster.id !== loggedInUser.id">
-                    <v-list-item-title>   {{$t('home_page.post_card.post_menu.report')}} </v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
+
             </v-card-title>
 
             <v-card-text @click="go('/post?id='+post.id)">
@@ -416,22 +393,7 @@
                     this.posts = []
                 })
             },
-            async deletePost(postId) {
-                self = this
-                await this.$axios.delete('/post/delete', {
-                    data: {
-                        postId: postId
-                    }
-                }).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_DELETE', {sender: this.loggedInUser})
-                    self.setSnack("Your post has successfully been deleted");
 
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("Your post could not be deleted!");
-                })
-            },
             getFormattedDate(date) {
               const postDate = moment(date)
               return postDate.tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('DD-MM-YYYY HH:mm')

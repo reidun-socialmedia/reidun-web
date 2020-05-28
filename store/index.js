@@ -25,4 +25,9 @@ export const mutations = {
     }
 
   },
+  UpdateUser (state,user) {
+     state.auth.user = user;
+  }
 }
+
+
