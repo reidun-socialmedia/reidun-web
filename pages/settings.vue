@@ -53,7 +53,7 @@
                   {{$t('settings.account_settings_tab.password.security_dialog.text')}}
                   <v-form v-model="authValid">
                     <v-text-field
-                      :type="'password'"
+                      type="password"
                       v-model="currentPassword"
                       :rules="passwordRules"
                       :label="this.$t('settings.account_settings_tab.password.security_dialog.password_input.label')"
