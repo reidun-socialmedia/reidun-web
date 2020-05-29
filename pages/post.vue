@@ -68,22 +68,22 @@
 
             </div>
             <div v-else>
-            <v-textarea
+              <v-textarea
 
-              v-model="editPostInput"
+                v-model="editPostInput"
 
-              counter
-              maxlength="600"
-              outlined
-              single-line
-              auto-grow
-              no-resize
-              :rules="postRules"
+                counter
+                maxlength="600"
+                outlined
+                single-line
+                auto-grow
+                no-resize
+                :rules="postRules"
 
-            >
+              >
 
-            </v-textarea>
-            <v-btn @click="saveEditedPost(post.id)">{{$t('post_page.post_card.save_button')}}</v-btn>
+              </v-textarea>
+              <v-btn @click="saveEditedPost(post.id)">{{$t('post_page.post_card.save_button')}}</v-btn>
               <v-btn @click="cancelPostEdit()">{{$t('post_page.post_card.cancel_button')}}</v-btn>
 
             </div>
@@ -216,13 +216,13 @@
                     </v-btn>
                   </template>
                   <v-list>
-                    <v-list-item @click="deleteComment(comment.user.id)">
+                    <v-list-item @click="deleteComment(comment.id)">
                       <v-list-item-title>
                         <v-icon>mdi-delete</v-icon>
                         {{$t('post_page.post_card.post_menu.delete_post')}}
                       </v-list-item-title>
                     </v-list-item>
-                    <v-list-item @click="editCommentId = comment.id, editCommentInputField = comment.comment_content">
+                    <v-list-item @click="editChosenCommentId = comment.id, editCommentInputField = comment.comment_content">
                       <v-list-item-title>
                         <v-icon>edit</v-icon>
                         {{$t('post_page.post_card.post_menu.edit_post')}}
@@ -236,7 +236,7 @@
 
               </v-card-title>
 
-              <v-card-text  v-if="editCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
+              <v-card-text v-if="editChosenCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
               <div v-else>
                 <v-textarea
 
@@ -259,7 +259,7 @@
             </v-card>
           </v-list>
           <v-card-text v-else>
-           {{$t('post_page.comments_card.no_comments')}}
+            {{$t('post_page.comments_card.no_comments')}}
           </v-card-text>
         </v-card>
       </v-col>
@@ -275,6 +275,7 @@
     import EmojiAllData from '@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json';
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
     import {mapGetters, mapMutations} from "vuex";
+    import axios from "../.nuxt/axios";
 
     export default {
         name: "post",
@@ -284,7 +285,7 @@
         data() {
             return {
                 post: {},
-                editCommentId:'0',
+                editChosenCommentId:'0',
                 editCommentInputField:'',
                 editPostInput:'',
                 editPostState: false,
@@ -319,13 +320,43 @@
         },
         methods: {
             deleteComment(commentId){
+                let data = {
+                    commentId:commentId,
+                    userId: this.loggedInUser.id
+                }
 
+
+                axios.delete('/post/comment/delete',data).then(res => {
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_DELETE', {sender: this.loggedInUser})
+                    self.setSnackColor("success");
+                    self.setSnack("Your post has successfully been deleted");
+                }).catch(error => {
+                    self = this
+                    self.setSnackColor("error");
+                    self.setSnack("Your comment could not be deleted!");
+                })
             },
             cancelCommentEdit(){
+                this.editChosenCommentId = 'NoId';
 
             },
             saveEditedComment(commentId){
+                let data = {
+                    commentId: commentId,
+                    userId: this.loggedInUser.id,
+                    newText: this.editCommentInputField
+                }
 
+                this.editChosenCommentId = 'NoId';
+
+                axios.patch('/post/comment/update',data).then(res => {
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_EDIT', {sender: this.loggedInUser})
+
+                }).catch(error => {
+                    self = this
+                    self.setSnackColor("error");
+                    self.setSnack("Your comment could not be edited!");
+                })
             },
             cancelPostEdit(){
                 this.editPostInput = this.post.text;
