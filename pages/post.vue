@@ -48,7 +48,7 @@
                     {{$t('post_page.post_card.post_menu.delete_post')}}
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item v-if="post.poster.id === loggedInUser.id" @click="editFieldState = true">
+                <v-list-item v-if="post.poster.id === loggedInUser.id" @click="editPostState = true">
                   <v-list-item-title>
                     <v-icon>edit</v-icon>
                     {{$t('post_page.post_card.post_menu.edit_post')}}
@@ -62,15 +62,15 @@
 
           </v-card-title>
 
-          <v-card-text>
-            <div v-if="!editFieldState">
+          <v-card-text >
+            <div v-if="!editPostState">
               <p v-html="parseEmoji(this.post.text)"></p>
 
             </div>
             <div v-else>
             <v-textarea
 
-              v-model="editFieldInput"
+              v-model="editPostInput"
 
               counter
               maxlength="600"
@@ -84,7 +84,7 @@
 
             </v-textarea>
             <v-btn @click="saveEditedPost(post.id)">{{$t('post_page.post_card.save_button')}}</v-btn>
-              <v-btn @click="cancelEdit()">{{$t('post_page.post_card.cancel_button')}}</v-btn>
+              <v-btn @click="cancelPostEdit()">{{$t('post_page.post_card.cancel_button')}}</v-btn>
 
             </div>
             <v-row v-if="post.post_files.length !== 0">
@@ -188,8 +188,11 @@
           <v-list v-if="this.Comments.length !== 0">
             <v-list-item>
               <v-list-item-title>
+
                 {{$t('post_page.comment_creation_card.comment_input.label')}}
+
               </v-list-item-title>
+
             </v-list-item>
             <v-card style="margin-top: 1rem; margin-bottom: 1rem" :key="index"
                     v-for="(comment,index) in this.Comments" >
@@ -202,10 +205,57 @@
                 <span style="font-size: 0.8rem">
                    {{getFormattedDate(comment.dateposted)}}
                </span>
-              </v-card-title>
-              <v-card-text v-html="parseEmoji(comment.comment_content)">
+                <v-spacer></v-spacer>
 
-              </v-card-text>
+                <!-- Delete and Edit Comment -->
+
+                <v-menu offset-y bottom v-if="comment.user.id === loggedInUser.id">
+                  <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" icon>
+                      <v-icon>more_vert</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item @click="deleteComment(comment.user.id)">
+                      <v-list-item-title>
+                        <v-icon>mdi-delete</v-icon>
+                        {{$t('post_page.post_card.post_menu.delete_post')}}
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="editCommentId = comment.id, editCommentInputField = comment.comment_content">
+                      <v-list-item-title>
+                        <v-icon>edit</v-icon>
+                        {{$t('post_page.post_card.post_menu.edit_post')}}
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item v-if="comment.user.id !== loggedInUser.id">
+                      <v-list-item-title>{{$t('post_page.post_card.post_menu.report')}}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+
+              </v-card-title>
+
+              <v-card-text  v-if="editCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
+              <div v-else>
+                <v-textarea
+
+                  v-model="editCommentInputField"
+
+                  counter
+                  maxlength="600"
+                  outlined
+                  single-line
+                  auto-grow
+                  no-resize
+                  :rules="commentRules"
+
+                >
+
+                </v-textarea>
+                <v-btn @click="saveEditedComment(comment.id)">{{$t('post_page.post_card.save_button')}}</v-btn>
+                <v-btn @click="cancelCommentEdit()">{{$t('post_page.post_card.cancel_button')}}</v-btn>
+              </div>
             </v-card>
           </v-list>
           <v-card-text v-else>
@@ -234,8 +284,10 @@
         data() {
             return {
                 post: {},
-                editFieldInput:'',
-                editFieldState: false,
+                editCommentId:'0',
+                editCommentInputField:'',
+                editPostInput:'',
+                editPostState: false,
                 overlayImg: '',
                 dialog: false,
                 isValid: false,
@@ -243,7 +295,10 @@
                 commentRules: [
                     v =>{ return !!v || this.$t("post_page.comment_creation_card.comment_input.input_empty") }
                 ],
-                Comments: [],
+                postRules: [
+                    v => { return !!v || this.$t('home_page.post_creation_card.input_empty') },
+                ],
+                Comments: []
             }
         },
         mounted(){
@@ -263,19 +318,28 @@
             this.getPost(this.$route.query.id)
         },
         methods: {
-            cancelEdit(){
-                this.editFieldInput = this.post.text;
-                this.editFieldState = false;
+            deleteComment(commentId){
+
+            },
+            cancelCommentEdit(){
+
+            },
+            saveEditedComment(commentId){
+
+            },
+            cancelPostEdit(){
+                this.editPostInput = this.post.text;
+                this.editPostState = false;
             },
             async saveEditedPost(postId){
                 let data = {
                     postId: postId,
                     userId: this.loggedInUser.id,
-                    newText: this.editFieldInput
+                    newText: this.editPostInput
                 }
 
                 await this.$axios.patch('/post/update',data).then(res => {
-                    this.editFieldState = false;
+                    this.editPostState = false;
                     this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_EDIT', {sender: this.loggedInUser})
 
                 }).catch(error => {
@@ -314,7 +378,7 @@
             async getPost(postId) {
                 await this.$axios.get('/post/get?id=' + postId).then(res => {
                     this.post = res.data.data
-                    this.editFieldInput = this.post.text
+                    this.editPostInput = this.post.text
                     this.getComments(postId)
                 }).catch(error => {
 
@@ -323,6 +387,7 @@
             async getComments(postId) {
                 await this.$axios.get('/post/comments/' + postId).then(res => {
                     this.Comments = res.data.data
+                    console.log(this.Comments)
 
                 }).catch(error => {
                     this.Comments = []
