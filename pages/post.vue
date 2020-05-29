@@ -285,7 +285,7 @@
         data() {
             return {
                 post: {},
-                editChosenCommentId:'0',
+                editChosenCommentId:'',
                 editCommentInputField:'',
                 editPostInput:'',
                 editPostState: false,
