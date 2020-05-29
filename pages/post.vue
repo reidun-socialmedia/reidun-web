@@ -157,12 +157,12 @@
         <v-card>
           <v-card-text>
             <v-form v-model="isValid">
-              <v-text-field
+              <v-textarea
                 :label="this.$t('post_page.comment_creation_card.comment_input.label')"
                 v-model="commentContent"
                 :rules="commentRules"
               >
-              </v-text-field>
+              </v-textarea>
             </v-form>
           </v-card-text>
           <v-card-actions>

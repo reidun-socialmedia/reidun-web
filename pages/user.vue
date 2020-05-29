@@ -33,7 +33,7 @@
         <v-spacer></v-spacer>
         <div class="buttons">
           <v-btn
-            v-if="user.privacy.who_can_add === 'everyone' && relation.status === undefined"
+            v-if="(user.privacy.who_can_add === 'everyone' || user.privacy.who_can_add === 'friends_of_friends')  && relation.status === undefined"
             @click="addFriend(user.id)"
 
           >
@@ -385,6 +385,7 @@
     import {mapGetters, mapMutations} from "vuex";
     import twemoji from 'twemoji'
     import moment from 'moment'
+    import axios from "../.nuxt/axios";
 
     export default {
         name: "user",
@@ -404,6 +405,12 @@
             }
         },
         methods: {
+            checkMutualFriends(){
+
+                axios.post('/friends/relation',{targetUserIds:this.userFriends}).then(res => {
+
+                })
+            },
             async getUser(userId) {
 
                 await this.$axios.get('/user/' + userId).then(res => {
