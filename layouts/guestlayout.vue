@@ -7,8 +7,18 @@
         <v-footer>
           <v-row>
             <v-col>
-              <nuxt-link to="/tos">Terms of Service</nuxt-link>
-              <nuxt-link to="/pp">Privacy Policy</nuxt-link>
+
+              <v-card
+              >
+                <v-card-title>
+                 Policies
+                </v-card-title>
+                <v-card-text>
+                  <nuxt-link to="/tos">Terms of Service</nuxt-link>
+                  <nuxt-link to="/privacy-policy">Privacy Policy</nuxt-link>
+                </v-card-text>
+
+              </v-card>
             </v-col>
             <v-col>
             </v-col>
