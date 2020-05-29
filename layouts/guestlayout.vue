@@ -4,6 +4,31 @@
       <v-container>
         <nuxt/>
         <Snackbar />
+        <v-footer>
+          <v-row>
+            <v-col>
+              <nuxt-link to="/tos">Terms of Service</nuxt-link>
+              <nuxt-link to="/pp">Privacy Policy</nuxt-link>
+            </v-col>
+            <v-col>
+            </v-col>
+            <v-col>
+              <v-card>
+                <v-card-title>
+                  Socials
+                </v-card-title>
+                <v-card-text>
+                  <v-btn href="https://github.com/reidun-socialmedia"  style="width: 2rem; height: 2rem" target="_blank" icon>
+                    <v-img style="width: 2rem; height: 2rem"   src="/Github-Mark-32px.png"></v-img>
+                  </v-btn>
+                  <v-btn href="https://twitter.com/reidun_socialmedia" style="width: 2rem; height: 2rem" target="_blank" icon>
+                    <v-img style="width: 2rem; height: 2rem"  src="/Twitter_Social_Icon_Circle_Color.png"></v-img>
+                  </v-btn>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-footer>
       </v-container>
     </v-content>
   </v-app>
