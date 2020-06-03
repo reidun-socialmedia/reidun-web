@@ -168,7 +168,7 @@
                         <v-avatar>
                           <v-img v-if="post.poster" :src="`/media/avatar/${post.poster.avatar.path}`"/>
                         </v-avatar>
-                        <nuxt-link style="color: white; text-decoration: none; margin-right: 1rem; margin-left: 1rem"
+                        <nuxt-link :style="this.getTheme() === 'dark' ? 'color: #0000' : 'color: fffff' +  'text-decoration: none; margin-right: 1rem; margin-left: 1rem'"
                                    :to="'/user?id='+post.poster.id">{{post.poster.firstname + " " +
                           post.poster.lastname}}
                         </nuxt-link>

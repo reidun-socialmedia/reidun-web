@@ -57,6 +57,7 @@
               :label="this.$t('login_page.login_form.password_field.label')"
               :type="'password'"
               required
+              @keyup.enter="onEnterPress"
             />
             <v-btn
               color="primary"
@@ -123,6 +124,9 @@
         methods: {
             validate() {
                 return !!this.$refs.form.validate();
+            },
+            onEnterPress(){
+              this.login()
             },
             async login() {
                 let self = this;
