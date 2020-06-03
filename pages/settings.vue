@@ -546,6 +546,8 @@
         })
       },
       changefriendRequestSetting(item){
+
+
         let data = {
           privacy_setting: item.value,
 

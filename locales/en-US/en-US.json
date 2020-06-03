@@ -98,7 +98,8 @@
       "add_friend": "Add as friend",
       "accept_request": "Cancel",
       "deny_request": "Deny Request",
-      "cancel_request": "Cancel Request"
+      "cancel_request": "Cancel Request",
+      "unfriend": "Unfriend"
     },
     "Wall": {
       "title": "%s's wall",

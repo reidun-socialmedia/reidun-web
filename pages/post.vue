@@ -162,7 +162,7 @@
                 v-model="commentContent"
                 maxlength="600"
                 outlined
-                
+
                 :rules="commentRules"
               >
               </v-textarea>

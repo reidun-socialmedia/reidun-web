@@ -495,6 +495,7 @@
           self.setSnack("Accepted friend request");
 
         }).catch(error => {
+            console.log(error);
           self.setSnackColor("error");
           self.setSnack("Something went wrong")
         })
@@ -524,9 +525,10 @@
         })
       },
       getFriendRequest: async function () {
+
         await this.$axios.get('/friends/request/all').then(res => {
           this.friendRequests = res.data.data
-
+            console.log(this.friendRequests);
         }).catch(err => {
           this.friendRequests = []
         })
