@@ -98,7 +98,8 @@
       "add_friend": "Add as friend",
       "accept_request": "Cancel",
       "deny_request": "Deny Request",
-      "cancel_request": "Cancel Request"
+      "cancel_request": "Cancel Request",
+      "unfriend": "Unfriend"
     },
     "Wall": {
       "title": "%s's wall",
@@ -119,7 +120,9 @@
     },
     "Friends": {
       "title": "%s's friends",
-      "not_friends_message": "You need to be friends with %s to view their friends"
+      "not_friends_message": "You need to be friends with %s to view their friends",
+      "user_no_friends": "User have no friends"
+
     }
   },
   "search_page_mobile": {

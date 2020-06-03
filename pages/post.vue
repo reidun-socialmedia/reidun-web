@@ -160,6 +160,9 @@
               <v-textarea
                 :label="this.$t('post_page.comment_creation_card.comment_input.label')"
                 v-model="commentContent"
+                maxlength="600"
+                outlined
+
                 :rules="commentRules"
               >
               </v-textarea>
@@ -310,7 +313,7 @@
             this.$ws.$on('POST_EDITED', (e) => this.getPost(this.$route.query.id))
             this.$ws.$on('COMMENT_CREATED', (e) => this.getComments(this.$route.query.id))
             this.$ws.$on('COMMENT_DELETED', (e) => this.getComments(this.$route.query.id))
-            this.$ws.$on('COMMENT_EDIT', (e) => this.getComments(this.$route.query.id))
+            this.$ws.$on('COMMENT_EDITED', (e) => this.getComments(this.$route.query.id))
 
 
 
@@ -326,7 +329,7 @@
                 }
 
 
-                axios.delete('/post/comment/delete',data).then(res => {
+                this.$axios.delete('/post/comments/delete',data).then(res => {
                     this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_DELETE', {sender: this.loggedInUser})
                     self.setSnackColor("success");
                     self.setSnack("Your post has successfully been deleted");
@@ -343,13 +346,13 @@
             saveEditedComment(commentId){
                 let data = {
                     commentId: commentId,
-                    userId: this.loggedInUser.id,
                     newText: this.editCommentInputField
                 }
 
-                this.editChosenCommentId = 'NoId';
 
-                axios.patch('/post/comment/update',data).then(res => {
+                this.$axios.patch('/post/comments/update',data).then(res => {
+                    this.editChosenCommentId = 'NoId';
+
                     this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_EDIT', {sender: this.loggedInUser})
 
                 }).catch(error => {

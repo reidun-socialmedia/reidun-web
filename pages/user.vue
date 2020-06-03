@@ -33,7 +33,12 @@
         <v-spacer></v-spacer>
         <div class="buttons">
           <v-btn
-            v-if="(user.privacy.who_can_add === 'everyone' || user.privacy.who_can_add === 'friends_of_friends')  && relation.status === undefined"
+            v-if="user.privacy.who_can_add === 'friends_of_friends'"
+          >
+            pls add friends of friend function
+          </v-btn>
+          <v-btn
+            v-if="user.privacy.who_can_add === 'everyone'  && relation.status === undefined"
             @click="addFriend(user.id)"
 
           >
@@ -55,6 +60,7 @@
           >
             {{this.$t("user_page.friend_request_buttons.accept_request")}}
           </v-btn>
+
           <v-btn
             v-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
             color="error"
@@ -157,12 +163,13 @@
                       loading
                     ></v-skeleton-loader>
                     <v-card
+                      v-if="user.privacy.profile_privacy === 'everyone' || (user.privacy.profile_privacy === 'friends' && relation.status === 1)"
                       onmouseenter="this.style.background = '#2b2b2a'"
                       onmouseleave="this.style.background = ''"
                       style="margin-top: 1rem; margin-bottom: 1rem"
                       v-bind:key="post.id"
                       :id="posts.id"
-                      v-for="post in Posts"
+                      v-for="post in posts"
                     >
                       <v-card-title>
                         <v-avatar>
@@ -330,9 +337,9 @@
         </v-tab-item>
 
         <v-tab-item value="tab-friends">
-          <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  ||  relation.status === 1">
+          <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  ||  (this.user.privacy.profile_privacy === 'friends' && relation.status === 1)">
             <v-card-title>{{formatString(this.$t("user_page.Friends.title"),[this.user.firstname])}}</v-card-title>
-            <v-list>
+            <v-list v-if="Object.keys(this.userFriends).length > 0">
               <v-list-item
                 v-for="(friend, i) in userFriends"
                 :key="i"
@@ -348,6 +355,11 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
+
+            <v-card-text v-else>
+              {{formatString(this.$t("user_page.Friends.user_no_friends"),[this.user.firstname])}}
+            </v-card-text>
+
           </v-card>
 
           <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone'  ||  relation.status !== 1">
@@ -415,6 +427,7 @@
 
                 await this.$axios.get('/user/' + userId).then(res => {
                     this.user = res.data.data
+                    console.log(this.user)
                 }).catch(error => {
 
                 })
@@ -458,7 +471,9 @@
                         path: '/me'
                     })
                 } else {
+
                     this.getRelationWithLoggedInUser(this.$route.query.id)
+
                 }
             },
             async getRelationWithLoggedInUser(id) {
@@ -469,21 +484,30 @@
                 }
                 await this.$axios.post('/friends/relation', data).then(res => {
                     this.relation = res.data.data
-                    this.getUser(id)
-                    this.getUserAvatars(id)
-                    this.getUserFriends(id)
+                    if (res.status === 204){
+                        this.getUser(this.$route.query.id)
+                        this.getUserAvatars(this.$route.query.id)
+
+                        this.relation = {}
+                    }
+                    else {
+                        this.getUser(id)
+                        this.getUserAvatars(id)
+                        this.getUserPostFiles(id)
+                    }
                     this.getUserPosts(id)
-                    this.getUserPostFiles(id)
+                    this.getUserFriends(id);
+
+
                 }).catch(error => {
-                    this.getUser(this.$route.query.id)
-                    this.getUserAvatars(this.$route.query.id)
-                    this.relation = []
+
                 })
 
             },
             async getUserPosts(userid) {
                 await this.$axios.get('/post/user/' + userid).then(res => {
-                    this.Posts = res.data.data
+                    this.posts = res.data.data
+                    console.log(this.posts)
                     this.finishedLoading = true
                 }).catch(error => {
 
@@ -497,6 +521,7 @@
             },
             async getUserFriends(id) {
                 await this.$axios.get('/friends/all/' + id).then(res => {
+                    console.log()
                     this.userFriends = res.data.data
                 }).catch(error => {
 
@@ -707,8 +732,6 @@
                 this.user = []
                 this.relation = {}
                 this.checkUser(this.$route.query.id)
-
-
             },
         },
         mounted() {
