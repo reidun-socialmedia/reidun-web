@@ -323,13 +323,14 @@
         },
         methods: {
             deleteComment(commentId){
+
+                console.log(commentId)
                 let data = {
-                    commentId:commentId,
-                    userId: this.loggedInUser.id
+                    commentId:commentId
                 }
 
 
-                this.$axios.delete('/post/comments/delete',data).then(res => {
+                this.$axios.delete('/post/comments/delete',{data}).then(res => {
                     this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_DELETE', {sender: this.loggedInUser})
                     self.setSnackColor("success");
                     self.setSnack("Your post has successfully been deleted");
