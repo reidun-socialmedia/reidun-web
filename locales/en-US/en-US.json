@@ -120,7 +120,9 @@
     },
     "Friends": {
       "title": "%s's friends",
-      "not_friends_message": "You need to be friends with %s to view their friends"
+      "not_friends_message": "You need to be friends with %s to view their friends",
+      "user_no_friends": "User have no friends"
+
     }
   },
   "search_page_mobile": {

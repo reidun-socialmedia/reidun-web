@@ -163,12 +163,13 @@
                       loading
                     ></v-skeleton-loader>
                     <v-card
+                      v-if="user.privacy.profile_privacy === 'everyone' || (user.privacy.profile_privacy === 'friends' && relation.status === 1)"
                       onmouseenter="this.style.background = '#2b2b2a'"
                       onmouseleave="this.style.background = ''"
                       style="margin-top: 1rem; margin-bottom: 1rem"
                       v-bind:key="post.id"
                       :id="posts.id"
-                      v-for="post in Posts"
+                      v-for="post in posts"
                     >
                       <v-card-title>
                         <v-avatar>
@@ -336,9 +337,9 @@
         </v-tab-item>
 
         <v-tab-item value="tab-friends">
-          <v-card v-if="Object.keys(this.userFriends).length !== 0">
+          <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  ||  (this.user.privacy.profile_privacy === 'friends' && relation.status === 1)">
             <v-card-title>{{formatString(this.$t("user_page.Friends.title"),[this.user.firstname])}}</v-card-title>
-            <v-list>
+            <v-list v-if="Object.keys(this.userFriends).length > 0">
               <v-list-item
                 v-for="(friend, i) in userFriends"
                 :key="i"
@@ -354,6 +355,11 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
+
+            <v-card-text v-else>
+              {{formatString(this.$t("user_page.Friends.user_no_friends"),[this.user.firstname])}}
+            </v-card-text>
+
           </v-card>
 
           <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone'  ||  relation.status !== 1">
@@ -421,6 +427,7 @@
 
                 await this.$axios.get('/user/' + userId).then(res => {
                     this.user = res.data.data
+                    console.log(this.user)
                 }).catch(error => {
 
                 })
@@ -486,11 +493,10 @@
                     else {
                         this.getUser(id)
                         this.getUserAvatars(id)
-                        this.getUserPosts(id)
                         this.getUserPostFiles(id)
                     }
-
-                    this.getUserFriends(this.$route.query.id);
+                    this.getUserPosts(id)
+                    this.getUserFriends(id);
 
 
                 }).catch(error => {
@@ -500,7 +506,8 @@
             },
             async getUserPosts(userid) {
                 await this.$axios.get('/post/user/' + userid).then(res => {
-                    this.Posts = res.data.data
+                    this.posts = res.data.data
+                    console.log(this.posts)
                     this.finishedLoading = true
                 }).catch(error => {
 
