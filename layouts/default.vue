@@ -417,7 +417,7 @@
       this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
         this.$ws.$on('fullNameChanged', (e) => this.changeFullName())
 
-        if (!localStorage.theme) {
+      if (!localStorage.theme) {
         let defaultTheme = {
           text: 'System Theme',
           value: 'systemTheme'
@@ -425,6 +425,11 @@
         localStorage.theme = JSON.stringify(defaultTheme)
       } else {
         this.theme = JSON.parse(localStorage.theme)
+        if(this.theme.value === "dark"){
+          this.dark = true
+        }else{
+          this.dark = false
+        }
 
       }
       this.theme = JSON.parse(localStorage.theme)

@@ -373,7 +373,7 @@
           },
           {
             text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.chinese'),
-            value: "zh"
+            value: "zh-cn"
           },
           {
             text: this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.dutch'),
