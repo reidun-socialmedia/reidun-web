@@ -24,8 +24,18 @@
   margin-left: 0.5rem;
 }
 
-
-
+.theme--dark.post-title{
+  color: white;
+  text-decoration: none;
+  margin-right: 1rem;
+  margin-left:1rem;
+}
+.theme--light.post-title{
+  color: black;
+  text-decoration: none;
+  margin-right: 1rem;
+  margin-left:1rem;
+}
 .theme--light.v-list{
   background: #f0f0f0 !important;
 }
