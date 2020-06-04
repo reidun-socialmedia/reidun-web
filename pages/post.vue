@@ -23,7 +23,7 @@
             <v-avatar>
               <v-img v-if="this.post.poster" :src="`/media/avatar/${this.post.poster.avatar.path}`"/>
             </v-avatar>
-            <nuxt-link style="color: white; text-decoration: none;  margin-right: 1rem; margin-left: 1rem"
+            <nuxt-link :class="[this.$vuetify.theme.dark ? 'theme--dark post-title' : 'theme--light post-title']"
                        :to="'/user?id='+this.post.poster_id">{{this.post.poster.firstname + " " +
               this.post.poster.lastname}}
             </nuxt-link>
@@ -279,10 +279,12 @@
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
     import {mapGetters, mapMutations} from "vuex";
     import axios from "../.nuxt/axios";
+    import Default from "../layouts/default";
 
     export default {
         name: "post",
         components: {
+            Default,
             'twemoji-picker': TwemojiPicker
         },
         data() {
@@ -314,7 +316,7 @@
             this.$ws.$on('COMMENT_CREATED', (e) => this.getComments(this.$route.query.id))
             this.$ws.$on('COMMENT_DELETED', (e) => this.getComments(this.$route.query.id))
             this.$ws.$on('COMMENT_EDITED', (e) => this.getComments(this.$route.query.id))
-
+            console.log()
 
 
         },
