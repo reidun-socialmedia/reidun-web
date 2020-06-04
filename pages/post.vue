@@ -246,7 +246,7 @@
                   v-model="editCommentInputField"
 
                   counter
-                  maxlength="600"
+                  maxlength="255"
                   outlined
                   single-line
                   auto-grow

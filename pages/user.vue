@@ -175,7 +175,7 @@
                         <v-avatar>
                           <v-img v-if="post.poster" :src="`/media/avatar/${post.poster.avatar.path}`"/>
                         </v-avatar>
-                        <nuxt-link :class="[this.$vuetify.theme.dark ? 'theme--dark post-title' : 'theme--light post-title']"
+                        <nuxt-link :class="[$vuetify.theme.dark ? 'theme--dark post-title' : 'theme--light post-title']"
                                    :to="'/user?id='+post.poster.id">{{post.poster.firstname + " " +
                           post.poster.lastname}}
                         </nuxt-link>
