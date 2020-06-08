@@ -15,10 +15,10 @@
       <v-img id="img" :src="'/media/post/'+overlayImg"/>
 
     </v-dialog>
-    <v-row>
+    <v-row style="max-width: 100%">
       <v-col v-if="!this.$vuetify.breakpoint.mdAndDown"></v-col>
       <v-col>
-        <v-card v-if="this.post.poster !== undefined">
+        <v-card v-if="this.post.poster !== undefined" >
           <v-card-title>
             <v-avatar>
               <v-img v-if="this.post.poster" :src="`/media/avatar/${this.post.poster.avatar.path}`"/>
