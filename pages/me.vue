@@ -1,5 +1,5 @@
 <template>
-  <v-container
+  <div
   >
     <v-dialog
       v-model="dialog"
@@ -61,7 +61,7 @@
               <v-card-title>{{$t("session_user_page.Wall.title")}}</v-card-title>
             </v-card>
             <v-row>
-              <v-col>
+              <v-col v-if="this.$vuetify.breakpoint.mdAndUp">
                 <v-card v-if="userFiles.length === 0">
                   <v-card-title>
                     {{$t("session_user_page.Wall.files_posted")}}
@@ -90,6 +90,34 @@
                 </v-card>
               </v-col>
               <v-col>
+                <div   v-if="this.$vuetify.breakpoint.smAndDown">
+                  <v-card v-if="userFiles.length === 0">
+                    <v-card-title>
+                      {{$t("session_user_page.Wall.files_posted")}}
+                    </v-card-title>
+                    <v-card-text>{{$t("session_user_page.Wall.no-files")}}</v-card-text>
+                  </v-card>
+                  <v-card v-if="userFiles.length !== 0">
+                    <v-card-title>
+                      {{$t("session_user_page.Wall.files_posted")}}
+                    </v-card-title>
+                    <v-row>
+                      <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                             :key="index"
+                             v-for="(f,index) in userFiles">
+                        <v-card
+                          v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
+                          <v-img @click="showOverlay(f.path)" style="width: 6rem; height: 6rem"
+                                 :src="'/media/post/'+f.path"></v-img>
+
+                        </v-card>
+                        <v-card style="width: 20rem; height: auto" v-else-if="f.path.endsWith('.mp4')">
+                          <video style="width: 20rem; height: auto" :src="'/media/post/'+f.path" controls></video>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </div>
                 <v-card>
                   <v-card-title>posts</v-card-title>
                   <v-list style="margin-top: 1rem; overflow-y: scroll">
@@ -326,7 +354,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>

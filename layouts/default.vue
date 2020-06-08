@@ -287,7 +287,7 @@
     </v-app-bar>
 
     <v-content>
-      <v-container>
+      <v-container :class="{'px-0': $vuetify.breakpoint.smAndDown }">
         <nuxt/>
         <snackbar></snackbar>
       </v-container>
