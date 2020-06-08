@@ -6,7 +6,8 @@
       }
     },
     "search_bar": {
-      "label": "Rechercher des utilisateurs"
+      "label": "Rechercher des utilisateurs",
+      "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
@@ -58,7 +59,7 @@
       "friends": "Amis"
     },
     "change_avatar_dialog": {
-      "title": "Charge un fichier image: png, gif, ou jpg",
+      "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "Change ton Avatar",
       "cancel": "Annuler",
       "file_input_label": "Choisis une image"
@@ -97,7 +98,8 @@
       "add_friend": "Ajouter comme ami",
       "accept_request": "Annuler",
       "deny_request": "Ignorer la demande",
-      "cancel_request": "Annuler la demande"
+      "cancel_request": "Annuler la demande",
+      "unfriend": "Unfriend"
     },
     "Wall": {
       "title": "Mur de %s",
@@ -118,7 +120,8 @@
     },
     "Friends": {
       "title": "Amis de %s",
-      "not_friends_message": "Tu as besoin d'être ami avec %s pour voir ses amis"
+      "not_friends_message": "Tu as besoin d'être ami avec %s pour voir ses amis",
+      "user_no_friends": "User have no friends"
     }
   },
   "search_page_mobile": {
@@ -141,21 +144,66 @@
       "account_security_log": "Détails sur la sécurité du compte"
     },
     "account_settings_tab": {
-      "title": "paramètres du compte",
+      "title": "Account settings",
       "information": {
         "title": "Changer les informations"
       },
       "password": {
-        "title": "Change de mot de passe"
+        "title": "Change de mot de passe",
+        "new_password_input": {
+          "label": "New password"
+        },
+        "repeat_password_input": {
+          "label": "Repeat password"
+        },
+        "input_empty": "Password is required",
+        "password_mismatch": "Passwords don't match",
+        "security_dialog": {
+          "title": "Password verification",
+          "text": "Before we can let you change your password, we need you to type your current password in again, for safety measures",
+          "password_input": {
+            "label": "Type password",
+            "password_incorrect": "Password is incorrect"
+          }
+        },
+        "buttons": {
+          "authorize": "Authorize",
+          "cancel": "Cancel",
+          "save": "Save",
+          "ok": "Ok"
+        }
+      }
+    },
+    "privacy_tab": {
+      "title": "Privacy Settings",
+      "profile_privacy": {
+        "title": "Profile viewing setting",
+        "description": "Choose who can see your profile",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Everyone",
+          "friends": "Friends"
+        }
+      },
+      "friend_request_privacy": {
+        "title": "Friend requests",
+        "description": "Choose who can add you as friend",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Everyone",
+          "friends_of_friends": "Friends of friends",
+          "none": "No one"
+        }
       }
     },
     "appearance_settings_tab": {
       "title": "Paramètres d'apparence",
       "theme_setting": {
         "dark_theme_setting": {
-          "title": "Thème sombre",
-          "on": "On",
-          "off": "Off"
+          "dark": "Dark Theme",
+          "light": "Light Theme",
+          "System_theme": "System theme",
+          "title": "Theme"
         },
         "Display_language_setting": {
           "title": "Afficher la langue ",
@@ -167,8 +215,10 @@
             "dutch": "Néerlandais",
             "english-uk": "Anglais (Royaume-Unis)",
             "english-us": "Anglais (Etats-Unis)",
+            "english-au": "English (Australia)",
             "french": "Français",
             "german": "Allemand",
+            "japanese": "japanese",
             "norwegian-bokmal": "Norvégien (Bokmal)",
             "norwegian-nynorsk": "Norvégien (Nynorsk)",
             "serbian": "Serbe",
@@ -185,11 +235,13 @@
         "delete_post": "Supprimer la publication",
         "edit_post": "Modifier la publication",
         "report": "Signaler la publication"
-      }
+      },
+      "save_button": "Save",
+      "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Écrire un commentaire",
+        "label": "Type a comment",
         "input_empty": "Votre commentaire ne peut pas être vide"
       },
       "create_button": {
@@ -197,7 +249,7 @@
       }
     },
     "comments_card": {
-      "no_comments": "Pas de commentaire! Sois le premier à en créer un",
+      "no_comments": "No comments yet! Be the first to create one",
       "title": "Commentaires"
     }
   },
@@ -284,6 +336,7 @@
       "birthday": {
         "label": "Anniversaire",
         "input_empty": "Anniversaire requis",
+        "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
           "cancel": "Annulé",
           "ok": "OK"
@@ -305,23 +358,24 @@
   "snackbar": {
     "error_messages": {
       "credentials_incorrect": "E-mail ou mot de passe erroné ",
-      "registration_fail": "Échec pendant la création du compte",
-      "post_creation_fail": "Échec pendant la création de la publication",
-      "post_deletion_fail": "Échec de la suppression de la publication",
-      "post_like_fail": "Échec de \"Aime\"",
-      "post_unlike_fail": "Échec pour supprimer \"Aime\"",
-      "post_dislike_fail": "Échec de \"Vous n'aimez pas\"",
-      "post_un_dislike_fail": "Échec pour supprimer \"Vous n'aimez pas\"",
+      "registration_fail": "Failed to register account",
+      "post_creation_fail": "Failed to create post",
+      "post_deletion_fail": "Failed to delete post",
+      "post_like_fail": "Failed to like post",
+      "post_unlike_fail": "Failed to remove like from post",
+      "post_dislike_fail": "Failed to dislike post",
+      "post_un_dislike_fail": "Failed to remove dislike for post",
       "post_edit_fail": "Échec de la modification de publication",
-      "comment_creation_fail": "Échec pendant la création du commentaire",
-      "comment_delete_fail": "Échec de la suppression du commentaire",
-      "comment_edit_fail": "Échec de la modification du commentaire"
+      "comment_creation_fail": "Failed to create comment",
+      "comment_delete_fail": "Failed to delete comment",
+      "comment_edit_fail": "Failed to edit comment",
+      "password_change_failed": "Failed to change password"
     },
     "success_messages": {
-      "post_creation_success": "Publication créer",
-      "post_deletion_success": "Publication supprimer",
-      "post_like_success": "Publication aimer",
-      "post_unlike_success": "Vous n'aimez plus",
+      "post_creation_success": "Post created",
+      "post_deletion_success": "Post deleted",
+      "post_like_success": "Liked post",
+      "post_unlike_success": "Removed like for post",
       "post_dislike_success": "N'aime pas la publication",
       "post_un_dislike_success": "\"Vous n'aimez pas\" supprimer",
       "post_edit_success": "Publication modifié",

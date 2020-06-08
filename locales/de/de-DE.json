@@ -6,7 +6,8 @@
       }
     },
     "search_bar": {
-      "label": "Benutzer suchen"
+      "label": "Benutzer suchen",
+      "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
@@ -58,7 +59,7 @@
       "friends": "Freunde"
     },
     "change_avatar_dialog": {
-      "title": "Lade ein Bild hoch: png, gif oder jpg",
+      "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "Avatar ändern",
       "cancel": "Abbrechen",
       "file_input_label": "Wähle ein Bild aus"
@@ -97,7 +98,8 @@
       "add_friend": "Als Freund hinzufügen",
       "accept_request": "Abbrechen",
       "deny_request": "Anfrage ablehnen",
-      "cancel_request": "Anfrage abbrechen"
+      "cancel_request": "Anfrage abbrechen",
+      "unfriend": "Unfriend"
     },
     "Wall": {
       "title": "%s's Beiträge",
@@ -118,7 +120,8 @@
     },
     "Friends": {
       "title": "%s's Freunde",
-      "not_friends_message": "Du musst mit %s befreundet sein, um seine/ihre Freunde zu sehen"
+      "not_friends_message": "Du musst mit %s befreundet sein, um seine/ihre Freunde zu sehen",
+      "user_no_friends": "User have no friends"
     }
   },
   "search_page_mobile": {
@@ -146,16 +149,61 @@
         "title": "Informationen anpassen"
       },
       "password": {
-        "title": "Passwort ändern"
+        "title": "Passwort ändern",
+        "new_password_input": {
+          "label": "Neues Passwort"
+        },
+        "repeat_password_input": {
+          "label": "Passwort wiederholen"
+        },
+        "input_empty": "Passwort wird benötigt",
+        "password_mismatch": "Passwords don't match",
+        "security_dialog": {
+          "title": "Passwortverifizierung",
+          "text": "Aus Sicherheitsgründen benötigen wir für das Ändern des Passworts die erneute Eingabe deines aktuellen Passworts",
+          "password_input": {
+            "label": "Passwort eingeben",
+            "password_incorrect": "Passwort ist falsch"
+          }
+        },
+        "buttons": {
+          "authorize": "Authorisieren",
+          "cancel": "Abbrechen",
+          "save": "Speichern",
+          "ok": "Ok"
+        }
+      }
+    },
+    "privacy_tab": {
+      "title": "Privatsphäre-Einstellungen",
+      "profile_privacy": {
+        "title": "Profile viewing setting",
+        "description": "Choose who can see your profile",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Alle",
+          "friends": "Freunde"
+        }
+      },
+      "friend_request_privacy": {
+        "title": "Freundschaftsanfragen",
+        "description": "Choose who can add you as friend",
+        "label": "Einstellung ändern",
+        "select_items": {
+          "everyone": "Alle",
+          "friends_of_friends": "Freunde von Freunden",
+          "none": "Keiner"
+        }
       }
     },
     "appearance_settings_tab": {
       "title": "Einstellen der Benutzeroberfläche",
       "theme_setting": {
         "dark_theme_setting": {
-          "title": "Dunkler Stil",
-          "on": "An",
-          "off": "Aus"
+          "dark": "Dunkler Stil",
+          "light": "Heller Stil",
+          "System_theme": "Systemstil",
+          "title": "Stil"
         },
         "Display_language_setting": {
           "title": "Anzeigesprache",
@@ -167,8 +215,10 @@
             "dutch": "Niederländisch",
             "english-uk": "Englisch (Vereinigtes Königreich)",
             "english-us": "Englisch (Vereinigte Staaten)",
+            "english-au": "English (Australia)",
             "french": "Französisch",
             "german": "Deutsch",
+            "japanese": "japanese",
             "norwegian-bokmal": "Norwegisch (Bokmal)",
             "norwegian-nynorsk": "Norwegisch (Nynorsk)",
             "serbian": "Serbisch",
@@ -185,7 +235,9 @@
         "delete_post": "Beitrag löschen",
         "edit_post": "Beitrag bearbeiten",
         "report": "Beitrag melden"
-      }
+      },
+      "save_button": "Save",
+      "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {
@@ -284,6 +336,7 @@
       "birthday": {
         "label": "Geburtstag",
         "input_empty": "Eingabe des Geburtstags wird benötigt",
+        "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
           "cancel": "Abbrechen",
           "ok": "OK"
@@ -305,23 +358,24 @@
   "snackbar": {
     "error_messages": {
       "credentials_incorrect": "E-Mail oder Passwort ist falsch",
-      "registration_fail": "Registrierung fehlgeschlagen",
-      "post_creation_fail": "Erstellung des Beitrags fehlgeschlagen",
-      "post_deletion_fail": "Löschen des Beitrags fehlgeschlagen",
-      "post_like_fail": "Positives bewerten des Beitrags fehlgeschlagen",
-      "post_unlike_fail": "Entfernen der positiven Bewertung fehlgeschlagen",
-      "post_dislike_fail": "Entfernen der negativen Bewertung fehlgeschlagen",
-      "post_un_dislike_fail": "Entfernen der negativen Bewertung fehlgeschlagen",
+      "registration_fail": "Failed to register account",
+      "post_creation_fail": "Failed to create post",
+      "post_deletion_fail": "Failed to delete post",
+      "post_like_fail": "Failed to like post",
+      "post_unlike_fail": "Failed to remove like from post",
+      "post_dislike_fail": "Failed to dislike post",
+      "post_un_dislike_fail": "Failed to remove dislike for post",
       "post_edit_fail": "Bearbeiten des Beitrags fehlgeschlagen",
-      "comment_creation_fail": "Erstellen des Kommentars fehlgeschlagen",
-      "comment_delete_fail": "Löschen des Kommentars fehlgeschlagen",
-      "comment_edit_fail": "Bearbeiten des Kommentars fehlgeschlagen"
+      "comment_creation_fail": "Failed to create comment",
+      "comment_delete_fail": "Failed to delete comment",
+      "comment_edit_fail": "Failed to edit comment",
+      "password_change_failed": "Failed to change password"
     },
     "success_messages": {
-      "post_creation_success": "Beitrag wurde erstellt",
+      "post_creation_success": "Beitrag erstellt",
       "post_deletion_success": "Beitrag wurde gelöscht",
-      "post_like_success": "Beitrag positiv bewertet",
-      "post_unlike_success": "Positive Bewertung wurde entfernt",
+      "post_like_success": "Liked post",
+      "post_unlike_success": "Removed like for post",
       "post_dislike_success": "Beitrag negativ bewertet",
       "post_un_dislike_success": "Negative Bewertung wurde entfernt",
       "post_edit_success": "Beitrag wurde bearbeitet",

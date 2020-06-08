@@ -4,10 +4,61 @@
     :style="{background: $vuetify.theme.themes[getTheme].background}"
   >
     <v-navigation-drawer
+      id="mobile-navigation-drawer"
+      v-model="mobileDrawer"
+      app
+      v-if="this.$vuetify.breakpoint.smAndDown"
+      :style="{background: $vuetify.theme.themes[getTheme].drawerBackground}"
+    >
+      <v-list>
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-img  :src="'/media/avatar/'+loggedInUser.avatar.path"/>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{loggedInUser.firstname + " " + loggedInUser.lastname}}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{this.loggedInUser.email}}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider vertical>
+
+        </v-divider>
+
+        <v-list-item
+          v-for="(item, i) in mobileDrawerItems"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title"/>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <v-footer
+        absolute
+      >
+        <v-spacer></v-spacer>
+        <v-btn @click="logout" v-on="on" icon>
+              <v-icon>exit_to_app</v-icon>
+        </v-btn>
+      </v-footer>
+    </v-navigation-drawer>
+
+    <v-navigation-drawer
       v-model="drawer"
       id="navigation-drawer"
       clipped
       app
+      v-if="this.$vuetify.breakpoint.mdAndUp"
       :style="{background: $vuetify.theme.themes[getTheme].drawerBackground}"
       :expand-on-hover="expandOnHover"
       mini-variant
@@ -35,14 +86,18 @@
 
       clipped-left
     >
-      <v-btn icon v-if="this.$vuetify.breakpoint.smAndDown" @click="$router.back()"
+      <!--<v-btn icon v-if="this.$vuetify.breakpoint.smAndDown" @click="$router.back()"
              :disabled="this.$route.path === '/' || this.$route.path === '/home'">
         <v-icon>
           keyboard_arrow_left
         </v-icon>
-      </v-btn>
+      </v-btn>-->
+      <v-avatar v-if="this.$vuetify.breakpoint.smAndDown" @click="mobileDrawer = true">
+        <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
+      </v-avatar>
       <v-toolbar-title
         @click="go('/')"
+        v-if="$vuetify.breakpoint.mdAndUp"
         style="cursor: pointer"
         onmouseover="this.style.color = 'red'"
         onmouseleave="this.style.color = ''"
@@ -50,7 +105,9 @@
       />
       <v-spacer/>
       <v-spacer/>
+
       <v-spacer/>
+
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-text-field
@@ -63,13 +120,13 @@
             style="margin-top: 1.5rem"
           />
         </template>
-        <v-list  v-if="users.length !== 0" :loading="isLoading">
+        <v-list v-if="users.length !== 0" :loading="isLoading">
           <v-list-item
 
-              v-for="(item, index) in users.slice(0, 5)"
-              :key="index"
-              @click="go('/user?id='+item.id)"
-            >
+            v-for="(item, index) in users.slice(0, 5)"
+            :key="index"
+            @click="go('/user?id='+item.id)"
+          >
             <v-list-item-title>{{ item.firstname + " " + item.lastname }}</v-list-item-title>
             <v-list-item-avatar>
               <v-img :src="'/media/avatar/'+item.avatar.path"></v-img>
@@ -81,6 +138,14 @@
         </v-card>
       </v-menu>
       <v-spacer/>
+      <v-toolbar-title
+        @click="go('/')"
+        v-if="$vuetify.breakpoint.smAndDown"
+        style="cursor: pointer"
+        onmouseover="this.style.color = 'red'"
+        onmouseleave="this.style.color = ''"
+        v-text="title"
+      />
       <v-menu offset-y bottom>
         <template v-slot:activator="{ on }">
           <v-btn
@@ -109,7 +174,8 @@
             v-for="(item, index) in friendRequests"
             :key="index"
           >
-            <v-list-item-title>{{ formatString($t('default_layout.friend_requests.friend_request_title'),
+            <v-list-item-title>
+              {{ formatString($t('default_layout.friend_requests.friend_request_title'),
               [item.sender.firstname])}}
             </v-list-item-title>
             <v-list-item-action>
@@ -176,9 +242,13 @@
       </v-menu>
       <v-divider
         vertical
+        class="d-none d-lg-block"
         dark
       />
-      <v-menu offset-y bottom>
+      <v-menu
+        v-if="$vuetify.breakpoint.mdAndUp"
+        offset-y bottom>
+
         <template v-slot:activator="{ on }">
 
           <v-btn
@@ -209,7 +279,7 @@
           >
             <v-list-item-title>
               <v-icon>exit_to_app</v-icon>
-              Logout
+              {{$t("default_layout.profile_drop_menu.Logout.title")}}
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -217,14 +287,16 @@
     </v-app-bar>
 
     <v-content>
-      <v-container>
+      <v-container :class="{'px-0': $vuetify.breakpoint.smAndDown }">
         <nuxt/>
         <snackbar></snackbar>
       </v-container>
     </v-content>
     <v-bottom-navigation
       v-model="bottomNav"
-      class="d-lg-none"
+      v-if="$vuetify.breakpoint.smAndDown"
+      :style="{background: $vuetify.theme.themes[getTheme].buttomNavbackground}"
+
       fixed
     >
       <v-btn @click="go('/')" value="Home">
@@ -277,11 +349,24 @@
         model: null,
         search: null,
         users: [],
-        items: [
+        mobileDrawer: false,
+        items:[
           {
-            icon: 'home',
-            title: this.$t("default_layout.navigation_drawer.Home.title"),
+          icon: 'home',
+          title: this.$t("default_layout.navigation_drawer.Home.title"),
             to: '/'
+        }
+        ],
+        mobileDrawerItems: [
+          {
+            icon: 'mdi-account-box',
+            title: this.$t("default_layout.profile_drop_menu.account.title"),
+            to: '/me'
+          },
+          {
+            icon: 'settings',
+            title: this.$t("default_layout.profile_drop_menu.Settings.title"),
+            to: '/settings'
           },
         ],
         notifications: [],
@@ -330,6 +415,8 @@
       this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getFriendRequest(this.loggedInUser.id))
       this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getFriendRequest(this.loggedInUser.id))
       this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
+        this.$ws.$on('fullNameChanged', (e) => this.changeFullName())
+
       if (!localStorage.theme) {
         let defaultTheme = {
           text: 'System Theme',
@@ -338,6 +425,11 @@
         localStorage.theme = JSON.stringify(defaultTheme)
       } else {
         this.theme = JSON.parse(localStorage.theme)
+        if(this.theme.value === "dark"){
+          this.dark = true
+        }else{
+          this.dark = false
+        }
 
       }
       this.theme = JSON.parse(localStorage.theme)
@@ -351,6 +443,13 @@
       this.$ws.$on('theme-changed', (e) => this.changeTheme(e))
     },
     methods: {
+        async changeFullName(){
+            await this.$axios.get('/user').then(res => {
+                this.$store.commit('UpdateUser',res.data.data);
+            }).catch(err => {
+
+            })
+        },
       async logout() {
         await this.$auth.logout();
         this.$ws.disconnect()
@@ -401,6 +500,7 @@
           self.setSnack("Accepted friend request");
 
         }).catch(error => {
+            console.log(error);
           self.setSnackColor("error");
           self.setSnack("Something went wrong")
         })
@@ -430,9 +530,10 @@
         })
       },
       getFriendRequest: async function () {
+
         await this.$axios.get('/friends/request/all').then(res => {
           this.friendRequests = res.data.data
-
+            console.log(this.friendRequests);
         }).catch(err => {
           this.friendRequests = []
         })

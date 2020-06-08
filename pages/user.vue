@@ -15,7 +15,7 @@
       <v-img id="img" :src="'/media/post/'+overlayImg"/>
 
     </v-dialog>
-    <v-card v-if="this.user.firstname === undefined">
+    <v-card v-if="this.hasUser">
       <v-card-title>
         error
       </v-card-title>
@@ -33,7 +33,13 @@
         <v-spacer></v-spacer>
         <div class="buttons">
           <v-btn
-            v-if="user.privacy.who_can_add === 'everyone' && relation.status === undefined"
+            v-if="user.privacy.who_can_add === 'friends_of_friends' && hasMutualFriends"
+            @click="addFriend(user.id)"
+          >
+            {{this.$t("user_page.friend_request_buttons.add_friend")}}
+          </v-btn >
+          <v-btn
+            v-if="user.privacy.who_can_add === 'everyone'  && relation.status === undefined"
             @click="addFriend(user.id)"
 
           >
@@ -55,6 +61,7 @@
           >
             {{this.$t("user_page.friend_request_buttons.accept_request")}}
           </v-btn>
+
           <v-btn
             v-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
             color="error"
@@ -112,40 +119,72 @@
         <v-tab-item
           value="tab-wall"
         >
-          <div v-if="this.user.privacy.profile_privacy === 'everyone' ||  relation.status === 1 ">
+          <div v-if="this.user.privacy.profile_privacy === 'everyone' ||  relation.status === 1">
             <v-card>
               <v-card-title>{{formatString(this.$t("user_page.Wall.title"),[this.user.firstname])}}</v-card-title>
             </v-card>
             <v-row>
-              <v-col>
-                <v-card v-if="userFiles.length === 0">
-                  <v-card-title>
-                    {{this.$t("user_page.Wall.files_posted")}}
-                  </v-card-title>
-                  <v-card-text>{{formatString(this.$t("user_page.Wall.no-files"),[this.user.firstname])}}</v-card-text>
-                </v-card>
-                <v-card v-if="userFiles.length !== 0">
-                  <v-card-title>
-                    {{formatString(this.$t("user_page.Wall.files_posted"),[this.user.firstname])}}
-                  </v-card-title>
-                  <v-row>
-                    <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
-                           :key="index"
-                           v-for="(f,index) in userFiles">
-                      <v-card
-                        v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
-                        <v-img @click="showOverlay(f.path)" style="width: 6rem; height: 6rem"
-                               :src="'/media/post/'+f.path"></v-img>
+              <v-col  v-if="this.$vuetify.breakpoint.mdAndUp">
+                <div>
+                  <v-card v-if="userFiles.length === 0">
+                    <v-card-title>
+                      {{this.$t("user_page.Wall.files_posted")}}
+                    </v-card-title>
+                    <v-card-text>{{formatString(this.$t("user_page.Wall.no-files"),[this.user.firstname])}}
+                    </v-card-text>
+                  </v-card>
+                  <v-card v-if="userFiles.length !== 0">
+                    <v-card-title>
+                      {{formatString(this.$t("user_page.Wall.files_posted"),[this.user.firstname])}}
+                    </v-card-title>
+                    <v-row>
+                      <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                             :key="index"
+                             v-for="(f,index) in userFiles">
+                        <v-card
+                          v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
+                          <v-img @click="showOverlay(f.path)" style="width: 6rem; height: 6rem"
+                                 :src="'/media/post/'+f.path"></v-img>
 
-                      </v-card>
-                      <v-card style="width: 20rem; height: auto" v-else-if="f.path.endsWith('.mp4')">
-                        <video style="width: 20rem; height: auto" :src="'/media/post/'+f.path" controls></video>
-                      </v-card>
-                    </v-col>
-                  </v-row>
-                </v-card>
+                        </v-card>
+                        <v-card style="width: 20rem; height: auto" v-else-if="f.path.endsWith('.mp4')">
+                          <video style="width: 20rem; height: auto" :src="'/media/post/'+f.path" controls></video>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </div>
               </v-col>
               <v-col>
+                <div v-if="this.$vuetify.breakpoint.smAndDown">
+                  <v-card v-if="userFiles.length === 0">
+                    <v-card-title>
+                      {{this.$t("user_page.Wall.files_posted")}}
+                    </v-card-title>
+                    <v-card-text>{{formatString(this.$t("user_page.Wall.no-files"),[this.user.firstname])}}
+                    </v-card-text>
+                  </v-card>
+                  <v-card v-if="userFiles.length !== 0">
+                    <v-card-title>
+                      {{formatString(this.$t("user_page.Wall.files_posted"),[this.user.firstname])}}
+                    </v-card-title>
+                    <v-row>
+                      <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
+                             :key="index"
+                             v-for="(f,index) in userFiles">
+                        <v-card
+                          v-if="f.path.endsWith('.png') || f.path.endsWith('.jfif') || f.path.endsWith('.jpg') || f.path.endsWith('.jpeg') || f.path.endsWith('.gif')">
+                          <v-img @click="showOverlay(f.path)" style="width: 6rem; height: 6rem"
+                                 :src="'/media/post/'+f.path"></v-img>
+
+                        </v-card>
+                        <v-card style="width: 20rem; height: auto" v-else-if="f.path.endsWith('.mp4')">
+                          <video style="width: 20rem; height: auto" :src="'/media/post/'+f.path" controls></video>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </div>
                 <v-card>
                   <v-card-title>posts</v-card-title>
                   <v-list style="margin-top: 1rem; overflow-y: scroll">
@@ -157,24 +196,25 @@
                       loading
                     ></v-skeleton-loader>
                     <v-card
+                      v-if="user.privacy.profile_privacy === 'everyone' || (user.privacy.profile_privacy === 'friends' && relation.status === 1)"
                       onmouseenter="this.style.background = '#2b2b2a'"
                       onmouseleave="this.style.background = ''"
                       style="margin-top: 1rem; margin-bottom: 1rem"
                       v-bind:key="post.id"
                       :id="posts.id"
-                      v-for="post in Posts"
+                      v-for="post in posts"
                     >
                       <v-card-title>
                         <v-avatar>
                           <v-img v-if="post.poster" :src="`/media/avatar/${post.poster.avatar.path}`"/>
                         </v-avatar>
-                        <nuxt-link style="color: white; text-decoration: none; margin-right: 1rem; margin-left: 1rem"
+                        <nuxt-link :class="[$vuetify.theme.dark ? 'theme--dark post-title' : 'theme--light post-title']"
                                    :to="'/user?id='+post.poster.id">{{post.poster.firstname + " " +
                           post.poster.lastname}}
                         </nuxt-link>
                         <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(post.dateposted)}}
-               </span>
+                     </span>
                         <v-spacer>
                         </v-spacer>
                         <v-menu offset-y bottom>
@@ -330,9 +370,10 @@
         </v-tab-item>
 
         <v-tab-item value="tab-friends">
-          <v-card v-if="this.user.privacy.profile_privacy === 'everyone'  ||  relation.status === 1">
+          <v-card
+            v-if="this.user.privacy.profile_privacy === 'everyone'  ||  (this.user.privacy.profile_privacy === 'friends' && relation.status === 1)">
             <v-card-title>{{formatString(this.$t("user_page.Friends.title"),[this.user.firstname])}}</v-card-title>
-            <v-list>
+            <v-list v-if="Object.keys(this.userFriends).length > 0">
               <v-list-item
                 v-for="(friend, i) in userFriends"
                 :key="i"
@@ -348,6 +389,11 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
+
+            <v-card-text v-else>
+              {{formatString(this.$t("user_page.Friends.user_no_friends"),[this.user.firstname])}}
+            </v-card-text>
+
           </v-card>
 
           <v-card v-else-if="this.user.privacy.profile_privacy !== 'everyone'  ||  relation.status !== 1">
@@ -382,350 +428,382 @@
 </template>
 
 <script>
-    import {mapGetters, mapMutations} from "vuex";
-    import twemoji from 'twemoji'
-    import moment from 'moment'
+  import {mapGetters, mapMutations} from "vuex";
+  import twemoji from 'twemoji'
+  import moment from 'moment'
+  import axios from "../.nuxt/axios";
 
-    export default {
-        name: "user",
-        data() {
-            return {
-                user: {},
-                relation: {},
-                avatarModal: false,
-                userAvatars: [],
-                userFriends: [],
-                page: 1,
-                dialog: false,
-                overlayImg: '',
-                posts: [],
-                finishedLoading: false,
-                userFiles: []
-            }
-        },
-        methods: {
-            async getUser(userId) {
+  export default {
+    name: "user",
+    data() {
+      return {
+        user: {},
+        relation: {},
+        avatarModal: false,
+        userAvatars: [],
+        userFriends: [],
+        page: 1,
+        dialog: false,
+        overlayImg: '',
+        posts: [],
+          hasUser: false,
+        finishedLoading: false,
+          hasMutualFriends: false,
+        userFiles: []
+      }
+    },
+    methods: {
+      checkIfTargetUserHasMutualFriends(userId) {
 
-                await this.$axios.get('/user/' + userId).then(res => {
-                    this.user = res.data.data
-                }).catch(error => {
+        this.$axios.get(`/friends/user/${userId}/mutuals`).then(res => {
+            this.hasMutualFriends = res.data.data;
+        })
+      },
+      async getUser(userId) {
 
-                })
-            },
-            getGenderIcon(sentGender) {
-                switch (sentGender) {
-                    case 'Male':
-                        return 'mdi-gender-male'
-                    case "Female":
-                        return 'mdi-gender-female'
-                    case "other":
-                        return 'mdi-gender-transgender'
-                    default:
-                        return 'mdi-account-question'
-
-                }
-            },
-            async addFriend(targetUserId) {
-                let self = this;
-                let data = {
-                    targetUserId: targetUserId,
-                    senderId: this.loggedInUser.id,
-                }
-                await this.$axios.post('/friends/request/send', data).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_FRIEND_REQUEST', {
-                        sender: this.loggedInUser,
-                        targetUserId: targetUserId
-                    })
-                    self.setSnack("Sent friend request");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("Something went wrong")
-                })
-
-            },
-            checkUser(userId) {
-                if (userId === this.loggedInUser.id) {
-                    this.$router.push({
-                        path: '/me'
-                    })
-                } else {
-                    this.getRelationWithLoggedInUser(this.$route.query.id)
-                }
-            },
-            async getRelationWithLoggedInUser(id) {
-                let token = this.$auth.getToken('local')
-                let data = {
-                    targetUserId: id,
-                    senderId: this.loggedInUser.user_id,
-                }
-                await this.$axios.post('/friends/relation', data).then(res => {
-                    this.relation = res.data.data
-                    this.getUser(id)
-                    this.getUserAvatars(id)
-                    this.getUserFriends(id)
-                    this.getUserPosts(id)
-                    this.getUserPostFiles(id)
-                }).catch(error => {
-                    this.getUser(this.$route.query.id)
-                    this.getUserAvatars(this.$route.query.id)
-                    this.relation = []
-                })
-
-            },
-            async getUserPosts(userid) {
-                await this.$axios.get('/post/user/' + userid).then(res => {
-                    this.Posts = res.data.data
-                    this.finishedLoading = true
-                }).catch(error => {
-
-                })
-            },
-            async getUserAvatars(userId) {
-                await this.$axios.get('/users/avatars/' + userId).then(res => {
-                    this.userAvatars = res.data.avatars
-                }).catch(error => {
-                })
-            },
-            async getUserFriends(id) {
-                await this.$axios.get('/friends/all/' + id).then(res => {
-                    this.userFriends = res.data.data
-                }).catch(error => {
-
-                })
-            },
-            async getUserPostFiles(id) {
-                await this.$axios.get('/post/user/files/' + id).then(res => {
-                    this.userFiles = res.data.data
-                }).catch(error => {
-
-                })
-            },
-            async acceptFriendRequest(userId) {
-                let self = this;
-                let data = {
-                    senderId: userId,
-
-                }
-                await this.$axios.post('/friends/request/accept', data).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'ACCEPTED_INCOMING_REQUEST', {
-                        sender: this.loggedInUser,
-                        targetUserId: userId
-                    })
-                    self.setSnack("Accepted friend request");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("Something went wrong")
-                })
-            },
-            async denyFriendRequest(id) {
-                let self = this;
-                let data = {
-                    userId: id,
-                }
-                await this.$axios.post('/friends/request/deny', data).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'DENIED_INCOMING_REQUEST', {
-                        sender: this.loggedInUser,
-                        targetUserId: id
-                    })
-                    self.setSnack("Denied friend request");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("Something went wrong")
-                })
-            },
-            cancelFriendRequest: async function (id) {
-                let self = this;
-                let data = {
-                    userId: id,
-                }
-                await this.$axios.delete('/friends/request/cancel',
-                    {
-                        data: data
-                    }
-                ).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'CANCELLED_INCOMING_REQUEST', {
-                        sender: this.loggedInUser,
-                        targetUserId: id
-                    })
-                    self.setSnack("cancelled friend request");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("Something went wrong")
-                })
-            },
-            removeFriend: async function (userID) {
-                let self = this;
-                let data = {
-                    userId: userID,
-                }
-                await this.$axios.delete('/friend/delete',
-                    {
-                        data: data
-                    }
-                ).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'DELETED_FRIEND', {
-                        sender: this.loggedInUser,
-                        targetUserId: userID
-                    })
-                    self.setSnack("Denied friend request");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack(error.message)
-                })
-            },
-            go: function (action) {
-                this.$router.push({
-                    path: action
-                })
-            },
-            ...mapMutations({
-                setSnack: 'snackbar/setSnack',
-                setSnackTop: 'snackbar/setSnackTop',
-                setSnackColor: 'snackbar/setSnackColor'
-            }),
-
-            getFormattedDate(date) {
-                return moment(date).locale(this.userLocale).fromNow()
-
-            },
-            showOverlay(img) {
-                this.dialog = !this.dialog
-                this.overlayImg = img
-
-            },
-            parseEmoji(input) {
-                return twemoji.parse(input)
-            },
-
-            async likePost(postId,userId) {
-                self = this
-                const data = {
-                    postId: postId,
-                    userId: userId,
-                    senderId: this.loggedInUser.id
-                }
-                await this.$axios.post('/post/like', data).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_LIKED', {sender: this.loggedInUser, postId: postId})
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {sender: this.loggedInUser, targetUserId: userId})
-                    self.setSnack("liked post");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("could not like post");
-                })
-            },
-            async unlikePost(postId) {
-                self = this
-                await this.$axios.delete('/post/unlike', {
-                    data: {
-                        postId: postId,
-                        userId: this.loggedInUser.id
-                    }
-                }).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNLIKED', {sender: this.loggedInUser, postId: postId})
-                    self.setSnack("un-liked post");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("could not un-like post");
-
-                })
-            },
-            async dislikePost(postId,userId) {
-                self = this
-                const data = {
-                    postId: postId,
-                    userId: userId,
-                    senderId: this.loggedInUser.id
-                }
-                await this.$axios.post('/post/dislike', data).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_DISLIKED', {
-                        sender: this.loggedInUser,
-                        postId: postId
-                    })
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {sender: this.loggedInUser, targetUserId: userId})
-                    self.setSnack("disliked post");
-
-                }).catch(error => {
-
-                    self.setSnackColor("error");
-                    self.setSnack("could not dislike post");
-
-                })
-            },
-            async undislikePost(postId) {
-                self = this
-                const data = {
-                    postId: postId,
-                    userId: this.loggedInUser.id
-                }
-                await this.$axios.delete('/post/undislike', {
-                    data: {
-                        postId: postId,
-                        userId: this.loggedInUser.id
-                    }
-                }).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNDISLIKED', {
-                        sender: this.loggedInUser,
-                        postId: postId
-                    })
-                    self.setSnack("un-disliked post");
-
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("could not un-dislike post");
-                })
-            },
-            formatString(string, variables){
-                return vsprintf(string,variables)
-            }
-
-        },
-        watch: {
-            '$route.query.id': function (id) {
-                this.user = []
-                this.relation = {}
-                this.checkUser(this.$route.query.id)
-
-
-            },
-        },
-        mounted() {
-            this.$ws.$on('FRIEND_REQUEST_ACCEPTED', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
-            this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
-            this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
-            this.$ws.$on('DELETED_FRIEND', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
-            this.$ws.$on('SENT_REQUEST', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
-            this.$ws.$on('POST_LIKED', (e) =>   this.getUserPosts(this.$route.query.id))
-            this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.$route.query.id))
-            this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.$route.query.id))
-            this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.$route.query.id))
-
-
-        },
-        beforeMount() {
-            this.checkUser(this.$route.query.id)
-        },
-
-        computed: {
-            ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
+        await this.$axios.get('/user/' + userId).then(res => {
+          this.user = res.data.data
+          this.hasUser = false;
+        }).catch(error => {
+            this.hasUser = true;
+        })
+      },
+      getGenderIcon(sentGender) {
+        switch (sentGender) {
+          case 'Male':
+            return 'mdi-gender-male'
+          case "Female":
+            return 'mdi-gender-female'
+          case "other":
+            return 'mdi-gender-transgender'
+          default:
+            return 'mdi-account-question'
 
         }
+      },
+      async addFriend(targetUserId) {
+        let self = this;
+        let data = {
+          targetUserId: targetUserId,
+          senderId: this.loggedInUser.id,
+        }
+        await this.$axios.post('/friends/request/send', data).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_FRIEND_REQUEST', {
+            sender: this.loggedInUser,
+            targetUserId: targetUserId
+          })
+          self.setSnack("Sent friend request");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("Something went wrong")
+        })
+
+      },
+      checkUser(userId) {
+        if (userId === this.loggedInUser.id) {
+          this.$router.push({
+            path: '/me'
+          })
+        } else {
+
+          this.getRelationWithLoggedInUser(this.$route.query.id)
+
+        }
+      },
+      async getRelationWithLoggedInUser(id) {
+        let token = this.$auth.getToken('local')
+        let data = {
+          targetUserId: id,
+          senderId: this.loggedInUser.user_id,
+        }
+        await this.$axios.post('/friends/relation', data).then(res => {
+          this.relation = res.data.data
+          if (res.status === 204) {
+            this.getUser(this.$route.query.id)
+            this.getUserAvatars(this.$route.query.id)
+
+            this.relation = {}
+          } else {
+            this.getUser(id)
+            this.getUserAvatars(id)
+            this.getUserPostFiles(id)
+          }
+          this.getUserPosts(id);
+          this.getUserFriends(id);
+          this.checkIfTargetUserHasMutualFriends(id);
+
+
+        }).catch(error => {
+
+        })
+
+      },
+      async getUserPosts(userid) {
+        await this.$axios.get('/post/user/' + userid).then(res => {
+          this.posts = res.data.data
+          console.log(this.posts)
+          this.finishedLoading = true
+        }).catch(error => {
+
+        })
+      },
+      async getUserAvatars(userId) {
+        await this.$axios.get('/users/avatars/' + userId).then(res => {
+          this.userAvatars = res.data.avatars
+        }).catch(error => {
+        })
+      },
+      async getUserFriends(id) {
+        await this.$axios.get('/friends/all/' + id).then(res => {
+          console.log()
+          this.userFriends = res.data.data
+        }).catch(error => {
+
+        })
+      },
+      async getUserPostFiles(id) {
+        await this.$axios.get('/post/user/files/' + id).then(res => {
+          this.userFiles = res.data.data
+        }).catch(error => {
+
+        })
+      },
+      async acceptFriendRequest(userId) {
+        let self = this;
+        let data = {
+          senderId: userId,
+
+        }
+        await this.$axios.post('/friends/request/accept', data).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'ACCEPTED_INCOMING_REQUEST', {
+            sender: this.loggedInUser,
+            targetUserId: userId
+          })
+          self.setSnack("Accepted friend request");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("Something went wrong")
+        })
+      },
+      async denyFriendRequest(id) {
+        let self = this;
+        let data = {
+          userId: id,
+        }
+        await this.$axios.post('/friends/request/deny', data).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'DENIED_INCOMING_REQUEST', {
+            sender: this.loggedInUser,
+            targetUserId: id
+          })
+          self.setSnack("Denied friend request");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("Something went wrong")
+        })
+      },
+      cancelFriendRequest: async function (id) {
+        let self = this;
+        let data = {
+          userId: id,
+        }
+        await this.$axios.delete('/friends/request/cancel',
+          {
+            data: data
+          }
+        ).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'CANCELLED_INCOMING_REQUEST', {
+            sender: this.loggedInUser,
+            targetUserId: id
+          })
+          self.setSnack("cancelled friend request");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("Something went wrong")
+        })
+      },
+      removeFriend: async function (userID) {
+        let self = this;
+        let data = {
+          userId: userID,
+        }
+        await this.$axios.delete('/friend/delete',
+          {
+            data: data
+          }
+        ).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'DELETED_FRIEND', {
+            sender: this.loggedInUser,
+            targetUserId: userID
+          })
+          self.setSnack("Denied friend request");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack(error.message)
+        })
+      },
+      go: function (action) {
+        this.$router.push({
+          path: action
+        })
+      },
+      ...mapMutations({
+        setSnack: 'snackbar/setSnack',
+        setSnackTop: 'snackbar/setSnackTop',
+        setSnackColor: 'snackbar/setSnackColor'
+      }),
+
+      getFormattedDate(date) {
+        return moment(date).locale(this.userLocale).fromNow()
+
+      },
+      showOverlay(img) {
+        this.dialog = !this.dialog
+        this.overlayImg = img
+
+      },
+      parseEmoji(input) {
+        return twemoji.parse(input)
+      },
+
+      async likePost(postId, userId) {
+        self = this
+        const data = {
+          postId: postId,
+          userId: userId,
+          senderId: this.loggedInUser.id
+        }
+        await this.$axios.post('/post/like', data).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_LIKED', {
+            sender: this.loggedInUser,
+            postId: postId
+          })
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {
+            sender: this.loggedInUser,
+            targetUserId: userId
+          })
+          self.setSnack("liked post");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("could not like post");
+        })
+      },
+      async unlikePost(postId) {
+        self = this
+        await this.$axios.delete('/post/unlike', {
+          data: {
+            postId: postId,
+            userId: this.loggedInUser.id
+          }
+        }).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNLIKED', {
+            sender: this.loggedInUser,
+            postId: postId
+          })
+          self.setSnack("un-liked post");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("could not un-like post");
+
+        })
+      },
+      async dislikePost(postId, userId) {
+        self = this
+        const data = {
+          postId: postId,
+          userId: userId,
+          senderId: this.loggedInUser.id
+        }
+        await this.$axios.post('/post/dislike', data).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_DISLIKED', {
+            sender: this.loggedInUser,
+            postId: postId
+          })
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'NEW_NOTIFICATION', {
+            sender: this.loggedInUser,
+            targetUserId: userId
+          })
+          self.setSnack("disliked post");
+
+        }).catch(error => {
+
+          self.setSnackColor("error");
+          self.setSnack("could not dislike post");
+
+        })
+      },
+      async undislikePost(postId) {
+        self = this
+        const data = {
+          postId: postId,
+          userId: this.loggedInUser.id
+        }
+        await this.$axios.delete('/post/undislike', {
+          data: {
+            postId: postId,
+            userId: this.loggedInUser.id
+          }
+        }).then(res => {
+          self.setSnackColor("success");
+          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNDISLIKED', {
+            sender: this.loggedInUser,
+            postId: postId
+          })
+          self.setSnack("un-disliked post");
+
+        }).catch(error => {
+          self.setSnackColor("error");
+          self.setSnack("could not un-dislike post");
+        })
+      },
+      formatString(string, variables) {
+        return vsprintf(string, variables)
+      }
+
+    },
+    watch: {
+      '$route.query.id': function (id) {
+        this.user = []
+        this.relation = {}
+        this.checkUser(this.$route.query.id)
+      },
+    },
+    mounted() {
+      this.$ws.$on('FRIEND_REQUEST_ACCEPTED', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
+      this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
+      this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
+      this.$ws.$on('DELETED_FRIEND', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
+      this.$ws.$on('SENT_REQUEST', (e) => this.getRelationWithLoggedInUser(this.$route.query.id))
+      this.$ws.$on('POST_LIKED', (e) => this.getUserPosts(this.$route.query.id))
+      this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.$route.query.id))
+      this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.$route.query.id))
+      this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.$route.query.id))
+
+    },
+    beforeMount() {
+      this.checkUser(this.$route.query.id)
+
+    },
+
+    computed: {
+      ...mapGetters(['isAuthenticated', 'loggedInUser', "userLocale"]),
+
     }
+  }
 </script>
 
 <style scoped>

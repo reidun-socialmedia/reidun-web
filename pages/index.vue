@@ -154,7 +154,7 @@
               <v-avatar>
                 <v-img v-if="post.poster" :src="`/media/avatar/${post.poster.avatar.path}`"/>
               </v-avatar>
-              <nuxt-link style="color: white; text-decoration: none; margin-right: 1rem; margin-left: 1rem"
+              <nuxt-link  :class="[$vuetify.theme.dark ? 'theme--dark post-title' : 'theme--light post-title']"
                          :to="'/user?id='+post.poster.id">{{post.poster.firstname + " " + post.poster.lastname}}
               </nuxt-link>
               <span style="font-size: 0.8rem; color: #c7c5c7">
@@ -162,30 +162,7 @@
                </span>
               <v-spacer>
               </v-spacer>
-              <v-menu offset-y bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" icon>
-                    <v-icon>more_vert</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item @click="deletePost(post.id)" v-if="post.poster.id === loggedInUser.id">
-                    <v-list-item-title>
-                      <v-icon>mdi-delete</v-icon>
-                     {{$t('home_page.post_card.post_menu.delete_post')}}
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item v-if="post.poster.id === loggedInUser.id">
-                    <v-list-item-title>
-                      <v-icon>edit</v-icon>
-                      {{$t('home_page.post_card.post_menu.edit_post')}}
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item v-if="post.poster.id !== loggedInUser.id">
-                    <v-list-item-title>   {{$t('home_page.post_card.post_menu.report')}} </v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
+
             </v-card-title>
 
             <v-card-text @click="go('/post?id='+post.id)">
@@ -277,7 +254,7 @@
     import {TwemojiPicker} from '@kevinfaguiar/vue-twemoji-picker';
     import EmojiAllData from '@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json';
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
-    import {compile} from "../.nuxt/utils";
+    import tz from 'moment-timezone'
 
     export default {
         components: {
@@ -416,24 +393,10 @@
                     this.posts = []
                 })
             },
-            async deletePost(postId) {
-                self = this
-                await this.$axios.delete('/post/delete', {
-                    data: {
-                        postId: postId
-                    }
-                }).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_DELETE', {sender: this.loggedInUser})
-                    self.setSnack("Your post has successfully been deleted");
 
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("Your post could not be deleted!");
-                })
-            },
             getFormattedDate(date) {
-              return moment(date).locale(this.userLocale).format('DD-MM-YYYY HH:mm') + " : " + moment(date).locale(this.userLocale).fromNow()
+              const postDate = moment(date)
+              return postDate.tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('DD-MM-YYYY HH:mm')
 
             },
             go: function (action) {

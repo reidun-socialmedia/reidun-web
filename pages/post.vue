@@ -15,15 +15,15 @@
       <v-img id="img" :src="'/media/post/'+overlayImg"/>
 
     </v-dialog>
-    <v-row>
+    <v-row style="max-width: 100%">
       <v-col v-if="!this.$vuetify.breakpoint.mdAndDown"></v-col>
       <v-col>
-        <v-card v-if="this.post.poster !== undefined">
+        <v-card v-if="this.post.poster !== undefined" >
           <v-card-title>
             <v-avatar>
               <v-img v-if="this.post.poster" :src="`/media/avatar/${this.post.poster.avatar.path}`"/>
             </v-avatar>
-            <nuxt-link style="color: white; text-decoration: none;  margin-right: 1rem; margin-left: 1rem"
+            <nuxt-link :class="[this.$vuetify.theme.dark ? 'theme--dark post-title' : 'theme--light post-title']"
                        :to="'/user?id='+this.post.poster_id">{{this.post.poster.firstname + " " +
               this.post.poster.lastname}}
             </nuxt-link>
@@ -32,6 +32,9 @@
         </span>
             <v-spacer>
             </v-spacer>
+
+
+            <!-- delete and edit post -->
             <v-menu offset-y bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon>
@@ -39,13 +42,13 @@
                 </v-btn>
               </template>
               <v-list>
-                <v-list-item v-if="post.poster.id === loggedInUser.id">
+                <v-list-item v-if="post.poster.id === loggedInUser.id" @click="deletePost(post.id)">
                   <v-list-item-title>
                     <v-icon>mdi-delete</v-icon>
                     {{$t('post_page.post_card.post_menu.delete_post')}}
                   </v-list-item-title>
                 </v-list-item>
-                <v-list-item v-if="post.poster.id === loggedInUser.id">
+                <v-list-item v-if="post.poster.id === loggedInUser.id" @click="editPostState = true">
                   <v-list-item-title>
                     <v-icon>edit</v-icon>
                     {{$t('post_page.post_card.post_menu.edit_post')}}
@@ -56,10 +59,34 @@
                 </v-list-item>
               </v-list>
             </v-menu>
+
           </v-card-title>
 
-          <v-card-text>
-            <p v-html="parseEmoji(this.post.text)"></p>
+          <v-card-text >
+            <div v-if="!editPostState">
+              <p v-html="parseEmoji(this.post.text)"></p>
+
+            </div>
+            <div v-else>
+              <v-textarea
+
+                v-model="editPostInput"
+
+                counter
+                maxlength="600"
+                outlined
+                single-line
+                auto-grow
+                no-resize
+                :rules="postRules"
+
+              >
+
+              </v-textarea>
+              <v-btn @click="saveEditedPost(post.id)">{{$t('post_page.post_card.save_button')}}</v-btn>
+              <v-btn @click="cancelPostEdit()">{{$t('post_page.post_card.cancel_button')}}</v-btn>
+
+            </div>
             <v-row v-if="post.post_files.length !== 0">
               <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
                      :key="index"
@@ -130,12 +157,20 @@
         <v-card>
           <v-card-text>
             <v-form v-model="isValid">
-              <v-text-field
+              <v-textarea
                 :label="this.$t('post_page.comment_creation_card.comment_input.label')"
                 v-model="commentContent"
+                counter
+                maxlength="255"
+                outlined
+                single-line
                 :rules="commentRules"
+
+
+
+
               >
-              </v-text-field>
+              </v-textarea>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -161,8 +196,11 @@
           <v-list v-if="this.Comments.length !== 0">
             <v-list-item>
               <v-list-item-title>
+
                 {{$t('post_page.comment_creation_card.comment_input.label')}}
+
               </v-list-item-title>
+
             </v-list-item>
             <v-card style="margin-top: 1rem; margin-bottom: 1rem" :key="index"
                     v-for="(comment,index) in this.Comments" >
@@ -175,14 +213,61 @@
                 <span style="font-size: 0.8rem">
                    {{getFormattedDate(comment.dateposted)}}
                </span>
-              </v-card-title>
-              <v-card-text v-html="parseEmoji(comment.comment_content)">
+                <v-spacer></v-spacer>
 
-              </v-card-text>
+                <!-- Delete and Edit Comment -->
+
+                <v-menu offset-y bottom v-if="comment.user.id === loggedInUser.id">
+                  <template v-slot:activator="{ on }">
+                    <v-btn v-on="on" icon>
+                      <v-icon>more_vert</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item @click="deleteComment(comment.id)">
+                      <v-list-item-title>
+                        <v-icon>mdi-delete</v-icon>
+                        {{$t('post_page.post_card.post_menu.delete_post')}}
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="editChosenCommentId = comment.id, editCommentInputField = comment.comment_content">
+                      <v-list-item-title>
+                        <v-icon>edit</v-icon>
+                        {{$t('post_page.post_card.post_menu.edit_post')}}
+                      </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item v-if="comment.user.id !== loggedInUser.id">
+                      <v-list-item-title>{{$t('post_page.post_card.post_menu.report')}}</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+
+              </v-card-title>
+
+              <v-card-text  v-if="editChosenCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
+              <div v-else>
+                <v-textarea
+
+                  v-model="editCommentInputField"
+
+                  counter
+                  maxlength="255"
+                  outlined
+                  single-line
+                  auto-grow
+                  no-resize
+                  :rules="commentRules"
+
+                >
+
+                </v-textarea>
+                <v-btn @click="saveEditedComment(comment.id)">{{$t('post_page.post_card.save_button')}}</v-btn>
+                <v-btn @click="cancelCommentEdit()">{{$t('post_page.post_card.cancel_button')}}</v-btn>
+              </div>
             </v-card>
           </v-list>
           <v-card-text v-else>
-           {{$t('post_page.comments_card.no_comments')}}
+            {{$t('post_page.comments_card.no_comments')}}
           </v-card-text>
         </v-card>
       </v-col>
@@ -198,15 +283,22 @@
     import EmojiAllData from '@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json';
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
     import {mapGetters, mapMutations} from "vuex";
+    import axios from "../.nuxt/axios";
+    import Default from "../layouts/default";
 
     export default {
         name: "post",
         components: {
+            Default,
             'twemoji-picker': TwemojiPicker
         },
         data() {
             return {
                 post: {},
+                editChosenCommentId:'',
+                editCommentInputField:'',
+                editPostInput:'',
+                editPostState: false,
                 overlayImg: '',
                 dialog: false,
                 isValid: false,
@@ -214,7 +306,10 @@
                 commentRules: [
                     v =>{ return !!v || this.$t("post_page.comment_creation_card.comment_input.input_empty") }
                 ],
-                Comments: [],
+                postRules: [
+                    v => { return !!v || this.$t('home_page.post_creation_card.input_empty') },
+                ],
+                Comments: []
             }
         },
         mounted(){
@@ -222,11 +317,11 @@
             this.$ws.$on('POST_UNLIKED', (e) => this.getPost(this.$route.query.id))
             this.$ws.$on('POST_DISLIKED', (e) => this.getPost(this.$route.query.id))
             this.$ws.$on('POST_UNDISLIKED', (e) => this.getPost(this.$route.query.id))
-            this.$ws.$on('POST_EDIT', (e) => this.getPost(this.$route.query.id))
+            this.$ws.$on('POST_EDITED', (e) => this.getPost(this.$route.query.id))
             this.$ws.$on('COMMENT_CREATED', (e) => this.getComments(this.$route.query.id))
             this.$ws.$on('COMMENT_DELETED', (e) => this.getComments(this.$route.query.id))
-            this.$ws.$on('COMMENT_EDIT', (e) => this.getComments(this.$route.query.id))
-
+            this.$ws.$on('COMMENT_EDITED', (e) => this.getComments(this.$route.query.id))
+            console.log()
 
 
         },
@@ -234,6 +329,87 @@
             this.getPost(this.$route.query.id)
         },
         methods: {
+            deleteComment(commentId){
+
+                console.log(commentId)
+                let data = {
+                    commentId:commentId
+                }
+
+
+                this.$axios.delete('/post/comments/delete',{data}).then(res => {
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_DELETE', {sender: this.loggedInUser})
+                    self.setSnackColor("success");
+                    self.setSnack("Your post has successfully been deleted");
+                }).catch(error => {
+                    self = this
+                    self.setSnackColor("error");
+                    self.setSnack("Your comment could not be deleted!");
+                })
+            },
+            cancelCommentEdit(){
+                this.editChosenCommentId = 'NoId';
+
+            },
+            saveEditedComment(commentId){
+                let data = {
+                    commentId: commentId,
+                    newText: this.editCommentInputField
+                }
+
+
+                this.$axios.patch('/post/comments/update',data).then(res => {
+                    this.editChosenCommentId = 'NoId';
+
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_EDIT', {sender: this.loggedInUser})
+
+                }).catch(error => {
+                    self = this
+                    self.setSnackColor("error");
+                    self.setSnack("Your comment could not be edited!");
+                })
+            },
+            cancelPostEdit(){
+                this.editPostInput = this.post.text;
+                this.editPostState = false;
+            },
+            async saveEditedPost(postId){
+                let data = {
+                    postId: postId,
+                    userId: this.loggedInUser.id,
+                    newText: this.editPostInput
+                }
+
+                await this.$axios.patch('/post/update',data).then(res => {
+                    this.editPostState = false;
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_EDIT', {sender: this.loggedInUser})
+
+                }).catch(error => {
+                    self = this
+                    self.setSnackColor("error");
+                    self.setSnack("Your post could not be edited!");
+
+                })
+            },
+            async deletePost(postId) {
+                self = this
+                await this.$axios.delete('/post/delete', {
+                    data: {
+                        postId: postId
+                    }
+                }).then(res => {
+                    self.setSnackColor("success");
+                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_DELETE', {sender: this.loggedInUser})
+                    self.setSnack("Your post has successfully been deleted");
+                    this.$router.push({
+                        path: '/'
+                    })
+                }).catch(error => {
+                    console.log(error)
+                    self.setSnackColor("error");
+                    self.setSnack("Your post could not be deleted!");
+                })
+            },
             selectEmoji(emoji) {
                 this.commentContent += emoji
             },
@@ -244,6 +420,7 @@
             async getPost(postId) {
                 await this.$axios.get('/post/get?id=' + postId).then(res => {
                     this.post = res.data.data
+                    this.editPostInput = this.post.text
                     this.getComments(postId)
                 }).catch(error => {
 
@@ -252,6 +429,7 @@
             async getComments(postId) {
                 await this.$axios.get('/post/comments/' + postId).then(res => {
                     this.Comments = res.data.data
+                    console.log(this.Comments)
 
                 }).catch(error => {
                     this.Comments = []
@@ -286,21 +464,22 @@
                     self.setSnack(err.response.data.message);
                 })
             },
-            async likePost(postId,senderId) {
+            async likePost(postId,userId) {
                 self = this
                 const data = {
                     postId: postId,
-                    userId: this.loggedInUser.id,
-                    senderId: senderId
+                    userId: userId,
+                    senderId: this.loggedInUser.id
                 }
                 await this.$axios.post('/post/like', data).then(res => {
                     self.setSnackColor("success");
-                    this.$ws.$emitToServer("event:default", 'ACCEPTED_INCOMING_REQUEST', {sender: this.loggedInUser.id, targetUserId: senderId})
+                    this.$ws.$emitToServer("event:default", 'POST_LIKED', {sender: this.loggedInUser.id, targetUserId: userId})
                     self.setSnack("liked post");
 
                 }).catch(error => {
                     self.setSnackColor("error");
                     self.setSnack("could not like post");
+
                 })
             },
             async unlikePost(postId) {
@@ -321,12 +500,12 @@
 
                 })
             },
-            async dislikePost(postId,senderId) {
+            async dislikePost(postId,userId) {
                 self = this
                 const data = {
                     postId: postId,
-                    userId: this.loggedInUser.id,
-                    senderId: senderId
+                    userId: userId ,
+                    senderId: this.loggedInUser.id
                 }
                 await this.$axios.post('/post/dislike', data).then(res => {
                     self.setSnackColor("success");
