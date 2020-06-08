@@ -6,7 +6,8 @@
       }
     },
     "search_bar": {
-      "label": "Search users"
+      "label": "Search users",
+      "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
@@ -58,7 +59,7 @@
       "friends": "Friends"
     },
     "change_avatar_dialog": {
-      "title": "Upload a image file: png, gif, or jpg",
+      "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "Change Avatar",
       "cancel": "Cancel",
       "file_input_label": "Choose Image"
@@ -97,7 +98,8 @@
       "add_friend": "Add as friend",
       "accept_request": "Cancel",
       "deny_request": "Deny Request",
-      "cancel_request": "Cancel Request"
+      "cancel_request": "Cancel Request",
+      "unfriend": "Unfriend"
     },
     "Wall": {
       "title": "%s's wall",
@@ -118,7 +120,8 @@
     },
     "Friends": {
       "title": "%s's friends",
-      "not_friends_message": "You need to be friends with %s to view their friends"
+      "not_friends_message": "You need to be friends with %s to view their friends",
+      "user_no_friends": "User have no friends"
     }
   },
   "search_page_mobile": {
@@ -141,21 +144,66 @@
       "account_security_log": "Account Security Log"
     },
     "account_settings_tab": {
-      "title": "account settings",
+      "title": "Account settings",
       "information": {
         "title": "Change information"
       },
       "password": {
-        "title": "Change password"
+        "title": "Change password",
+        "new_password_input": {
+          "label": "New password"
+        },
+        "repeat_password_input": {
+          "label": "Repeat password"
+        },
+        "input_empty": "Password is required",
+        "password_mismatch": "Passwords don't match",
+        "security_dialog": {
+          "title": "Password verification",
+          "text": "Before we can let you change your password, we need you to type your current password in again, for safety measures",
+          "password_input": {
+            "label": "Type password",
+            "password_incorrect": "Password is incorrect"
+          }
+        },
+        "buttons": {
+          "authorize": "Authorize",
+          "cancel": "Cancel",
+          "save": "Save",
+          "ok": "Ok"
+        }
+      }
+    },
+    "privacy_tab": {
+      "title": "Privacy Settings",
+      "profile_privacy": {
+        "title": "Profile viewing setting",
+        "description": "Choose who can see your profile",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Everyone",
+          "friends": "Friends"
+        }
+      },
+      "friend_request_privacy": {
+        "title": "Friend requests",
+        "description": "Choose who can add you as friend",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Everyone",
+          "friends_of_friends": "Friends of friends",
+          "none": "No one"
+        }
       }
     },
     "appearance_settings_tab": {
       "title": "Appearance Settings",
       "theme_setting": {
         "dark_theme_setting": {
-          "title": "Dark Theme",
-          "on": "On",
-          "off": "Off"
+          "dark": "Dark Theme",
+          "light": "Light Theme",
+          "System_theme": "System theme",
+          "title": "Theme"
         },
         "Display_language_setting": {
           "title": "Display Language",
@@ -167,8 +215,10 @@
             "dutch": "Dutch",
             "english-uk": "English (United Kingdom)",
             "english-us": "English (United States)",
+            "english-au": "English (Australia)",
             "french": "French",
             "german": "German",
+            "japanese": "japanese",
             "norwegian-bokmal": "Norwegian (Bokmal)",
             "norwegian-nynorsk": "Norwegian (Nynorsk)",
             "serbian": "Serbian",
@@ -185,11 +235,13 @@
         "delete_post": "Delete Post",
         "edit_post": "Edit Post",
         "report": "Report Post"
-      }
+      },
+      "save_button": "Save",
+      "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Type comment",
+        "label": "Type a comment",
         "input_empty": "Comment cannot be empty"
       },
       "create_button": {
@@ -197,7 +249,7 @@
       }
     },
     "comments_card": {
-      "no_comments": "No comments! Be the first to create one",
+      "no_comments": "No comments yet! Be the first to create one",
       "title": "Comments"
     }
   },
@@ -284,6 +336,7 @@
       "birthday": {
         "label": "Birthday",
         "input_empty": "Birthday is required",
+        "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
           "cancel": "Cancel",
           "ok": "OK"
@@ -315,7 +368,8 @@
       "post_edit_fail": "Failed to edit post",
       "comment_creation_fail": "Failed to create comment",
       "comment_delete_fail": "Failed to delete comment",
-      "comment_edit_fail": "Failed to edit comment"
+      "comment_edit_fail": "Failed to edit comment",
+      "password_change_failed": "Failed to change password"
     },
     "success_messages": {
       "post_creation_success": "Post created",

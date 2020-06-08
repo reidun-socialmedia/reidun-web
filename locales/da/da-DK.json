@@ -6,7 +6,8 @@
       }
     },
     "search_bar": {
-      "label": "Søg efter brugere"
+      "label": "Søg efter brugere",
+      "no_results": "Ingen resultater"
     },
     "profile_drop_menu": {
       "account": {
@@ -65,7 +66,7 @@
     },
     "Wall": {
       "title": "Din væg",
-      "posts": "Opslag",
+      "posts": "Indlæg",
       "files_posted": "Delte Filer",
       "no-posts": "Du har ikke delt noget endnu!",
       "no-files": "Du har ikke lagt noget op!"
@@ -94,10 +95,11 @@
       "remove_friend": "Fjern ven"
     },
     "friend_request_buttons": {
-      "add_friend": "Add as friend",
+      "add_friend": "Tilføj som ven",
       "accept_request": "Annuller",
       "deny_request": "Afvis andmodning",
-      "cancel_request": "Annuller anmodning"
+      "cancel_request": "Annuller anmodning",
+      "unfriend": "Fjern som ven"
     },
     "Wall": {
       "title": "%ss væg",
@@ -118,7 +120,8 @@
     },
     "Friends": {
       "title": "%ss venner",
-      "not_friends_message": "Du skal være venner med %s for at se deres venner"
+      "not_friends_message": "Du skal være venner med %s for at se deres venner",
+      "user_no_friends": "Bruger har ingen venner"
     }
   },
   "search_page_mobile": {
@@ -126,12 +129,12 @@
     "search_bar": {
       "label": "Søg efter brugere"
     },
-    "list_empty": "Type in the search bar to see results"
+    "list_empty": "Skriv i søgebaren for at se resultater"
   },
   "notifications_page_mobile": {
     "title": "Ingen notifikationer",
-    "no_notifications": "No notifications",
-    "markAsRead": "Mark as read"
+    "no_notifications": "Ingen notifikationer",
+    "markAsRead": "Markér som læst"
   },
   "settings": {
     "settings_tab": {
@@ -141,34 +144,81 @@
       "account_security_log": "Bruger Sikkerhedslog"
     },
     "account_settings_tab": {
-      "title": "account settings",
+      "title": "Konto Indstillinger",
       "information": {
-        "title": "Change information"
+        "title": "Ændre oplysninger"
       },
       "password": {
-        "title": "Change password"
+        "title": "Skift adgangskode",
+        "new_password_input": {
+          "label": "Ny adgangskode"
+        },
+        "repeat_password_input": {
+          "label": "Gentag adgangskode"
+        },
+        "input_empty": "Adgangskode er påkrævet",
+        "password_mismatch": "Adgangskoderne stemmer ikke ens",
+        "security_dialog": {
+          "title": "Adgangskode verifikation",
+          "text": "Vi har brug for,  at du skal indstaste din nuværende adgangskode. før vi kan lade dig skifte adgangskode pga. sikkerhedsanstaltninger",
+          "password_input": {
+            "label": "Indtast adgangskode",
+            "password_incorrect": "Adgangskode er forkert"
+          }
+        },
+        "buttons": {
+          "authorize": "Authorisér",
+          "cancel": "Annullerer",
+          "save": "Gem",
+          "ok": "Ok"
+        }
+      }
+    },
+    "privacy_tab": {
+      "title": "Privatlivsindstillinger",
+      "profile_privacy": {
+        "title": "Profil tilgængelighedsindstillinger",
+        "description": "Vælg hvem der kan se din profil",
+        "label": "Skift indstilling",
+        "select_items": {
+          "everyone": "Alle",
+          "friends": "Venner"
+        }
+      },
+      "friend_request_privacy": {
+        "title": "Venneanmodninger",
+        "description": "Vælg hvem der kan tilføje dig som ven",
+        "label": "Skift indstilling",
+        "select_items": {
+          "everyone": "Alle",
+          "friends_of_friends": "Venners venner",
+          "none": "Ingen"
+        }
       }
     },
     "appearance_settings_tab": {
       "title": "Udseende Indstillinger",
       "theme_setting": {
         "dark_theme_setting": {
-          "title": "Mørkt Tema",
-          "on": "Tændt",
-          "off": "Slukket"
+          "dark": "Mørk tema",
+          "light": "Lys tema",
+          "System_theme": "System tema",
+          "title": "Tema"
         },
         "Display_language_setting": {
           "title": "Visningssprog",
           "display_language_select": {
-            "label": "Language",
+            "label": "Sprog",
             "albanian": "Albansk",
             "danish": "Dansk",
             "chinese": "Kinesisk (forenklet)",
             "dutch": "Hollandsk",
             "english-uk": "Engelsk (United Kingdom)",
             "english-us": "Engelsk (United States)",
+            "english-au": "Engelsk (Australia)",
             "french": "Fransk",
             "german": "Tysk",
+            "japanese": "Japansk",
             "norwegian-bokmal": "Norsk (bokmål)",
             "norwegian-nynorsk": "Norsk (nynorsk)",
             "serbian": "Serbisk",
@@ -185,11 +235,13 @@
         "delete_post": "Slet indlæg",
         "edit_post": "Rediger indlæg",
         "report": "Anmeld indlæg"
-      }
+      },
+      "save_button": "Gem",
+      "cancel_button": "Annullerer"
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Skriv kommentar",
+        "label": "Kommentér indlæg",
         "input_empty": "Kommentar kan ikke være tom"
       },
       "create_button": {
@@ -284,6 +336,7 @@
       "birthday": {
         "label": "Fødselsdag",
         "input_empty": "Fødselsdag er påkrævet",
+        "younger_than_16": "Skal være 16 eller ældre",
         "dialog_buttons": {
           "cancel": "Annuller",
           "ok": "OK"
@@ -310,12 +363,13 @@
       "post_deletion_fail": "Mislykkedes at slette et indlæg",
       "post_like_fail": "Mislykkedes at syntes godt om et indlæg",
       "post_unlike_fail": "Mislykkedes at fjerne at syntes godt om fra indlæg",
-      "post_dislike_fail": "Mislykkedes at ikke kunne lide indlæg",
+      "post_dislike_fail": "Mislykkedes at ikke synes godt om indlæg",
       "post_un_dislike_fail": "Mislykkedes at fjerne ikke at syntes godt om fra indlæg",
       "post_edit_fail": "Mislykkedes at rette indlæg",
       "comment_creation_fail": "Mislykkedes at lave kommentar",
       "comment_delete_fail": "Mislykkedes at slette kommentar",
-      "comment_edit_fail": "Mislykkedes at ændre kommentar"
+      "comment_edit_fail": "Mislykkedes at ændre kommentar",
+      "password_change_failed": "Mislykkes at skifte password"
     },
     "success_messages": {
       "post_creation_success": "Indlæg skabt",
@@ -332,9 +386,9 @@
   },
   "error_page": {
     "error_title": "fejl",
-    "exception_thrown": "This is most likely an exception thrown in the webapp and not the system itself",
-    "not_found_title": "404 Not Found",
-    "not_found": "This page does not exist"
+    "exception_thrown": "Dette er en fejl der er høj sandsynligt sket i webappen og  ikke system selv",
+    "not_found_title": "404 Ikke fundet",
+    "not_found": "Denne side eksisterer ikke"
   }
 }
 
