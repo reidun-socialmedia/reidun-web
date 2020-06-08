@@ -31,7 +31,7 @@
       "friend_request_title": "%s sent you a friend request"
     },
     "developer_console_warning": {
-      "line_1": "Hold Up!",
+      "line_1": "Hold up!",
       "line_2": "Pasting suspicious code in here could give attackers access to your account.",
       "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
     }
@@ -160,14 +160,14 @@
         "password_mismatch": "Passwords don't match",
         "security_dialog": {
           "title": "Password verification",
-          "text": "Before we can let you change your password, we need you to type your current password in again, for safety measures",
+          "text": "For security, you must type your current password in again before changing it",
           "password_input": {
             "label": "Type password",
             "password_incorrect": "Password is incorrect"
           }
         },
         "buttons": {
-          "authorize": "Authorize",
+          "authorize": "Authorise",
           "cancel": "Cancel",
           "save": "Save",
           "ok": "Ok"
@@ -179,7 +179,7 @@
       "profile_privacy": {
         "title": "Profile viewing setting",
         "description": "Choose who can see your profile",
-        "label": "Change setting",
+        "label": "Change settings",
         "select_items": {
           "everyone": "Everyone",
           "friends": "Friends"
@@ -188,11 +188,11 @@
       "friend_request_privacy": {
         "title": "Friend requests",
         "description": "Choose who can add you as friend",
-        "label": "Change setting",
+        "label": "Change settings",
         "select_items": {
           "everyone": "Everyone",
           "friends_of_friends": "Friends of friends",
-          "none": "No one"
+          "none": "Just me"
         }
       }
     },
@@ -202,7 +202,7 @@
         "dark_theme_setting": {
           "dark": "Dark Theme",
           "light": "Light Theme",
-          "System_theme": "System theme",
+          "System_theme": "System Theme",
           "title": "Theme"
         },
         "Display_language_setting": {
@@ -218,8 +218,8 @@
             "english-au": "English (Australia)",
             "french": "French",
             "german": "German",
-            "japanese": "japanese",
-            "norwegian-bokmal": "Norwegian (Bokmal)",
+            "japanese": "Japanese",
+            "norwegian-bokmal": "Norwegian (Bokmål)",
             "norwegian-nynorsk": "Norwegian (Nynorsk)",
             "serbian": "Serbian",
             "spanish": "Spanish",
@@ -304,7 +304,7 @@
     },
     "register_form": {
       "firstname_text_field": {
-        "label": "First Name",
+        "label": "First name",
         "input_empty": "First name is required"
       },
       "lastname_text_field": {
@@ -352,12 +352,12 @@
   },
   "emoji_picker": {
     "search_bar": "Search here",
-    "not_found": "Emoji(s) not found",
+    "not_found": "Emoji not found",
     "loading": "Loading"
   },
   "snackbar": {
     "error_messages": {
-      "credentials_incorrect": "Email or Password is incorrect",
+      "credentials_incorrect": "Email or password is incorrect",
       "registration_fail": "Failed to register account",
       "post_creation_fail": "Failed to create post",
       "post_deletion_fail": "Failed to delete post",

@@ -7,7 +7,7 @@
     },
     "search_bar": {
       "label": "Search users",
-       "no_results":"No results"
+      "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
@@ -122,7 +122,6 @@
       "title": "%s's friends",
       "not_friends_message": "You need to be friends with %s to view their friends",
       "user_no_friends": "User have no friends"
-
     }
   },
   "search_page_mobile": {
@@ -152,10 +151,10 @@
       "password": {
         "title": "Change password",
         "new_password_input": {
-          "label":"New password"
+          "label": "New password"
         },
         "repeat_password_input": {
-          "label":"Repeat password"
+          "label": "Repeat password"
         },
         "input_empty": "Password is required",
         "password_mismatch": "Passwords don't match",
@@ -167,7 +166,7 @@
             "password_incorrect": "Password is incorrect"
           }
         },
-        "buttons":{
+        "buttons": {
           "authorize": "Authorize",
           "cancel": "Cancel",
           "save": "Save",
@@ -175,26 +174,25 @@
         }
       }
     },
-    "privacy_tab":{
-      "title":"Privacy Settings",
+    "privacy_tab": {
+      "title": "Privacy Settings",
       "profile_privacy": {
-         "title": "Profile viewing setting",
-         "description": "Choose who can see your profile",
-         "label": "Change setting",
-          "select_items":{
-            "everyone":"Everyone",
-            "friends":"Friends"
-          }
+        "title": "Profile viewing setting",
+        "description": "Choose who can see your profile",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Everyone",
+          "friends": "Friends"
+        }
       },
       "friend_request_privacy": {
         "title": "Friend requests",
         "description": "Choose who can add you as friend",
         "label": "Change setting",
-        "select_items":{
-          "everyone":"Everyone",
-          "friends_of_friends":"Friends of friends",
-          "none":"No one"
-
+        "select_items": {
+          "everyone": "Everyone",
+          "friends_of_friends": "Friends of friends",
+          "none": "No one"
         }
       }
     },
@@ -220,7 +218,7 @@
             "english-au": "English (Australia)",
             "french": "French",
             "german": "German",
-            "japanese":"japanese",
+            "japanese": "japanese",
             "norwegian-bokmal": "Norwegian (Bokmal)",
             "norwegian-nynorsk": "Norwegian (Nynorsk)",
             "serbian": "Serbian",

@@ -6,7 +6,8 @@
       }
     },
     "search_bar": {
-      "label": "搜索用户"
+      "label": "搜索用户",
+      "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
@@ -58,7 +59,7 @@
       "friends": "朋友"
     },
     "change_avatar_dialog": {
-      "title": "Upload a image file: png, gif, or jpg",
+      "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "更改头像",
       "cancel": "取消",
       "file_input_label": "选择照片"
@@ -97,7 +98,8 @@
       "add_friend": "加朋友",
       "accept_request": "取消",
       "deny_request": "拒绝请求",
-      "cancel_request": "取消请求"
+      "cancel_request": "取消请求",
+      "unfriend": "Unfriend"
     },
     "Wall": {
       "title": "%s的墙",
@@ -118,7 +120,8 @@
     },
     "Friends": {
       "title": "%s的朋友",
-      "not_friends_message": "You need to be friends with %s to view their friends"
+      "not_friends_message": "You need to be friends with %s to view their friends",
+      "user_no_friends": "User have no friends"
     }
   },
   "search_page_mobile": {
@@ -141,21 +144,66 @@
       "account_security_log": "Account Security Log"
     },
     "account_settings_tab": {
-      "title": "account settings",
+      "title": "Account settings",
       "information": {
         "title": "Change information"
       },
       "password": {
-        "title": "Change password"
+        "title": "Change password",
+        "new_password_input": {
+          "label": "New password"
+        },
+        "repeat_password_input": {
+          "label": "Repeat password"
+        },
+        "input_empty": "Password is required",
+        "password_mismatch": "Passwords don't match",
+        "security_dialog": {
+          "title": "Password verification",
+          "text": "Before we can let you change your password, we need you to type your current password in again, for safety measures",
+          "password_input": {
+            "label": "Type password",
+            "password_incorrect": "Password is incorrect"
+          }
+        },
+        "buttons": {
+          "authorize": "Authorize",
+          "cancel": "取消",
+          "save": "保存",
+          "ok": "Ok"
+        }
+      }
+    },
+    "privacy_tab": {
+      "title": "隐私设置",
+      "profile_privacy": {
+        "title": "Profile viewing setting",
+        "description": "Choose who can see your profile",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "所有人",
+          "friends": "朋友"
+        }
+      },
+      "friend_request_privacy": {
+        "title": "Friend requests",
+        "description": "Choose who can add you as friend",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "所有人",
+          "friends_of_friends": "朋友的朋友",
+          "none": "没人"
+        }
       }
     },
     "appearance_settings_tab": {
       "title": "Appearance Settings",
       "theme_setting": {
         "dark_theme_setting": {
-          "title": "Dark Theme",
-          "on": "开",
-          "off": "关"
+          "dark": "Dark Theme",
+          "light": "Light Theme",
+          "System_theme": "System theme",
+          "title": "Theme"
         },
         "Display_language_setting": {
           "title": "显示语言",
@@ -167,8 +215,10 @@
             "dutch": "Dutch",
             "english-uk": "英文（英国）",
             "english-us": "英文（美国）",
+            "english-au": "English (Australia)",
             "french": "法文",
             "german": "德文",
+            "japanese": "japanese",
             "norwegian-bokmal": "Norwegian (Bokmal)",
             "norwegian-nynorsk": "Norwegian (Nynorsk)",
             "serbian": "Serbian",
@@ -185,11 +235,13 @@
         "delete_post": "Delete Post",
         "edit_post": "Edit Post",
         "report": "Report Post"
-      }
+      },
+      "save_button": "Save",
+      "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Type comment",
+        "label": "Type a comment",
         "input_empty": "Comment cannot be empty"
       },
       "create_button": {
@@ -197,7 +249,7 @@
       }
     },
     "comments_card": {
-      "no_comments": "No comments! Be the first to create one",
+      "no_comments": "No comments yet! Be the first to create one",
       "title": "Comments"
     }
   },
@@ -284,6 +336,7 @@
       "birthday": {
         "label": "Birthday",
         "input_empty": "Birthday is required",
+        "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
           "cancel": "Cancel",
           "ok": "OK"
@@ -305,8 +358,8 @@
   "snackbar": {
     "error_messages": {
       "credentials_incorrect": "电子邮件或密码错误",
-      "registration_fail": "注册失败",
-      "post_creation_fail": "发帖失败",
+      "registration_fail": "Failed to register account",
+      "post_creation_fail": "Failed to create post",
       "post_deletion_fail": "Failed to delete post",
       "post_like_fail": "Failed to like post",
       "post_unlike_fail": "Failed to remove like from post",
@@ -315,7 +368,8 @@
       "post_edit_fail": "Failed to edit post",
       "comment_creation_fail": "Failed to create comment",
       "comment_delete_fail": "Failed to delete comment",
-      "comment_edit_fail": "Failed to edit comment"
+      "comment_edit_fail": "Failed to edit comment",
+      "password_change_failed": "Failed to change password"
     },
     "success_messages": {
       "post_creation_success": "Post created",

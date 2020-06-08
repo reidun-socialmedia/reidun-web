@@ -6,174 +6,224 @@
       }
     },
     "search_bar": {
-      "label": "Search users"
+      "label": "Zoek gebruikers",
+      "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
         "title": "Account"
       },
       "Settings": {
-        "title": "Settings"
+        "title": "Instellingen"
       },
       "Logout": {
-        "title": "Log Out"
+        "title": "Uitloggen"
       }
     },
     "notifications": {
-      "no_notifications": "No notifications",
-      "post_liked": "%s liked your post",
-      "post_disliked": "%s disliked your post",
-      "post_commented": "%s commented on your post"
+      "no_notifications": "Geen meldingen",
+      "post_liked": "%s vond je bericht leuk",
+      "post_disliked": "%s vond je bericht niet leuk",
+      "post_commented": "%s heeft gereageerd op je bericht"
     },
     "friend_requests": {
-      "no_friend_requests": "No friend requests",
-      "friend_request_title": "%s sent you a friend request"
+      "no_friend_requests": "Geen vriendenverzoeken",
+      "friend_request_title": "%s heeft je een vriendenverzoek gestuurd"
     },
     "developer_console_warning": {
-      "line_1": "Hold Up!",
-      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
-      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+      "line_1": "Wacht even!",
+      "line_2": "Als je hier verdachte code plaatst zou je anderen toegang tot je account kunnen geven.",
+      "line_3": "Als je niet zeker weet wat je aan het doen bent, sluit dit scherm en bescherm jezelf!"
     }
   },
   "home_page": {
     "post_creation_card": {
-      "greeting": "Hey %s, what's happening today?",
-      "post_creation_button": "Post",
-      "attach_file": "Attach a file",
-      "input_empty": "Post cannot be empty"
+      "greeting": "Hallo %s, wat doe je vandaag?",
+      "post_creation_button": "Plaats",
+      "attach_file": "Voeg een bestand toe",
+      "input_empty": "Bericht kan niet leeggelaten worden"
     },
     "post_card": {
-      "title": "Posts",
+      "title": "Berichten",
       "post_menu": {
-        "delete_post": "Delete Post",
-        "edit_post": "Edit Post",
-        "report": "Report Post"
+        "delete_post": "Verwijder bericht",
+        "edit_post": "Bewerk bericht",
+        "report": "Bericht melden"
       }
     }
   },
   "session_user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "Tijdlijn",
+      "about": "Over",
+      "friends": "Vrienden"
     },
     "change_avatar_dialog": {
-      "title": "Upload a image file: png, gif, or jpg",
-      "change_avatar": "Change Avatar",
-      "cancel": "Cancel",
-      "file_input_label": "Choose Image"
+      "title": "Upload een afbeelding: png, gif of jpg",
+      "change_avatar": "Avatar aanpassen",
+      "cancel": "Afsluiten",
+      "file_input_label": "Afbeelding kiezen"
     },
     "Wall": {
-      "title": "Your Wall",
-      "posts": "Posts",
-      "files_posted": "Files Posted",
-      "no-posts": "You haven't posted anything!",
-      "no-files": "You haven't uploaded anything!"
+      "title": "Jouw tijdlijn",
+      "posts": "Berichten",
+      "files_posted": "Geplaatste berichten",
+      "no-posts": "Je hebt niks geplaatst!",
+      "no-files": "Je hebt niks geüpload!"
     },
     "About": {
-      "title": "About You",
+      "title": "Over jou",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "E-mail",
+        "gender": "Geslacht",
+        "birthday": "Verjaardag"
       }
     },
     "Friends": {
-      "title": "Your Friends",
-      "no-friends": "You have no friends 😟"
+      "title": "Jouw vrienden",
+      "no-friends": "Je hebt geen vrienden :("
     }
   },
   "user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "Tijdlijn",
+      "about": "Over",
+      "friends": "Vrienden"
     },
     "user_menu": {
-      "block": "Block",
-      "remove_friend": "Remove Friend"
+      "block": "Blokkeren",
+      "remove_friend": "Vriend verwijderen"
     },
     "friend_request_buttons": {
-      "add_friend": "Add as friend",
-      "accept_request": "Cancel",
-      "deny_request": "Deny Request",
-      "cancel_request": "Cancel Request"
+      "add_friend": "Vriendenverzoek versturen",
+      "accept_request": "Afsluiten",
+      "deny_request": "Verzoek weigeren",
+      "cancel_request": "Verzoek annuleren",
+      "unfriend": "Unfriend"
     },
     "Wall": {
-      "title": "%s's wall",
-      "not_friends_message": "You need to be friends with %s to view their wall",
-      "posts": "Posts",
-      "files_posted": "Files Posted",
-      "no-posts": "%s has not posted anything",
-      "no-files": "%s has not uploaded anything"
+      "title": "%s's tijdlijn",
+      "not_friends_message": "Je moet vrienden zijn met %s om hun tijdlijn te kunnen zien",
+      "posts": "Berichten",
+      "files_posted": "Geplaatste bestanden",
+      "no-posts": "%s heeft niks geplaatst",
+      "no-files": "%s heeft niks geüpload"
     },
     "About": {
-      "title": "About %s",
-      "not_friends_message": "You need to be friends with %s to view their information",
+      "title": "Over %s",
+      "not_friends_message": "Je moet bevriend zijn met %s om hun informatie te zien",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "E-mail",
+        "gender": "Geslacht",
+        "birthday": "Verjaardag"
       }
     },
     "Friends": {
-      "title": "%s's friends",
-      "not_friends_message": "You need to be friends with %s to view their friends"
+      "title": "%s's vrienden",
+      "not_friends_message": "Je moet bevriend zijn met %s om hun vrienden te zien",
+      "user_no_friends": "User have no friends"
     }
   },
   "search_page_mobile": {
-    "title": "Search for users",
+    "title": "Zoek naar gebruikers",
     "search_bar": {
-      "label": "Search users"
+      "label": "Zoek gebruikers"
     },
-    "list_empty": "Type in the search bar to see results"
+    "list_empty": "Typ in de zoekbalk om resultaten te zien"
   },
   "notifications_page_mobile": {
-    "title": "Notifications",
-    "no_notifications": "No notifications",
-    "markAsRead": "Mark as read"
+    "title": "Meldingen",
+    "no_notifications": "Geen meldingen",
+    "markAsRead": "Als gelezen markeren"
   },
   "settings": {
     "settings_tab": {
-      "account_details": "Account Details",
+      "account_details": "Account details",
       "privacy": "Privacy",
-      "appearance": "Appearance",
-      "account_security_log": "Account Security Log"
+      "appearance": "Uiterlijk",
+      "account_security_log": "Gebruiksgeschiedenis van account"
     },
     "account_settings_tab": {
-      "title": "account settings",
+      "title": "Account settings",
       "information": {
-        "title": "Change information"
+        "title": "Informatie aanpassen"
       },
       "password": {
-        "title": "Change password"
+        "title": "Wachtwoord veranderen",
+        "new_password_input": {
+          "label": "New password"
+        },
+        "repeat_password_input": {
+          "label": "Repeat password"
+        },
+        "input_empty": "Password is required",
+        "password_mismatch": "Passwords don't match",
+        "security_dialog": {
+          "title": "Password verification",
+          "text": "Before we can let you change your password, we need you to type your current password in again, for safety measures",
+          "password_input": {
+            "label": "Type password",
+            "password_incorrect": "Password is incorrect"
+          }
+        },
+        "buttons": {
+          "authorize": "Authorize",
+          "cancel": "Cancel",
+          "save": "Save",
+          "ok": "Ok"
+        }
+      }
+    },
+    "privacy_tab": {
+      "title": "Privacy Settings",
+      "profile_privacy": {
+        "title": "Profile viewing setting",
+        "description": "Choose who can see your profile",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Everyone",
+          "friends": "Friends"
+        }
+      },
+      "friend_request_privacy": {
+        "title": "Friend requests",
+        "description": "Choose who can add you as friend",
+        "label": "Change setting",
+        "select_items": {
+          "everyone": "Everyone",
+          "friends_of_friends": "Friends of friends",
+          "none": "No one"
+        }
       }
     },
     "appearance_settings_tab": {
-      "title": "Appearance Settings",
+      "title": "Instellingen van uiterlijk",
       "theme_setting": {
         "dark_theme_setting": {
-          "title": "Dark Theme",
-          "on": "On",
-          "off": "Off"
+          "dark": "Dark Theme",
+          "light": "Light Theme",
+          "System_theme": "System theme",
+          "title": "Theme"
         },
         "Display_language_setting": {
-          "title": "Display Language",
+          "title": "Weergavetaal",
           "display_language_select": {
-            "label": "Language",
-            "albanian": "Albanian",
-            "danish": "Danish",
-            "chinese": "Chinese (Simplified)",
-            "dutch": "Dutch",
-            "english-uk": "English (United Kingdom)",
-            "english-us": "English (United States)",
-            "french": "French",
-            "german": "German",
-            "norwegian-bokmal": "Norwegian (Bokmal)",
-            "norwegian-nynorsk": "Norwegian (Nynorsk)",
-            "serbian": "Serbian",
-            "spanish": "Spanish",
-            "swedish": "Swedish"
+            "label": "Taal",
+            "albanian": "Albanees",
+            "danish": "Deens",
+            "chinese": "Chinees (vergemakkelijkt)",
+            "dutch": "Nederlands",
+            "english-uk": "Engels (Verenigd Koninkrijk)",
+            "english-us": "Engels (Verenigde Staten)",
+            "english-au": "English (Australia)",
+            "french": "Frans",
+            "german": "Duits",
+            "japanese": "japanese",
+            "norwegian-bokmal": "Noors (Bokmal)",
+            "norwegian-nynorsk": "Noors (Nynorsk)",
+            "serbian": "Servisch",
+            "spanish": "Spaans",
+            "swedish": "Zweeds"
           }
         }
       }
@@ -182,129 +232,132 @@
   "post_page": {
     "post_card": {
       "post_menu": {
-        "delete_post": "Delete Post",
-        "edit_post": "Edit Post",
-        "report": "Report Post"
-      }
+        "delete_post": "Verwijder bericht",
+        "edit_post": "Bewerk bericht",
+        "report": "Bericht melden"
+      },
+      "save_button": "Save",
+      "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Type comment",
-        "input_empty": "Comment cannot be empty"
+        "label": "Type a comment",
+        "input_empty": "Bericht kan niet leeggelaten worden"
       },
       "create_button": {
-        "label": "Comment"
+        "label": "Reactie"
       }
     },
     "comments_card": {
-      "no_comments": "No comments! Be the first to create one",
-      "title": "Comments"
+      "no_comments": "No comments yet! Be the first to create one",
+      "title": "Reacties"
     }
   },
   "guest_layout": {
     "developer_console_warning": {
-      "line_1": "Hold Up!",
-      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
-      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+      "line_1": "Wacht even!",
+      "line_2": "Als je hier verdachte code plaatst zou je anderen toegang tot je account kunnen geven.",
+      "line_3": "Als je niet zeker weet wat je aan het doen bent, sluit dit scherm en bescherm jezelf!"
     }
   },
   "login_page": {
-    "title": "Reidun - Login",
+    "title": "Reidun - Inloggen",
     "slide_show": {
       "page_1": {
         "title": "Reidun",
-        "text": "Free, open-source social media"
+        "text": "Gratis, open source social media"
       },
       "page_2": {
-        "title": "Reidun on mobile",
-        "text": "On the go? Don't worry, download a native version"
+        "title": "Reidun op mobiel",
+        "text": "Onderweg? Geen probleem, download een native versie"
       }
     },
     "login_form": {
       "email_text_field": {
-        "label": "Email",
-        "input_empty": "Email is required",
-        "email_not_valid": "Email must be valid"
+        "label": "E-mail",
+        "input_empty": "E-mail is vereist",
+        "email_not_valid": "E-mail moet geldig zijn"
       },
       "password_field": {
-        "label": "Password",
-        "input_empty": "Password is required"
+        "label": "Wachtwoord",
+        "input_empty": "Wachtwoord is vereist"
       },
       "login_button": {
-        "label": "Login"
+        "label": "Inloggen"
       },
       "register_button": {
-        "label": "Register"
+        "label": "Registreren"
       }
     }
   },
   "register_page": {
-    "title": "Reidun - Register",
+    "title": "Reidun - Registreren",
     "slide_show": {
       "page_1": {
         "title": "Reidun",
-        "text": "Free, open-source social media"
+        "text": "Gratis, open source social media"
       },
       "page_2": {
-        "title": "Reidun on mobile",
-        "text": "On the go? Don't worry, download a native version"
+        "title": "Reidun op mobiel",
+        "text": "Onderweg? Geen probleem, download een native versie"
       }
     },
     "register_form": {
       "firstname_text_field": {
-        "label": "First Name",
-        "input_empty": "First name is required"
+        "label": "Voornaam",
+        "input_empty": "Voornaam is vereist"
       },
       "lastname_text_field": {
-        "label": "Last name",
-        "input_empty": "Last name is required"
+        "label": "Achternaam",
+        "input_empty": "Achternaam is vereist"
       },
       "email_text_field": {
-        "label": "Email",
-        "input_empty": "Email is required",
-        "email_not_valid": "Email must be valid"
+        "label": "E-mail",
+        "input_empty": "E-mail is vereist",
+        "email_not_valid": "E-mail moet geldig zijn"
       },
       "password_field": {
-        "label": "Password",
-        "input_empty": "Password is required"
+        "label": "Wachtwoord",
+        "input_empty": "Wachtwoord is vereist"
       },
       "repeat_password_field": {
-        "label": "Repeat password",
-        "password_mismatch": "Password must match"
+        "label": "Wachtwoord herhalen",
+        "password_mismatch": "Wachtwoorden moeten overeenkomen"
       },
       "gender_selection": {
-        "label": "Gender",
-        "input_empty": "Gender is required",
+        "label": "Geslacht",
+        "input_empty": "Geslacht is vereist",
         "genders": {
-          "male": "Male",
-          "female": "Female",
-          "other": "Other"
+          "male": "Man",
+          "female": "Vrouw",
+          "other": "Anders"
         }
       },
       "birthday": {
-        "label": "Birthday",
-        "input_empty": "Birthday is required",
+        "label": "Verjaardag",
+        "input_empty": "Verjaardag is vereist",
+        "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
-          "cancel": "Cancel",
-          "ok": "OK"
+          "cancel": "Afsluiten",
+          "ok": "Oké"
         }
       },
       "register_button": {
-        "label": "Register"
+        "label": "Registreren"
       },
       "back_button": {
-        "label": "Back"
+        "label": "Terug"
       }
     }
   },
   "emoji_picker": {
-    "search_bar": "Search here",
-    "not_found": "Emoji(s) not found",
-    "loading": "Loading"
+    "search_bar": "Hier zoeken",
+    "not_found": "Emoji('s) niet gevonden",
+    "loading": "Laden"
   },
   "snackbar": {
     "error_messages": {
-      "credentials_incorrect": "Email or Password is incorrect",
+      "credentials_incorrect": "E-mail of wachtwoord is onjuist",
       "registration_fail": "Failed to register account",
       "post_creation_fail": "Failed to create post",
       "post_deletion_fail": "Failed to delete post",
@@ -312,29 +365,30 @@
       "post_unlike_fail": "Failed to remove like from post",
       "post_dislike_fail": "Failed to dislike post",
       "post_un_dislike_fail": "Failed to remove dislike for post",
-      "post_edit_fail": "Failed to edit post",
+      "post_edit_fail": "Het bewerken van je bericht is mislukt",
       "comment_creation_fail": "Failed to create comment",
       "comment_delete_fail": "Failed to delete comment",
-      "comment_edit_fail": "Failed to edit comment"
+      "comment_edit_fail": "Failed to edit comment",
+      "password_change_failed": "Failed to change password"
     },
     "success_messages": {
       "post_creation_success": "Post created",
       "post_deletion_success": "Post deleted",
       "post_like_success": "Liked post",
       "post_unlike_success": "Removed like for post",
-      "post_dislike_success": "Disliked post",
-      "post_un_dislike_success": "Removed dislike for post",
-      "post_edit_success": "Edited post",
-      "comment_creation_success": "Created comment",
-      "comment_delete_success": "Deleted comment",
-      "comment_edit_success": "Edited comment"
+      "post_dislike_success": "Bericht niet leuk gevonden",
+      "post_un_dislike_success": "\"Vind ik niet leuk\" op bericht verwijderd",
+      "post_edit_success": "Bericht bewerkt",
+      "comment_creation_success": "Reactie geplaatst",
+      "comment_delete_success": "Reactie verwijderd",
+      "comment_edit_success": "Reactie bewerkt"
     }
   },
   "error_page": {
-    "error_title": "error",
-    "exception_thrown": "This is most likely an exception thrown in the webapp and not the system itself",
-    "not_found_title": "404 Not Found",
-    "not_found": "This page does not exist"
+    "error_title": "Error",
+    "exception_thrown": "Dit is waarschijnlijk een foutmelding van de webapp en niet van het systeem",
+    "not_found_title": "404 Niet Gevonden",
+    "not_found": "Deze pagina bestaat niet"
   }
 }
 

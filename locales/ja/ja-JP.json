@@ -1,0 +1,395 @@
+{
+  "default_layout": {
+    "navigation_drawer": {
+      "Home": {
+        "title": "ホーム"
+      }
+    },
+    "search_bar": {
+      "label": "ユーザー検索",
+      "no_results": "No results"
+    },
+    "profile_drop_menu": {
+      "account": {
+        "title": "アカウント"
+      },
+      "Settings": {
+        "title": "設定"
+      },
+      "Logout": {
+        "title": "ログアウト"
+      }
+    },
+    "notifications": {
+      "no_notifications": "お知らせがない",
+      "post_liked": "%sさんは投稿を「いいね！」した",
+      "post_disliked": "%sさんは投稿を「いいね！」じゃないした",
+      "post_commented": "%sさんは投稿にコメントをした"
+    },
+    "friend_requests": {
+      "no_friend_requests": "フレンド申請がない",
+      "friend_request_title": "%sさんはフレンド申請を送った"
+    },
+    "developer_console_warning": {
+      "line_1": "ちょっと待って！",
+      "line_2": "ここに不審なコードを貼り付けると、攻撃者があなたのアカウントにアクセスできる可能性がありますよ。",
+      "line_3": "何をしているのか正確に理解していない限り、このウィンドウを閉じて安全に過ごしてくださいね。"
+    }
+  },
+  "home_page": {
+    "post_creation_card": {
+      "greeting": "%sさん、今日はどうしている?",
+      "post_creation_button": "投稿する",
+      "attach_file": "ファイルを添付",
+      "input_empty": "投稿は空くはずがない"
+    },
+    "post_card": {
+      "title": "投稿",
+      "post_menu": {
+        "delete_post": "投稿を消す",
+        "edit_post": "投稿を編集する",
+        "report": "投稿を報告する"
+      }
+    }
+  },
+  "session_user_page": {
+    "tab_menu": {
+      "wall": "ウォール",
+      "about": "ぐらい",
+      "friends": "フレンド"
+    },
+    "change_avatar_dialog": {
+      "title": "Upload an image file: png, gif, or jpg",
+      "change_avatar": "アバターを変更する",
+      "cancel": "やめる",
+      "file_input_label": "イメージを選ぶ"
+    },
+    "Wall": {
+      "title": "自分のウォール",
+      "posts": "投稿",
+      "files_posted": "ファイルを投稿した",
+      "no-posts": "何もを投稿しなかった！",
+      "no-files": "何もをアップしなかった！"
+    },
+    "About": {
+      "title": "自己紹介",
+      "info": {
+        "email": "メール",
+        "gender": "性別",
+        "birthday": "誕生日"
+      }
+    },
+    "Friends": {
+      "title": "私のフレンド",
+      "no-friends": "フレンドがいません😟"
+    }
+  },
+  "user_page": {
+    "tab_menu": {
+      "wall": "ウォール",
+      "about": "自己紹介",
+      "friends": "フレンド"
+    },
+    "user_menu": {
+      "block": "ブロックする",
+      "remove_friend": "フレンドから削除"
+    },
+    "friend_request_buttons": {
+      "add_friend": "フレンドになる",
+      "accept_request": "やめる",
+      "deny_request": "フレンドにならない",
+      "cancel_request": "承認をやめる",
+      "unfriend": "Unfriend"
+    },
+    "Wall": {
+      "title": "%sさんのウォール",
+      "not_friends_message": "%sさんのウォールを見るにはフレンドになる必要がある",
+      "posts": "投稿",
+      "files_posted": "ファイルを投稿した",
+      "no-posts": "%sさんは何もを投稿しなかった",
+      "no-files": "%sさんは何もをアップしなかった"
+    },
+    "About": {
+      "title": "%sさんの自己紹介",
+      "not_friends_message": "%sさんの自己紹介を見るにはフレンドになる必要がある",
+      "info": {
+        "email": "メール",
+        "gender": "性別",
+        "birthday": "誕生日"
+      }
+    },
+    "Friends": {
+      "title": "%sさんのフレンド",
+      "not_friends_message": "%sさんのフレンドを見るにはフレンドになる必要がある",
+      "user_no_friends": "User have no friends"
+    }
+  },
+  "search_page_mobile": {
+    "title": "利用者検索",
+    "search_bar": {
+      "label": "利用者検索"
+    },
+    "list_empty": "と検索バーに入力すると結果が表示される"
+  },
+  "notifications_page_mobile": {
+    "title": "お知らせ",
+    "no_notifications": "お知らせがない",
+    "markAsRead": "既読にする"
+  },
+  "settings": {
+    "settings_tab": {
+      "account_details": "個人の詳細",
+      "privacy": "プライバシー",
+      "appearance": "外観",
+      "account_security_log": "アカウントセキュリティログ"
+    },
+    "account_settings_tab": {
+      "title": "アカウントの設定",
+      "information": {
+        "title": "情報を変更する"
+      },
+      "password": {
+        "title": "パスワードを変更する",
+        "new_password_input": {
+          "label": "新しいパスワード"
+        },
+        "repeat_password_input": {
+          "label": "パスワードを再度入力してください"
+        },
+        "input_empty": "パスワードは必要",
+        "password_mismatch": "Passwords don't match",
+        "security_dialog": {
+          "title": "パスワード確認",
+          "text": "セキュリティ対策として、現在のパスワードをどうぞ。",
+          "password_input": {
+            "label": "パスワードを入力してください",
+            "password_incorrect": "間違ったパスワード"
+          }
+        },
+        "buttons": {
+          "authorize": "許可する",
+          "cancel": "キャンセル",
+          "save": "保存",
+          "ok": "Ok"
+        }
+      }
+    },
+    "privacy_tab": {
+      "title": "プライバシーの設定",
+      "profile_privacy": {
+        "title": "プロフィールを見るの設定",
+        "description": "自分のプロファイルを見ることができる人を選択する",
+        "label": "設定を変更する",
+        "select_items": {
+          "everyone": "みなさん",
+          "friends": "フレンド"
+        }
+      },
+      "friend_request_privacy": {
+        "title": "フレンド申請",
+        "description": "フレンドとして追加できる人を選択する",
+        "label": "設定を変更する",
+        "select_items": {
+          "everyone": "みなさん",
+          "friends_of_friends": "フレンドのフレンド",
+          "none": "誰にも"
+        }
+      }
+    },
+    "appearance_settings_tab": {
+      "title": "外観の設定",
+      "theme_setting": {
+        "dark_theme_setting": {
+          "dark": "ダークテーマ",
+          "light": "ライトテーム",
+          "System_theme": "システムテーム",
+          "title": "テーム"
+        },
+        "Display_language_setting": {
+          "title": "言語",
+          "display_language_select": {
+            "label": "言語",
+            "albanian": "アルバニア語",
+            "danish": "デンマーク語",
+            "chinese": "中国語 (簡体字)",
+            "dutch": "オランダ語",
+            "english-uk": "英語 (イギリス)",
+            "english-us": "英語 (アメリカ)",
+            "english-au": "English (Australia)",
+            "french": "フランス語",
+            "german": "ドイツ語",
+            "japanese": "japanese",
+            "norwegian-bokmal": "ノルウェー語 (Bokmål)",
+            "norwegian-nynorsk": "ノルウェー語 (Nynorsk)",
+            "serbian": "セルビア語",
+            "spanish": "スペイン語",
+            "swedish": "スウェーデン語"
+          }
+        }
+      }
+    }
+  },
+  "post_page": {
+    "post_card": {
+      "post_menu": {
+        "delete_post": "投稿を消す",
+        "edit_post": "投稿を編集する",
+        "report": "投稿を報告する"
+      },
+      "save_button": "Save",
+      "cancel_button": "Cancel"
+    },
+    "comment_creation_card": {
+      "comment_input": {
+        "label": "コメントを入力する",
+        "input_empty": "コメントは空くはずがない"
+      },
+      "create_button": {
+        "label": "コメント"
+      }
+    },
+    "comments_card": {
+      "no_comments": "コメントはまだない！ 最初のコメントになる",
+      "title": "コメント"
+    }
+  },
+  "guest_layout": {
+    "developer_console_warning": {
+      "line_1": "ちょっと待って！",
+      "line_2": "ここに不審なコードを貼り付けると、攻撃者があなたのアカウントにアクセスできる可能性がありますよ。",
+      "line_3": "何をしているのか正確に理解していない限り、このウィンドウを閉じて安全に過ごしてくださいね。"
+    }
+  },
+  "login_page": {
+    "title": "Reidun - ログイン",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "無料オープンソースのSNS"
+      },
+      "page_2": {
+        "title": "Reidunスマホで",
+        "text": "東奔西走中？心配しないで、ネイティブバージョンをダウンロードしてください"
+      }
+    },
+    "login_form": {
+      "email_text_field": {
+        "label": "メール",
+        "input_empty": "メールは必須",
+        "email_not_valid": "メールは有効でかなけれべなりません"
+      },
+      "password_field": {
+        "label": "パスワード",
+        "input_empty": "パスワードは必須"
+      },
+      "login_button": {
+        "label": "ログイン"
+      },
+      "register_button": {
+        "label": "アカウント登録"
+      }
+    }
+  },
+  "register_page": {
+    "title": "Reidun - アカウント登録",
+    "slide_show": {
+      "page_1": {
+        "title": "Reidun",
+        "text": "無料オープンソースのSNS"
+      },
+      "page_2": {
+        "title": "Reidunスマホで",
+        "text": "東奔西走中？心配しないで、ネイティブバージョンをダウンロードしてください"
+      }
+    },
+    "register_form": {
+      "firstname_text_field": {
+        "label": "名前",
+        "input_empty": "名前は必須"
+      },
+      "lastname_text_field": {
+        "label": "名字",
+        "input_empty": "名字は必須"
+      },
+      "email_text_field": {
+        "label": "メール",
+        "input_empty": "メールは必須",
+        "email_not_valid": "メールは有効でかなけれべなりません"
+      },
+      "password_field": {
+        "label": "パスワード",
+        "input_empty": "パスワードは必須"
+      },
+      "repeat_password_field": {
+        "label": "もう一度",
+        "password_mismatch": "パスワードが一致しません"
+      },
+      "gender_selection": {
+        "label": "性別",
+        "input_empty": "性別は必須",
+        "genders": {
+          "male": "男性",
+          "female": "女性",
+          "other": "カスタム"
+        }
+      },
+      "birthday": {
+        "label": "誕生日",
+        "input_empty": "誕生日は必須",
+        "younger_than_16": "Must be 16 or older",
+        "dialog_buttons": {
+          "cancel": "キャンセル",
+          "ok": "OK"
+        }
+      },
+      "register_button": {
+        "label": "アカウント登録"
+      },
+      "back_button": {
+        "label": "やめる"
+      }
+    }
+  },
+  "emoji_picker": {
+    "search_bar": "検索する",
+    "not_found": "絵文字はありません",
+    "loading": "ロード中"
+  },
+  "snackbar": {
+    "error_messages": {
+      "credentials_incorrect": "メールまたはパスワードが正しくありません",
+      "registration_fail": "アカウントの登録に失敗しました",
+      "post_creation_fail": "投稿の作成に失敗しました",
+      "post_deletion_fail": "投稿の削除に失敗しました",
+      "post_like_fail": "投稿の「いいね！」に失敗しました",
+      "post_unlike_fail": "投稿からの「いいね！」の削除に失敗しました",
+      "post_dislike_fail": "投稿からの「いいねない」の削除に失敗しました",
+      "post_un_dislike_fail": "投稿からの「いいねない」の削除に失敗しました",
+      "post_edit_fail": "投稿の編集に失敗しました",
+      "comment_creation_fail": "コメントの作成に失敗しました",
+      "comment_delete_fail": "コメントの削除に失敗しました",
+      "comment_edit_fail": "コメントの編集に失敗しました",
+      "password_change_failed": "パスワードの変更に失敗しました"
+    },
+    "success_messages": {
+      "post_creation_success": "投稿を作った",
+      "post_deletion_success": "投稿を削除した",
+      "post_like_success": "投稿を「いいね！」した",
+      "post_unlike_success": "投稿から「いいね！」を取り除いた",
+      "post_dislike_success": "投稿を「いいねない」した",
+      "post_un_dislike_success": "投稿から「いいねない」を取り除いた",
+      "post_edit_success": "投稿を編集した",
+      "comment_creation_success": "コメントを作った",
+      "comment_delete_success": "コメントを削除した",
+      "comment_edit_success": "コメントを編集した"
+    }
+  },
+  "error_page": {
+    "error_title": "エラー",
+    "exception_thrown": "これはシステム自体ではなく、ウェブアプリ内で発生する例外である可能性が高いです。",
+    "not_found_title": "404見つからない",
+    "not_found": "このページは存在しません。"
+  }
+}
+
+
