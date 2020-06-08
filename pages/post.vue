@@ -160,10 +160,15 @@
               <v-textarea
                 :label="this.$t('post_page.comment_creation_card.comment_input.label')"
                 v-model="commentContent"
-                maxlength="600"
+                counter
+                maxlength="255"
                 outlined
-
+                single-line
                 :rules="commentRules"
+
+
+
+
               >
               </v-textarea>
             </v-form>
@@ -239,7 +244,7 @@
 
               </v-card-title>
 
-              <v-card-text v-if="editChosenCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
+              <v-card-text  v-if="editChosenCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
               <div v-else>
                 <v-textarea
 
