@@ -56,83 +56,11 @@
 
 <script>
     import {mapGetters} from "vuex";
-
+    import privacyDetails from "../components/privacy-cmp"
     export default {
       name: "privacy",
-      data() {
-          return {
-          profilePrivacySetting:"",
-          friendRequestSetting:"",
-          profile_view_select: [
-            {
-              text: this.$t('settings.privacy_tab.profile_privacy.select_items.everyone'),
-              value: "everyone"
+        components:{privacyDetails}
 
-            },
-            {
-              text: this.$t('settings.privacy_tab.profile_privacy.select_items.friends'),
-              value: "friends"
-            }
-          ],
-          friend_request_select: [
-            {
-              text: this.$t('settings.privacy_tab.friend_request_privacy.select_items.everyone'),
-              value: "everyone"
-
-            },
-            {
-              text: this.$t('settings.privacy_tab.friend_request_privacy.select_items.friends_of_friends'),
-              value: "friends_of_friends"
-            },
-            {
-              text: this.$t('settings.privacy_tab.friend_request_privacy.select_items.none'),
-              value: "none"
-            }
-          ]
-        }
-      },
-      mounted() {
-        this.friendRequestSetting = this.friend_request_select.filter((item) => {
-          return item.value === this.loggedInUser.privacy.who_can_add
-        })[0]
-
-        this.profilePrivacySetting = this.profile_view_select.filter((item) => {
-          return item.value === this.loggedInUser.privacy.profile_privacy
-        })[0]
-      },
-      methods: {
-        changeProfilePrivacySetting(item) {
-          let data = {
-            privacy_setting: item.value,
-
-          }
-          self = this
-          this.$axios.patch('/users/privacy/profile/change', data).then(res => {
-
-
-          }).catch(err => {
-
-
-          })
-        },
-        changefriendRequestSetting(item) {
-          let data = {
-            privacy_setting: item.value,
-
-          }
-          self = this
-          this.$axios.patch('/users/privacy/request/change', data).then(res => {
-
-
-          }).catch(err => {
-
-
-          })
-        }
-      },
-      computed:{
-        ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
-      }
     }
 </script>
 
