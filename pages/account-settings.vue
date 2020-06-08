@@ -8,7 +8,7 @@
 
 <script>
   import {mapGetters, mapMutations} from "vuex";
-  import  accountDetails from "../components/account-details"
+  import  accountDetails from "../components/account-cmp"
     export default {
       name: "account-settings",
       components:{accountDetails},
