@@ -227,17 +227,17 @@
                     <v-list-item @click="deleteComment(comment.id)">
                       <v-list-item-title>
                         <v-icon>mdi-delete</v-icon>
-                        {{$t('post_page.post_card.post_menu.delete_post')}}
+                        {{$t('post_page.comments_card.comment_menu.delete_comment')}}
                       </v-list-item-title>
                     </v-list-item>
                     <v-list-item @click="editChosenCommentId = comment.id, editCommentInputField = comment.comment_content">
                       <v-list-item-title>
                         <v-icon>edit</v-icon>
-                        {{$t('post_page.post_card.post_menu.edit_post')}}
+                        {{$t('post_page.comments_card.comment_menu.edit_comment')}}
                       </v-list-item-title>
                     </v-list-item>
                     <v-list-item v-if="comment.user.id !== loggedInUser.id">
-                      <v-list-item-title>{{$t('post_page.post_card.post_menu.report')}}</v-list-item-title>
+                      <v-list-item-title>{{$t('post_page.comments_card.comment_menu.report_comment')}}</v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
