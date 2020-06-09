@@ -96,7 +96,7 @@
     },
     "friend_request_buttons": {
       "add_friend": "Tilføj som ven",
-      "accept_request": "Annuller",
+      "accept_request": "Godkend anmodning",
       "deny_request": "Afvis andmodning",
       "cancel_request": "Annuller anmodning",
       "unfriend": "Fjern som ven"

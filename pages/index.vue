@@ -29,7 +29,7 @@
             <p style="margin-left: 1rem; margin-bottom: 0;">{{loggedInUser.firstname + " " + loggedInUser.lastname}}</p>
           </v-card-title>
           <v-card-text>
-            <v-form v-model="valid">
+            <v-form v-model="valid"  ref="createPostForm">
               <v-textarea
                 :label="this.formatString(this.$t('home_page.post_creation_card.greeting'), [loggedInUser.firstname])"
                 v-model="postText"
@@ -367,15 +367,15 @@
                     }
                     await this.$axios.post('post/create', Data).then(r => {
 
-                        self.setSnackColor("success");
                         this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_CREATE', {sender: this.loggedInUser})
-                        this.postText = ''
-                        this.isValid = false;
-                        self.setSnack("You post has successfully been created");
+                        this.$refs.createPostForm.reset()
+                      self.setSnackColor("success");
+                      self.setSnack("Your post has successfully been created");
 
                     }).catch(e => {
+                        console.log(e)
                         self.setSnackColor("error");
-                        self.setSnack(e.response.data.message);
+                        self.setSnack("");
                     })
                 }
             },
@@ -395,8 +395,7 @@
             },
 
             getFormattedDate(date) {
-              const postDate = moment(date)
-              return postDate.tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('DD-MM-YYYY HH:mm')
+              return moment(date).local().format("DD-MM-YYYY HH.mm")
 
             },
             go: function (action) {

@@ -96,7 +96,7 @@
     },
     "friend_request_buttons": {
       "add_friend": "フレンドになる",
-      "accept_request": "やめる",
+      "accept_request": "Accept Request",
       "deny_request": "フレンドにならない",
       "cancel_request": "承認をやめる",
       "unfriend": "Unfriend"

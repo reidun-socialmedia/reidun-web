@@ -96,7 +96,7 @@
     },
     "friend_request_buttons": {
       "add_friend": "Als Freund hinzufügen",
-      "accept_request": "Abbrechen",
+      "accept_request": "Accept Request",
       "deny_request": "Anfrage ablehnen",
       "cancel_request": "Anfrage abbrechen",
       "unfriend": "Unfriend"
