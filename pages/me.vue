@@ -565,6 +565,13 @@
             this.getUserPosts(this.loggedInUser.id)
 
         },
+        mounted(){
+        this.$ws.$on('POST_LIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+        this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+        this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+        this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+
+        },
         computed: {
             ...mapGetters(['isAuthenticated', 'loggedInUser',"userLocale"]),
 
