@@ -250,7 +250,14 @@
     },
     "comments_card": {
       "no_comments": "No comments yet! Be the first to create one",
-      "title": "Comments"
+      "title": "Comments",
+      "comment_menu": {
+        "delete_comment": "Delete Comment",
+        "edit_comment": "Edit Comment",
+        "report_comment": "Report Comment"
+
+
+      }
     }
   },
   "guest_layout": {
