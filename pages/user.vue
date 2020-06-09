@@ -57,7 +57,7 @@
           <v-btn
             v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
             @click="acceptFriendRequest(user.id)"
-            color="primary"
+            color="success"
           >
             {{this.$t("user_page.friend_request_buttons.accept_request")}}
           </v-btn>
