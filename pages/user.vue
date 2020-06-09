@@ -15,7 +15,7 @@
       <v-img id="img" :src="'/media/post/'+overlayImg"/>
 
     </v-dialog>
-    <v-card v-if="this.user.firstname === undefined">
+    <v-card v-if="!this.hasUser">
       <v-card-title>
         error
       </v-card-title>
@@ -33,10 +33,11 @@
         <v-spacer></v-spacer>
         <div class="buttons">
           <v-btn
-            v-if="user.privacy.who_can_add === 'friends_of_friends'"
+            v-if="user.privacy.who_can_add === 'friends_of_friends' && hasMutualFriends"
+            @click="addFriend(user.id)"
           >
-            pls add friends of friend function
-          </v-btn>
+            {{this.$t("user_page.friend_request_buttons.add_friend")}}
+          </v-btn >
           <v-btn
             v-if="user.privacy.who_can_add === 'everyone'  && relation.status === undefined"
             @click="addFriend(user.id)"
@@ -445,24 +446,26 @@
         dialog: false,
         overlayImg: '',
         posts: [],
+          hasUser: true,
         finishedLoading: false,
+          hasMutualFriends: false,
         userFiles: []
       }
     },
     methods: {
-      checkMutualFriends() {
+      checkIfTargetUserHasMutualFriends(userId) {
 
-        axios.post('/friends/relation', {targetUserIds: this.userFriends}).then(res => {
-
+        this.$axios.get(`/friends/user/${userId}/mutuals`).then(res => {
+            this.hasMutualFriends = res.data.data;
         })
       },
       async getUser(userId) {
 
         await this.$axios.get('/user/' + userId).then(res => {
           this.user = res.data.data
-          console.log(this.user)
-        }).catch(error => {
 
+        }).catch(error => {
+            this.hasUser = false;
         })
       },
       getGenderIcon(sentGender) {
@@ -499,6 +502,14 @@
 
       },
       checkUser(userId) {
+          //check if parameters are invalid
+          console.log(userId)
+          if (userId === "" || userId === undefined || userId === null){
+              this.$router.push({
+                  path: '/'
+              })
+          }
+        //Check if the parameters is my own id or else
         if (userId === this.loggedInUser.id) {
           this.$router.push({
             path: '/me'
@@ -517,18 +528,23 @@
         }
         await this.$axios.post('/friends/relation', data).then(res => {
           this.relation = res.data.data
+            // status code 204 means that the user and target user dont have a relationship.
+            // status code 200 means that the user and target user have a relationship
           if (res.status === 204) {
             this.getUser(this.$route.query.id)
             this.getUserAvatars(this.$route.query.id)
 
             this.relation = {}
-          } else {
+          }
+
+          else {
             this.getUser(id)
             this.getUserAvatars(id)
             this.getUserPostFiles(id)
           }
-          this.getUserPosts(id)
+          this.getUserPosts(id);
           this.getUserFriends(id);
+          this.checkIfTargetUserHasMutualFriends(id);
 
 
         }).catch(error => {
@@ -789,10 +805,10 @@
       this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.$route.query.id))
       this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.$route.query.id))
 
-
     },
     beforeMount() {
       this.checkUser(this.$route.query.id)
+
     },
 
     computed: {
