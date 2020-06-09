@@ -503,7 +503,8 @@
       },
       checkUser(userId) {
           //check if parameters are invalid
-          if (userId === "" || userId === undefined){
+          console.log(userId)
+          if (userId === "" || userId === undefined || userId === null){
               this.$router.push({
                   path: '/'
               })
