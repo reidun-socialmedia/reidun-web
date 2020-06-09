@@ -17,10 +17,10 @@
 
     </v-dialog>
     <v-card>
-      <v-img width="1200" height="200"  @mouseenter="editBack = true"
-             @mouseleave="editBack = false"
-             :src="'/media/user/'+this.loggedInUser.id+'/banners'+loggedInUser.banner.path">
-        <v-btn style="margin: 2rem" v-show="editBack" icon @click="backgroundChangeDialog = true">
+      <v-img width="1200" height="200"  @mouseenter="editBanner = true"
+             @mouseleave="editBanner = false"
+             :src="'/media/user'+loggedInUser.banner.path">
+        <v-btn style="margin: 2rem" v-show="editBanner" icon @click="bannerChangeDialog = true">
           <v-icon style="filter: drop-shadow(0px 0px 3px rgba(23,23,23,0.80));">edit</v-icon>
         </v-btn>
 
@@ -323,17 +323,17 @@
 
     <!-- Background -->
     <v-dialog
-      v-model="backgroundChangeDialog"
+      v-model="bannerChangeDialog"
       max-width="290"
     >
       <v-card>
-        <v-card-title class="headline">Change Background image</v-card-title>
+        <v-card-title class="headline">Change Banner</v-card-title>
 
         <v-card-text>
           <p>Upload a image file, png, gif, jpg</p>
           <v-file-input
             label="Choose image"
-            v-model="backFile"
+            v-model="bannerFile"
             show-size
             accept=".png,.gif,.jpg,.jfif"
             :rules="imageRules"
@@ -347,7 +347,7 @@
           <v-btn
             color="green darken-1"
             text
-            @click="backgroundChangeDialog = false"
+            @click="bannerChangeDialog = false"
           >
             Cancel
           </v-btn>
@@ -355,7 +355,7 @@
           <v-btn
             color="green darken-1"
             text
-            @click="changeBackground(backFile)"
+            @click="changeBanner(bannerFile)"
           >
             Save as Banner
           </v-btn>
@@ -417,14 +417,14 @@
         data: function () {
             return {
                 editIcon: false,
-                editBack: false,
+                editBanner: false,
                 avatarChangeDialog: false,
-                backgroundChangeDialog: false,
+                bannerChangeDialog: false,
                 imageRules: [
                     v => !!v || 'Image file is required'
                 ],
                 imageFile: null,
-                backFile: null,
+                bannerFile: null,
                 sorting: 'sort_by_date',
                 postSortSettings: [
                     {
@@ -492,10 +492,10 @@
                     self.setSnack("Failed to change avatar");
                 }
             },
-            async changeBackground(backgroundFile) {
+            async changeBanner(bannerFile) {
                 const formData = new FormData();
                 formData.append("userid", this.loggedInUser.id)
-                formData.append("image", backgroundFile);
+                formData.append("image", bannerFile);
                 let self = this;
                 try {
                     await this.$axios.post('user/changebanner', formData, {
@@ -503,7 +503,7 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     })
-                    this.avatarChangeDialog = false
+                    this.bannerChangeDialog = false
                     self.setSnackColor("success");
                     self.setSnack("You have successfully changed banner");
                 } catch (e) {
