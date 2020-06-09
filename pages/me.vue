@@ -19,7 +19,7 @@
     <v-card>
       <v-img width="1200" height="200"  @mouseenter="editBack = true"
              @mouseleave="editBack = false"
-             :src="loggedInUser.headerimg !== undefined ? loggedInUser.headerimg : 'defaultpost.jpg'">
+             :src="'/media/user/'+this.loggedInUser.id+'/banners'+loggedInUser.banner.path">
         <v-btn style="margin: 2rem" v-show="editBack" icon @click="backgroundChangeDialog = true">
           <v-icon style="filter: drop-shadow(0px 0px 3px rgba(23,23,23,0.80));">edit</v-icon>
         </v-btn>
@@ -498,17 +498,17 @@
                 formData.append("image", backgroundFile);
                 let self = this;
                 try {
-                    await this.$axios.post('user/changebackground', formData, {
+                    await this.$axios.post('user/changebanner', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     })
                     this.avatarChangeDialog = false
                     self.setSnackColor("success");
-                    self.setSnack("You have successfully changed avatar");
+                    self.setSnack("You have successfully changed banner");
                 } catch (e) {
                     self.setSnackColor("error");
-                    self.setSnack("Failed to change avatar");
+                    self.setSnack("Failed to change banner");
                 }
             },
             ...mapMutations({
