@@ -17,8 +17,14 @@
 
     </v-dialog>
     <v-card>
-      <v-img width="1200" height="200"
-             :src="loggedInUser.headerimg !== undefined ? loggedInUser.headerimg : 'defaultpost.jpg'"/>
+      <v-img width="1200" height="200"  @mouseenter="editBack = true"
+             @mouseleave="editBack = false"
+             :src="loggedInUser.headerimg !== undefined ? loggedInUser.headerimg : 'defaultpost.jpg'">
+        <v-btn style="margin: 2rem" v-show="editBack" icon @click="backgroundChangeDialog = true">
+          <v-icon style="filter: drop-shadow(0px 0px 3px rgba(23,23,23,0.80));">edit</v-icon>
+        </v-btn>
+
+      </v-img>
       <v-card-title style="position:relative; z-index: 1; top: -50px; ">
         <v-avatar style="width: 6rem; height: 6rem; margin-right: 0.2rem" @mouseenter="editIcon = true"
                   @mouseleave="editIcon = false">
@@ -314,6 +320,50 @@
 
       </v-tabs>
     </v-card>
+
+    <!-- Background -->
+    <v-dialog
+      v-model="backgroundChangeDialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="headline">Change Background image</v-card-title>
+
+        <v-card-text>
+          <p>Upload a image file, png, gif, jpg</p>
+          <v-file-input
+            label="Choose image"
+            v-model="backFile"
+            show-size
+            accept=".png,.gif,.jpg,.jfif"
+            :rules="imageRules"
+          ></v-file-input>
+
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="backgroundChangeDialog = false"
+          >
+            Cancel
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="changeBackground(backFile)"
+          >
+            Save as Banner
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Avatar -->
     <v-dialog
       v-model="avatarChangeDialog"
       max-width="290"
@@ -367,11 +417,14 @@
         data: function () {
             return {
                 editIcon: false,
+                editBack: false,
                 avatarChangeDialog: false,
+                backgroundChangeDialog: false,
                 imageRules: [
                     v => !!v || 'Image file is required'
                 ],
                 imageFile: null,
+                backFile: null,
                 sorting: 'sort_by_date',
                 postSortSettings: [
                     {
@@ -433,7 +486,26 @@
                     })
                     this.avatarChangeDialog = false
                     self.setSnackColor("success");
-                    self.setSnack("You have successfully changed avatar, however you need to reload webapp");
+                    self.setSnack("You have successfully changed avatar");
+                } catch (e) {
+                    self.setSnackColor("error");
+                    self.setSnack("Failed to change avatar");
+                }
+            },
+            async changeBackground(backgroundFile) {
+                const formData = new FormData();
+                formData.append("userid", this.loggedInUser.id)
+                formData.append("image", backgroundFile);
+                let self = this;
+                try {
+                    await this.$axios.post('user/changebackground', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                    this.avatarChangeDialog = false
+                    self.setSnackColor("success");
+                    self.setSnack("You have successfully changed avatar");
                 } catch (e) {
                     self.setSnackColor("error");
                     self.setSnack("Failed to change avatar");

@@ -156,7 +156,7 @@
         </v-card>
         <v-card>
           <v-card-text>
-            <v-form v-model="isValid">
+            <v-form v-model="isValid" ref="createCommentForm">
               <v-textarea
                 :label="this.$t('post_page.comment_creation_card.comment_input.label')"
                 v-model="commentContent"
@@ -456,6 +456,7 @@
                     'datePosted': dateTime
                 }
                 await this.$axios.post('/post/comment/create', data).then(res => {
+                    this.$refs.createCommentForm.reset()
                     self.setSnackColor("success");
                     this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_CREATE', {sender: this.loggedInUser, postId: this.$route.query.id})
                     self.setSnack("You comment has successfully been created");

@@ -348,7 +348,7 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     }).then(r => {
-                        this.postText = ''
+                        this.$refs.createPostForm.reset()
                         this.Files = []
                         this.isValid = false;
                         self.setSnackColor("success");
