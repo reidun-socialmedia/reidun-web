@@ -23,8 +23,8 @@
     </v-card>
 
     <v-card v-else-if="this.user.firstname !== undefined">
-      <v-img width="1200" height="200"
-             :src="this.user.headerimg !== undefined ? this.user.headerimg : 'defaultpost.jpg'"/>
+      <v-img width="100%" height="200"
+             :src="'/media/user'+loggedInUser.banner.path"/>
       <v-card-title style="position:relative; z-index: 1; top: -50px;">
         <v-avatar @click="avatarModal = true" style="width: 6rem; height: 6rem; margin-right: 1rem">
           <v-img :src="'/media/avatar/'+this.user.avatar.path"/>

@@ -17,7 +17,7 @@
 
     </v-dialog>
     <v-card>
-      <v-img width="1200" height="200"  @mouseenter="editBanner = true"
+      <v-img width="100%" height="200"  @mouseenter="editBanner = true"
              @mouseleave="editBanner = false"
              :src="'/media/user'+loggedInUser.banner.path">
         <v-btn style="margin: 2rem" v-show="editBanner" icon @click="bannerChangeDialog = true">
@@ -503,10 +503,16 @@
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
+                    }).then(res => {
+                        this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'BANNER_UPDATED', {
+                            sender: this.loggedInUser
+                        })
+
+                        this.bannerChangeDialog = false
+                        self.setSnackColor("success");
+                        self.setSnack("You have successfully changed banner");
                     })
-                    this.bannerChangeDialog = false
-                    self.setSnackColor("success");
-                    self.setSnack("You have successfully changed banner");
+
                 } catch (e) {
                     self.setSnackColor("error");
                     self.setSnack("Failed to change banner");
@@ -631,6 +637,12 @@
                     self.setSnack("could not un-dislike post");
                 })
             },
+            async getBanner(userId,image){
+                await this.$axios.get(`/user`).then(res => {
+
+                    this.$store.commit('UpdateUser',res.data.data)
+                })
+            }
         },
         beforeMount() {
             this.getUserFriends(this.loggedInUser.id)
@@ -643,6 +655,8 @@
         this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
         this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
         this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+            this.$ws.$on('BANNER_UPDATED', (e) => this.getBanner(this.loggedInUser.id,this.bannerFile))
+
 
         },
         computed: {
