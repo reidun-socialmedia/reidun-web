@@ -76,7 +76,11 @@
           localStorage.theme = JSON.stringify(defaultTheme)
         }else{
           this.theme = JSON.parse(localStorage.theme)
-
+          if(this.theme.value === "dark"){
+            this.dark = true
+          }else{
+            this.dark = false
+          }
         }
         if (this.theme.value === 'systemTheme') {
 
