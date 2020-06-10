@@ -462,9 +462,7 @@
       }),
       async onDisconnect(e) {
         await this.$axios.get('/user').then(res => {
-          if (!res.data) {
-            this.logout()
-          }
+
         }).catch(err => {
           this.logout()
         })

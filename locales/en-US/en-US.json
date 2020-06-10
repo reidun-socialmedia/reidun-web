@@ -316,12 +316,16 @@
       },
       "lastname_text_field": {
         "label": "Last name",
-        "input_empty": "Last name is required"
+        "input_empty": "Last name is required",
+        "firstname_not_valid": "Only letters is allowed in firstname"
+
       },
       "email_text_field": {
         "label": "Email",
         "input_empty": "Email is required",
-        "email_not_valid": "Email must be valid"
+        "email_not_valid": "Email must be valid",
+        "lastname_not_valid": "Only letters is allowed in lastname"
+
       },
       "password_field": {
         "label": "Password",
