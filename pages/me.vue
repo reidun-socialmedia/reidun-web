@@ -322,18 +322,19 @@
       </v-tabs>
     </v-card>
 
-    <!-- Background -->
+    <!-- Banner -->
     <v-dialog
       v-model="bannerChangeDialog"
+      style="max-width: fit-content"
       max-width="290"
     >
       <v-card>
-        <v-card-title class="headline">Change Banner</v-card-title>
+        <v-card-title class="headline">{{this.$t('session_user_page.change_banner_dialog.change_Banner')}}</v-card-title>
 
         <v-card-text>
-          <p>Upload a image file, png, gif, jpg</p>
+          <p>{{this.$t('session_user_page.change_avatar_dialog.title')}}</p>
           <v-file-input
-            label="Choose image"
+            :label="this.$t('session_user_page.change_avatar_dialog.file_input_label')"
             v-model="bannerFile"
             show-size
             accept=".png,.gif,.jpg,.jfif"
@@ -350,7 +351,7 @@
             text
             @click="bannerChangeDialog = false"
           >
-            Cancel
+            {{$t('session_user_page.change_avatar_dialog.cancel')}}
           </v-btn>
 
           <v-btn
@@ -358,7 +359,7 @@
             text
             @click="changeBanner(bannerFile)"
           >
-            Save as Banner
+            {{$t('session_user_page.change_banner_dialog.save-button')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -367,15 +368,16 @@
     <!-- Avatar -->
     <v-dialog
       v-model="avatarChangeDialog"
-      max-width="290"
     >
-      <v-card>
-        <v-card-title class="headline">Change Avatar</v-card-title>
+      <v-card
+
+      >
+        <v-card-title class="headline">{{this.$t('session_user_page.change_avatar_dialog.change_avatar')}}</v-card-title>
 
         <v-card-text>
-          <p>Upload a image file, png, gif, jpg</p>
+          <p>{{this.$t('session_user_page.change_avatar_dialog.title')}}</p>
           <v-file-input
-            label="Choose image"
+            :label="this.$t('session_user_page.change_avatar_dialog.file_input_label')"
             v-model="imageFile"
             show-size
             accept=".png,.gif,.jpg,.jfif"
@@ -385,14 +387,12 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
-
           <v-btn
             color="green darken-1"
             text
             @click="avatarChangeDialog = false"
           >
-            Cancel
+            {{$t('session_user_page.change_avatar_dialog.cancel')}}
           </v-btn>
 
           <v-btn
@@ -400,7 +400,7 @@
             text
             @click="changeAvatar(imageFile)"
           >
-            Save Avatar
+            {{$t('session_user_page.change_avatar_dialog.change_avatar')}}
           </v-btn>
         </v-card-actions>
       </v-card>
