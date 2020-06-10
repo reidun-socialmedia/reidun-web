@@ -214,6 +214,7 @@
                         </nuxt-link>
                         <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(post.dateposted)}}
+                          <span v-if="post.edited === 1">(Edited)</span>
                      </span>
                         <v-spacer>
                         </v-spacer>

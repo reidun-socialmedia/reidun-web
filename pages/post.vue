@@ -27,8 +27,9 @@
                        :to="'/user?id='+this.post.poster_id">{{this.post.poster.firstname + " " +
               this.post.poster.lastname}}
             </nuxt-link>
-            <span style="font-size: 0.8rem">
+            <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(this.post.dateposted)}}
+              <span v-if="this.post.edited === 1">(Edited)</span>
         </span>
             <v-spacer>
             </v-spacer>
@@ -210,9 +211,12 @@
                 </v-avatar>
                 <p style="margin-left: 1rem; margin-right: 1rem">{{comment.user.firstname + " " +
                   comment.user.lastname}}</p>
-                <span style="font-size: 0.8rem">
+                <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(comment.dateposted)}}
+                  <span v-if="comment.edited === 1">(Edited)</span>
                </span>
+
+
                 <v-spacer></v-spacer>
 
                 <!-- Delete and Edit Comment -->
