@@ -23,8 +23,11 @@
     </v-card>
 
     <v-card v-else-if="this.user.firstname !== undefined">
+
       <v-img width="100%" height="200"
-             :src="'/media/user'+loggedInUser.banner.path" @click="this.showCarousel = true">
+             :src="'/media/user'+loggedInUser.banner.path"
+             @click="showCarousel = true"
+      >
 
       </v-img>
       <v-card-title style="position:relative; z-index: 1; top: -50px;">
@@ -42,7 +45,6 @@
             {{this.$t("user_page.friend_request_buttons.add_friend")}}
           </v-btn >
 
-          <v-btn @click="this.showCarousel = true" value="dwa"  > asdads</v-btn>
 
           <v-btn
             v-if="user.privacy.who_can_add === 'everyone'  && relation.status === undefined"
@@ -417,21 +419,20 @@
       max-width="800"
     >
       <v-card>
-        <v-carousel>
+        <v-carousel slide showControls>
           <v-carousel-item
             v-for="(item,i) in userAvatars"
 
             :key="i"
             :src="'/media/avatar/'+item.path"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
+
           ></v-carousel-item>
         </v-carousel>
 
       </v-card>
     </v-dialog>
-    <v-dialog v-if="this.showCarousel" max-width="800">
-      <banner-carousel/>
+    <v-dialog v-model="showCarousel" max-width="800">
+      <banner-carousel :targetUserId="this.user.id"/>
     </v-dialog>
   </v-container>
 </template>
@@ -451,7 +452,6 @@
         relation: {},
         avatarModal: false,
           showCarousel: false,
-
         userAvatars: [],
         userFriends: [],
         page: 1,
