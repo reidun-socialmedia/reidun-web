@@ -24,11 +24,11 @@
       "no_notifications": "没有通知",
       "post_liked": "%s喜欢了您的帖子",
       "post_disliked": "%s不喜欢您的帖子",
-      "post_commented": "%s commented on your post"
+      "post_commented": "%s nihao"
     },
     "friend_requests": {
       "no_friend_requests": "No friend requests",
-      "friend_request_title": "%s sent you a friend request"
+      "friend_request_title": "%s sent you a nihao request"
     },
     "developer_console_warning": {
       "line_1": "等一下！",

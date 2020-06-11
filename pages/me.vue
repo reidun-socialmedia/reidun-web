@@ -17,12 +17,14 @@
 
     </v-dialog>
     <v-card>
-      <v-img width="100%" height="200"  @mouseenter="editBanner = true"
+      <v-img  width="100%" height="200"  @mouseenter="editBanner = true" @click="showCarousel = !bannerChangeDialog"
              @mouseleave="editBanner = false"
              :src="'/media/user'+loggedInUser.banner.path">
+
         <v-btn style="margin: 2rem" v-show="editBanner" icon @click="bannerChangeDialog = true">
           <v-icon style="filter: drop-shadow(0px 0px 3px rgba(23,23,23,0.80));">edit</v-icon>
         </v-btn>
+
 
       </v-img>
       <v-card-title style="position:relative; z-index: 1; top: -50px; ">
@@ -329,7 +331,7 @@
       max-width="290"
     >
       <v-card>
-        <v-card-title class="headline">{{this.$t('session_user_page.change_banner_dialog.change_Banner')}}</v-card-title>
+        <v-card-title class="headline">{{this.$t('session_user_page.change_banner_dialog.upload_Banner')}}</v-card-title>
 
         <v-card-text>
           <p>{{this.$t('session_user_page.change_avatar_dialog.title')}}</p>
@@ -405,18 +407,26 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="showCarousel" max-width="800">
+      <banner-carousel :targetUserId="this.loggedInUser.id"/>
+    </v-dialog>
   </div>
+
 </template>
 
 <script>
     import {mapGetters, mapMutations} from "vuex";
     import twemoji from 'twemoji'
     import moment from 'moment'
-
+    import bannerCarousel from "../components/bannerCarousel";
     export default {
         name: "me",
+        components:{
+            bannerCarousel
+        },
         data: function () {
             return {
+                showCarousel:false,
                 editIcon: false,
                 editBanner: false,
                 avatarChangeDialog: false,

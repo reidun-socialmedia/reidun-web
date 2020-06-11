@@ -23,8 +23,13 @@
     </v-card>
 
     <v-card v-else-if="this.user.firstname !== undefined">
+
       <v-img width="100%" height="200"
-             :src="'/media/user'+loggedInUser.banner.path"/>
+             :src="'/media/user'+loggedInUser.banner.path"
+             @click="showCarousel = true"
+      >
+
+      </v-img>
       <v-card-title style="position:relative; z-index: 1; top: -50px;">
         <v-avatar @click="avatarModal = true" style="width: 6rem; height: 6rem; margin-right: 1rem">
           <v-img :src="'/media/avatar/'+this.user.avatar.path"/>
@@ -32,12 +37,15 @@
         <p style="position:relative; top: 1rem">{{this.user.firstname + " " + this.user.lastname}}</p>
         <v-spacer></v-spacer>
         <div class="buttons">
+
           <v-btn
             v-if="user.privacy.who_can_add === 'friends_of_friends' && hasMutualFriends"
             @click="addFriend(user.id)"
           >
             {{this.$t("user_page.friend_request_buttons.add_friend")}}
           </v-btn >
+
+
           <v-btn
             v-if="user.privacy.who_can_add === 'everyone'  && relation.status === undefined"
             @click="addFriend(user.id)"
@@ -411,20 +419,21 @@
       max-width="800"
     >
       <v-card>
-        <v-carousel>
+        <v-carousel slide showControls>
           <v-carousel-item
             v-for="(item,i) in userAvatars"
 
             :key="i"
             :src="'/media/avatar/'+item.path"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
+
           ></v-carousel-item>
         </v-carousel>
 
       </v-card>
     </v-dialog>
-
+    <v-dialog v-model="showCarousel" max-width="800">
+      <banner-carousel :targetUserId="this.user.id"/>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -433,14 +442,16 @@
   import twemoji from 'twemoji'
   import moment from 'moment'
   import axios from "../.nuxt/axios";
-
+  import bannerCarousel from "../components/bannerCarousel";
   export default {
     name: "user",
+      components:{bannerCarousel},
     data() {
       return {
         user: {},
         relation: {},
         avatarModal: false,
+          showCarousel: false,
         userAvatars: [],
         userFriends: [],
         page: 1,
