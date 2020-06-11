@@ -64,6 +64,10 @@
       "cancel": "Cancel",
       "file_input_label": "Choose Image"
     },
+    "change_banner_dialog": {
+      "change_Banner": "Change Banner",
+      "save-button": "Save as Banner"
+    },
     "Wall": {
       "title": "Your Wall",
       "posts": "Posts",
