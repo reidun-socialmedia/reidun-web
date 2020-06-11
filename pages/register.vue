@@ -132,7 +132,7 @@
 <script>
   import {mapGetters, mapMutations} from "vuex";
     import moment from 'moment'
-    import XRegExp from 'xregexp'
+    //import XRegExp from 'xregexp'
 
     export default {
         layout: 'guestlayout',

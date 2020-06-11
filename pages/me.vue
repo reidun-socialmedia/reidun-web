@@ -484,10 +484,13 @@
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
+                    }).then(res => {
+                        this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'AVATAR_UPDATED', {sender: this.loggedInUser})
+                        this.avatarChangeDialog = false
+                        self.setSnackColor("success");
+                        self.setSnack("You have successfully changed avatar");
                     })
-                    this.avatarChangeDialog = false
-                    self.setSnackColor("success");
-                    self.setSnack("You have successfully changed avatar");
+
                 } catch (e) {
                     self.setSnackColor("error");
                     self.setSnack("Failed to change avatar");
@@ -637,7 +640,7 @@
                     self.setSnack("could not un-dislike post");
                 })
             },
-            async getBanner(userId,image){
+            async getUser(){
                 await this.$axios.get(`/user`).then(res => {
 
                     this.$store.commit('UpdateUser',res.data.data)
@@ -655,7 +658,8 @@
         this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
         this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
         this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
-            this.$ws.$on('BANNER_UPDATED', (e) => this.getBanner(this.loggedInUser.id,this.bannerFile))
+            this.$ws.$on('BANNER_UPDATED', (e) => this.getUser(this.loggedInUser.id))
+            this.$ws.$on('AVATAR_UPDATED', (e) => this.getUser(this.loggedInUser.id))
 
 
         },
