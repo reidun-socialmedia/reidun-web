@@ -327,8 +327,7 @@
     <!-- Banner -->
     <v-dialog
       v-model="bannerChangeDialog"
-      style="max-width: fit-content"
-      max-width="290"
+      content-class="dialogs"
     >
       <v-card>
         <v-card-title class="headline">{{this.$t('session_user_page.change_banner_dialog.upload_Banner')}}</v-card-title>
@@ -681,5 +680,6 @@
 </script>
 
 <style scoped>
+
 
 </style>
