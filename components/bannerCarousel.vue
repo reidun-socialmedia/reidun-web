@@ -40,7 +40,6 @@
                     this.carouselFiles.sort(function (a,b) {
                         return b.isCurrentBanner - a.isCurrentBanner
                     })
-                    console.log(this.carouselFiles)
                 })
             },
             async changeBanner(bannerId) {
