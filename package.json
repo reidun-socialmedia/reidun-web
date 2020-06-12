@@ -31,10 +31,12 @@
     "vue-native-websocket": "^2.0.14",
     "vuex": "^3.1.2",
     "xregexp": "^4.3.0",
+    "vue-native-notification": "latest",
     "snyk": "^1.339.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.0.0"
+    "@nuxtjs/vuetify": "^1.0.0",
+    "@kazupon/vue-i18n-loader": "latest"
   },
-  "snyk": true
+  "snyk": false
 }

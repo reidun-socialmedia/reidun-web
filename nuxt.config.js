@@ -4,17 +4,16 @@ dotenv.config();
 
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
   /*
   ** Headers of the page
   */
-
   head: {
     titleTemplate: '%s - Reidun' ,
     title: 'Reidun',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' },
       { hid: 'description', name: 'description', content: 'A Open Source Social Media' }
     ],
     link: [
@@ -37,8 +36,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vue-ws',
-    '~/plugins/i18n.js',
+    { src:'~/plugins/vue-ws', ssr: false},
+    { src:'~/plugins/i18n.js', ssr: false},
+    { src:'~/plugins/VueNativeNotification.js', ssr: false}
 
   ],
   router: {
@@ -49,6 +49,7 @@ module.exports = {
   */
   buildModules: [
     '@nuxtjs/vuetify',
+    '@nuxtjs/pwa'
   ],
   /*
   ** Nuxt.js modules

@@ -410,6 +410,7 @@
 
     },
     mounted() {
+
       this.$ws.$on('disconnect', (e) => this.onDisconnect(e))
       this.$ws.$on('FRIEND_REQUEST_ACCEPTED', (e) => this.getFriendRequest(this.loggedInUser.id))
       this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getFriendRequest(this.loggedInUser.id))
