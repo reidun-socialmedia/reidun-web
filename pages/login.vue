@@ -41,6 +41,9 @@
           {{$t("login_page.title")}}
         </h1>
         <v-card style="padding: 1rem">
+          <v-alert v-model="isCapsLock" type="warning">
+            {{$t("login_page.caps_lock_on")}}
+          </v-alert>
           <v-form
             ref="form"
             v-model="valid"
@@ -57,6 +60,7 @@
               :label="this.$t('login_page.login_form.password_field.label')"
               :type="'password'"
               required
+              @keyup="checkCapslock"
               @keyup.enter="onEnterPress"
             />
             <v-btn
@@ -83,95 +87,110 @@
 </template>
 
 <script>
-    import {mapMutations} from "vuex";
+  import {mapMutations} from "vuex";
+  import XRegExp from "xregexp";
 
-    export default {
-        layout: 'guestlayout',
-        name: 'login',
-        data() {
-            return {
-                valid: true,
-                email: '',
-                password: '',
-                error: null,
-                passwordRules: [
-                    v => {
-                        return !!v || this.$t('login_page.login_form.password_field.input_empty')
-                    }
-                ],
-                emailRules: [
-                    v => {
-                        return !!v || this.$t('login_page.login_form.email_text_field.input_empty')
-                    },
-                    v => {
-                        return /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|local)$/.test(v) || this.$t('login_page.login_form.email_text_field.email_not_valid')
-                    },
-                ],
-                slides: [
-                    {
-                        title: this.$t('login_page.slide_show.page_1.title'),
-                        description: this.$t('login_page.slide_show.page_1.text')
-                    },
-                    {
-                        title: this.$t('login_page.slide_show.page_2.title'),
-                        description: this.$t('login_page.slide_show.page_2.text')
-                    },
-                ],
-            }
+  export default {
+    layout: 'guestlayout',
+    name: 'login',
+    data() {
+      return {
+        valid: true,
+        email: '',
+        password: '',
+        isCapsLock:false,
+        error: null,
+        passwordRules: [
+          v => {
+            return !!v || this.$t('login_page.login_form.password_field.input_empty')
+          }
+        ],
+        emailRules: [
+          v => {
+            return !!v || this.$t('login_page.login_form.email_text_field.input_empty')
+          },
+          v => {
+            return XRegExp('^[\\p{L}\\p{N}]+@\\p{L}+[.]\\p{L}+$').test(v) || this.$t('login_page.login_form.email_text_field.email_not_valid')
+          },
+        ],
+        slides: [
+          {
+            title: this.$t('login_page.slide_show.page_1.title'),
+            description: this.$t('login_page.slide_show.page_1.text')
+          },
+          {
+            title: this.$t('login_page.slide_show.page_2.title'),
+            description: this.$t('login_page.slide_show.page_2.text')
+          },
+        ],
+      }
 
-        },
+    },
 
-        methods: {
-            validate() {
-                return !!this.$refs.form.validate();
-            },
-            onEnterPress(){
-              this.login()
-            },
-            async login() {
-                let self = this;
-                if (this.email !== "" || this.password !== "") {
-                    if (this.validate()) {
-                        try {
-                            await this.$auth.loginWith('local', {
-                                data: {
-                                    email: this.email,
-                                    password: this.password
-                                }
-                            })
-                            this.$router.push('/')
-                        } catch (e) {
-                            self.setSnackColor("error");
-                            self.setSnack(`${e.message}`);
-                            if (e.response.data[0].field === 'email' || e.response.data[0].field === "password") {
-                                self.setSnackColor("error");
-                                self.setSnack('Email or password incorrect');
-                            } else {
-                                self.setSnackColor("error");
-                                self.setSnack(`${e.response.data[0].message}`);
-                            }
+    methods: {
+      validate() {
+        return !!this.$refs.form.validate();
+      },
+      onEnterPress() {
+        this.login()
+      },
+      checkCapslock(e) {
+        this.isCapsLock = e.getModifierState('CapsLock')
+      },
+      async login() {
+        let self = this;
+        if (this.email !== "" || this.password !== "") {
+          if (this.validate()) {
+            try {
+              await this.$auth.loginWith('local', {
+                data: {
+                  email: this.email,
+                  password: this.password
+                }
+              })
+              this.$router.push('/')
+            } catch (err) {
 
-                        }
-                    } else {
-                        self.setSnackColor("error");
-                        self.setSnack("Validation in fields failed");
-                    }
+              if (err.response.data) {
+                if (err.response.data[0].field === 'email' || err.response.data[0].field === "password") {
+                  self.setSnackColor("error");
+                  self.setSnack('Email or password incorrect');
                 } else {
-                    self.setSnackColor("error");
-                    self.setSnack("Missing users details in fields");
+                  self.setSnackColor("error");
+                  self.setSnack(`${err.response.data[0].message}`);
+                }
+                if (err.response.status === 502) {
+                  self.setSnackColor("error");
+                  self.setSnack("Can't login, gateway error");
                 }
 
-
-            },
-            ...mapMutations({
-                setSnack: 'snackbar/setSnack',
-                setSnackTop: 'snackbar/setSnackTop',
-                setSnackColor: 'snackbar/setSnackColor'
-            })
-        },
+              } else {
+                self.setSnackColor("error");
+                self.setSnack('Service is down');
+              }
 
 
-    }
+            }
+          } else {
+            self.setSnackColor("error");
+            self.setSnack("Validation in fields failed");
+          }
+        } else {
+          self.setSnackColor("error");
+          self.setSnack("Missing users details in fields");
+        }
+
+
+      },
+      ...mapMutations({
+        setSnack: 'snackbar/setSnack',
+        setSnackTop: 'snackbar/setSnackTop',
+        setSnackColor: 'snackbar/setSnackColor'
+      })
+    },
+
+
+  }
 </script>
 
 <style scoped>
