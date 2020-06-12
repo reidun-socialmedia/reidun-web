@@ -1,19 +1,23 @@
 <template>
   <div>
-    <v-carousel slide showControls v-model="carouselIndex">
-      <v-carousel-item v-for="(banner,index) in this.carouselFiles"  >
+    <v-carousel slide showControls>
+      <v-carousel-item v-for="(banner,index) in this.carouselFiles" :key="banner.id"  >
 
-        <img :src="'/media/user'+banner.path" id="img" />
+        <v-img :src="'/media/user'+banner.path" id="img" >
+
+          <div class="carousel-btn"  v-if="loggedInUser.id === targetUserId && banner.isCurrentBanner === 0">
+            <v-btn text @click="changeBanner(banner.id)">Switch Banner</v-btn>
+            <v-btn text @click="deleteBanner(banner.id)">Delete Banner</v-btn>
+          </div>
+        </v-img>
 
       </v-carousel-item>
     </v-carousel>
-    <v-btn v-if="this.loggedInUser.id === this.targetUserId" @click="changeBanner(carouselIndex)">Change Banner</v-btn>
-    <h2>{{carouselIndex}}</h2>
   </div>
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
+    import {mapGetters, mapMutations} from "vuex";
 
     export default {
         name: "bannerCarousel",
@@ -24,7 +28,8 @@
         data() {
             return {
                 carouselFiles: {},
-                carouselIndex: null
+                carouselIndex: null,
+
             }
         },
         methods: {
@@ -32,26 +37,22 @@
                 console.log(this.targetUserId)
                 this.$axios.get('/users/banners/' + this.targetUserId).then(res => {
                     this.carouselFiles = res.data.data;
-
+                    this.carouselFiles.sort(function (a,b) {
+                        return b.isCurrentBanner - a.isCurrentBanner
+                    })
+                    console.log(this.carouselFiles)
                 })
             },
-            async changeBanner(bannerFileIndex) {
-                let bannerFile = this.carouselFiles[bannerFileIndex];
-                const formData = new FormData();
-                formData.append("userid", this.loggedInUser.id)
-                formData.append("image", bannerFile.path);
+            async changeBanner(bannerId) {
+
+                const data = {newBannerId: bannerId,oldBannerId: this.loggedInUser.banner.id}
                 let self = this;
                 try {
-                    await this.$axios.post('user/changebanner', formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }).then(res => {
+                    await this.$axios.patch('/user/switchCurrentBanner', data).then(res => {
                         this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'BANNER_UPDATED', {
                             sender: this.loggedInUser
                         })
 
-                        this.bannerChangeDialog = false
                         self.setSnackColor("success");
                         self.setSnack("You have successfully changed banner");
                     })
@@ -60,7 +61,27 @@
                     self.setSnackColor("error");
                     self.setSnack("Failed to change banner");
                 }
-            }
+            },
+            async deleteBanner(bannerId){
+
+                const data = {bannerId: bannerId}
+                let self = this;
+                try {
+                    await this.$axios.delete('/user/banner/delete', {data}).then(res => {
+                        self.setSnackColor("success");
+                        self.setSnack("You have successfully deleted banner");
+                    })
+
+                } catch (e) {
+                    self.setSnackColor("error");
+                    self.setSnack("Failed to delete banner");
+                }
+            },
+            ...mapMutations({
+                setSnack: 'snackbar/setSnack',
+                setSnackTop: 'snackbar/setSnackTop',
+                setSnackColor: 'snackbar/setSnackColor'
+            })
         },
         mounted() {
             this.getBanners();
@@ -75,5 +96,9 @@
 </script>
 
 <style scoped>
+.carousel-btn{
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
 
+}
 </style>
