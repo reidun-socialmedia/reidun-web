@@ -15,7 +15,7 @@
   "dependencies": {
     "@adonisjs/websocket-client": "^1.0.9",
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "@kevinfaguiar/vue-twemoji-picker": "^5.4.1",
+    "@kevinfaguiar/vue-twemoji-picker": "^5.7.4",
     "@nuxtjs/auth": "^4.8.5",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
