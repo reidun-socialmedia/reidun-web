@@ -4,7 +4,7 @@ dotenv.config();
 
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -36,9 +36,9 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src:'~/plugins/vue-ws', ssr: false},
-    { src:'~/plugins/i18n.js', ssr: false},
-    { src:'~/plugins/VueNativeNotification.js', ssr: false}
+    { src:'~/plugins/vue-ws'},
+    { src:'~/plugins/i18n.js'},
+    { src:'~/plugins/VueNativeNotification.js'}
 
   ],
   router: {
@@ -48,9 +48,7 @@ module.exports = {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxtjs/vuetify',
-    '@nuxtjs/pwa'
-  ],
+    '@nuxtjs/vuetify',],
   /*
   ** Nuxt.js modules
   */
@@ -119,6 +117,10 @@ module.exports = {
       iconfont: 'mdi',
 
     }
+  },
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0' // default: localhost
   },
 
   /*

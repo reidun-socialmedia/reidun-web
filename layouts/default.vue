@@ -286,12 +286,12 @@
       </v-menu>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <v-container>
         <nuxt/>
         <snackbar></snackbar>
       </v-container>
-    </v-content>
+    </v-main>
     <v-bottom-navigation
       v-model="bottomNav"
       v-if="$vuetify.breakpoint.smAndDown"
@@ -326,6 +326,7 @@
   import {mapGetters, mapMutations} from 'vuex'
   import Snackbar from "../components/Snackbar";
   import WsSubscriptions from '../assets/WsSubscriptions'
+
 
   const vsprintf = require('sprintf-js').vsprintf
 
