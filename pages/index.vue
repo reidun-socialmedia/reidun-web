@@ -92,10 +92,12 @@
               <span>{{$t('home_page.post_creation_card.attach_file')}}</span>
             </v-tooltip>
             <twemoji-picker
+              style="z-index: 10;"
               :emojiData="emojiDataAll"
+              :theme="this.$vuetify.theme.dark"
               :emojiGroups="emojiGroups"
               @emojiUnicodeAdded="selectEmoji"
-              :skinsSelection="false"
+              :skinsSelection="true"
               :searchEmojisFeat="true"
               :searchEmojiPlaceholder="this.$t('emoji_picker.search_bar')"
               :searchEmojiNotFound="this.$t('emoji_picker.not_found')"
@@ -254,6 +256,7 @@
     import {TwemojiPicker} from '@kevinfaguiar/vue-twemoji-picker';
     import EmojiAllData from '@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json';
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
+    const vsprintf = require('sprintf-js').vsprintf
     import tz from 'moment-timezone'
 
     export default {

@@ -4,18 +4,19 @@ export default function ({ isHMR, app, store, route, params, error, redirect }) 
   if (isHMR) return
 
   if(route.query.lang === undefined){
-    if(localStorage.userSpecLang === undefined){
-      localStorage.userSpecLang = ''
-    }
-    if(localStorage.userSpecLang !== ''){
-      store.commit('SET_LANG',  localStorage.userSpecLang)
-      app.i18n.locale = localStorage.userSpecLang
-    }else if(localStorage.userSpecLang === ''){
-      store.commit('SET_LANG', navigator.language)
-      app.i18n.locale = store.state.locale
-    }
+    if(!process.server){
+      if(localStorage.userSpecLang === undefined){
+        localStorage.userSpecLang = ''
+      }
+      if(localStorage.userSpecLang !== ''){
+        store.commit('SET_LANG',  localStorage.userSpecLang)
+        app.i18n.locale = localStorage.userSpecLang
+      }else if(localStorage.userSpecLang === ''){
+        store.commit('SET_LANG', navigator.language)
+        app.i18n.locale = store.state.locale
+      }
 
-
+    }
   }else{
     const locale = route.query.lang || defaultLocale
     if (store.state.locales.indexOf(locale) === -1) {
