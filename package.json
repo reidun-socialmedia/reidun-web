@@ -22,27 +22,16 @@
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
     "nuxt": "^2.0.0",
-<<<<<<< HEAD
-    "snyk": "^1.339.0",
     "sprintf-js": "latest",
-=======
-    "sprintf-js": "^1.1.2",
->>>>>>> parent of 3872e91... added Sanitize and regex on URL on all coments an and posts.
     "twemoji": "^12.1.5",
     "video.js": "^7.6.6",
     "vue-i18n": "^8.17.3",
     "vue-native-websocket": "^2.0.14",
-<<<<<<< HEAD
     "vue-sanitize": "^0.2.0",
-
     "vuex": "^3.1.2",
     "xregexp": "^4.3.0",
-    "vue-native-notification": "latest"
-=======
-    "vuex": "^3.1.2",
-    "xregexp": "^4.3.0",
+    "vue-native-notification": "latest",
     "snyk": "^1.339.0"
->>>>>>> parent of 3872e91... added Sanitize and regex on URL on all coments an and posts.
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0"

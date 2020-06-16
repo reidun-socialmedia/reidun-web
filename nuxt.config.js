@@ -36,17 +36,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-<<<<<<< HEAD
 
     { src:'~/plugins/vue-ws'},
     { src:'~/plugins/i18n.js'},
     { src:'~/plugins/VueNativeNotification.js'},
     { src:'~/plugins/vue-sanitize.js'}
-=======
-    '~/plugins/vue-ws',
-    '~/plugins/i18n.js',
-
->>>>>>> parent of 3872e91... added Sanitize and regex on URL on all coments an and posts.
   ],
   router: {
     middleware: ['i18n']
