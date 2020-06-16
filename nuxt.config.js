@@ -8,13 +8,12 @@ module.exports = {
   /*
   ** Headers of the page
   */
-
   head: {
     titleTemplate: '%s - Reidun' ,
     title: 'Reidun',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' },
       { hid: 'description', name: 'description', content: 'A Open Source Social Media' }
     ],
     link: [
@@ -37,9 +36,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vue-ws',
-    '~/plugins/i18n.js',
-    '~/plugins/vue-sanitize.js'
+
+    { src:'~/plugins/vue-ws'},
+    { src:'~/plugins/i18n.js'},
+    { src:'~/plugins/VueNativeNotification.js'},
+    { src:'~/plugins/vue-sanitize.js'}
   ],
   router: {
     middleware: ['i18n']
@@ -48,8 +49,7 @@ module.exports = {
   ** Nuxt.js dev-modules
   */
   buildModules: [
-    '@nuxtjs/vuetify',
-  ],
+    '@nuxtjs/vuetify',],
   /*
   ** Nuxt.js modules
   */
@@ -118,6 +118,10 @@ module.exports = {
       iconfont: 'mdi',
 
     }
+  },
+  server: {
+    port: process.env.server_port, // default: 3000
+    host: process.env.server_ip // default: localhost
   },
 
   /*
