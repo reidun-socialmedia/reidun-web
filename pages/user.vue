@@ -253,7 +253,7 @@
                       </v-card-title>
 
                       <v-card-text @click="go('/post?id='+post.id)">
-                        <p v-html="parseEmoji(post.text)"></p>
+                        <p v-html="parsePost(post.text)"></p>
                       </v-card-text>
                       <v-row v-if="post.post_files.length !== 0">
                         <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
@@ -443,6 +443,7 @@
   import moment from 'moment'
   import axios from "../.nuxt/axios";
   import bannerCarousel from "../components/bannerCarousel";
+  import XRegExp from 'xregexp'
   export default {
     name: "user",
       components:{bannerCarousel},
@@ -695,9 +696,26 @@
         this.overlayImg = img
 
       },
-      parseEmoji(input) {
-        return twemoji.parse(input)
-      },
+        parseEmoji(input) {
+            let parsed = twemoji.parse(input)
+            return parsed
+        },
+        parseLink(input){
+            let regex = XRegExp("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:\/~+#-]*[\\w@?^=%&\/~+#-])");
+            return XRegExp.replace(input,regex, (match) => {
+                return `<a target="_blank" href="${match}">${match}</a>`;
+            },'all')
+
+        },
+        parsePost(input){
+            input = this.parseLink(input)
+
+            input = this.parseEmoji(input)
+
+
+            return input
+
+        },
 
       async likePost(postId, userId) {
         self = this

@@ -39,7 +39,7 @@ module.exports = {
   plugins: [
     '~/plugins/vue-ws',
     '~/plugins/i18n.js',
-
+    '~/plugins/vue-sanitize.js'
   ],
   router: {
     middleware: ['i18n']

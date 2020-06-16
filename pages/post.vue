@@ -65,7 +65,7 @@
 
           <v-card-text >
             <div v-if="!editPostState">
-              <p v-html="parseEmoji(this.post.text)"></p>
+              <p v-html="parsePost(this.post.text)"></p>
 
             </div>
             <div v-else>
@@ -248,7 +248,7 @@
 
               </v-card-title>
 
-              <v-card-text  v-if="editChosenCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
+              <v-card-text  v-if="editChosenCommentId !== comment.id" v-html="parsePost(comment.comment_content)"></v-card-text>
               <div v-else>
                 <v-textarea
 
@@ -288,12 +288,11 @@
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
     import {mapGetters, mapMutations} from "vuex";
     import axios from "../.nuxt/axios";
-    import Default from "../layouts/default";
-
+    import  XRegExp from 'xregexp'
     export default {
         name: "post",
         components: {
-            Default,
+
             'twemoji-picker': TwemojiPicker
         },
         data() {
@@ -356,9 +355,10 @@
 
             },
             saveEditedComment(commentId){
+                let sanitizedComment = this.$sanitize(this.editCommentInputField)
                 let data = {
                     commentId: commentId,
-                    newText: this.editCommentInputField
+                    newText: sanitizedComment
                 }
 
 
@@ -378,10 +378,12 @@
                 this.editPostState = false;
             },
             async saveEditedPost(postId){
+
+                let sanitizedInput = this.$sanitize(this.editPostInput);
                 let data = {
                     postId: postId,
                     userId: this.loggedInUser.id,
-                    newText: this.editPostInput
+                    newText: sanitizedInput
                 }
 
                 await this.$axios.patch('/post/update',data).then(res => {
@@ -444,7 +446,24 @@
 
             },
             parseEmoji(input) {
-                return twemoji.parse(input)
+                let parsed = twemoji.parse(input)
+                return parsed
+            },
+            parseLink(input){
+                let regex = XRegExp("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:\/~+#-]*[\\w@?^=%&\/~+#-])");
+                return XRegExp.replace(input,regex, (match) => {
+                       return `<a target="_blank" href="${match}">${match}</a>`;
+                },'all')
+
+            },
+            parsePost(input){
+                input = this.parseLink(input)
+
+                input = this.parseEmoji(input)
+
+
+                return input
+
             },
             async createComment() {
                 self = this;
@@ -452,10 +471,10 @@
                 const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
                 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 const dateTime = date + ' ' + time;
-
+                let sanitizedComment = this.$sanitize(this.commentContent)
                 let data = {
                     'postId': this.$route.query.id,
-                    'commentContent': this.commentContent,
+                    'commentContent': sanitizedComment,
                     'userId': this.loggedInUser.id,
                     'datePosted': dateTime
                 }
