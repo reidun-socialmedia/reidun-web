@@ -36,10 +36,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+
     { src:'~/plugins/vue-ws'},
     { src:'~/plugins/i18n.js'},
-    { src:'~/plugins/VueNativeNotification.js'}
-
+    { src:'~/plugins/VueNativeNotification.js'},
+    { src:'~/plugins/vue-sanitize.js'}
   ],
   router: {
     middleware: ['i18n']

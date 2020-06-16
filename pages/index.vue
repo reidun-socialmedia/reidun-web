@@ -168,7 +168,7 @@
             </v-card-title>
 
             <v-card-text @click="go('/post?id='+post.id)">
-              <p v-html="parseEmoji(post.text)"></p>
+              <p v-html="parsePost(post.text)"></p>
             </v-card-text>
             <v-row v-if="post.post_files.length !== 0">
               <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
@@ -258,7 +258,7 @@
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
     const vsprintf = require('sprintf-js').vsprintf
     import tz from 'moment-timezone'
-
+    import XRegExp from 'xregexp'
     export default {
         components: {
             'twemoji-picker': TwemojiPicker
@@ -326,9 +326,22 @@
             selectEmoji(emoji) {
                 this.postText += emoji
             },
-            parseEmoji(input) {
-                let parsed = twemoji.parse(input)
-                return parsed
+            parseLink(input){
+                let regex = XRegExp("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:\/~+#-]*[\\w@?^=%&\/~+#-])");
+                return XRegExp.replace(input,regex, (match) => {
+                    return `<a target="_blank" href="${match}">${match}</a>`;
+                },'all')
+            },
+            parseEmoji(input){
+                return twemoji.parse(input)
+            },
+            parsePost(input){
+                input = this.parseLink(input)
+                input = this.parseEmoji(input)
+                return input
+            },
+            sanitizePost(){
+                this.postText = this.$sanitize(this.postText)
             },
             async createPost() {
                 const today = new Date();
@@ -336,7 +349,7 @@
                 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 const dateTime = date + ' ' + time;
                 let self = this;
-
+                this.sanitizePost()
                 if (this.Files.length !== 0) {
                     const formData = new FormData()
                     formData.append("poster", this.loggedInUser.id)
@@ -498,13 +511,6 @@
                         arr[i] = newData
                     }
                 }
-            },
-            async getPost(postId) {
-                await this.$axios.get('/post/get?id=' + postId).then(res => {
-                    return res.data.data
-                }).catch(error => {
-
-                })
             },
             formatString(string, variables){
                 return vsprintf(string,variables)
