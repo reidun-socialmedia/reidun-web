@@ -173,7 +173,7 @@
             }
           } else {
             self.setSnackColor("error");
-            self.setSnack("Validation in fields failed");
+            self.setSnack("Sanitise in fields failed");
           }
         } else {
           self.setSnackColor("error");

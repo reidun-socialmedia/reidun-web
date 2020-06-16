@@ -64,11 +64,6 @@
       "cancel": "Cancel",
       "file_input_label": "Choose Image"
     },
-    "change_banner_dialog": {
-      "change_Banner": "Change Banner",
-      "upload_Banner": "Upload Banner",
-      "save-button": "Save as Banner"
-    },
     "Wall": {
       "title": "Your Wall",
       "posts": "Posts",
@@ -260,8 +255,6 @@
         "delete_comment": "Delete Comment",
         "edit_comment": "Edit Comment",
         "report_comment": "Report Comment"
-
-
       }
     }
   },
@@ -284,7 +277,6 @@
         "text": "On the go? Don't worry, download a native version"
       }
     },
-    "caps_lock_on": "Caps lock is on!",
     "login_form": {
       "email_text_field": {
         "label": "Email",
@@ -318,21 +310,16 @@
     "register_form": {
       "firstname_text_field": {
         "label": "First Name",
-        "input_empty": "First name is required",
-        "firstname_not_valid": "Only letters is allowed in firstname"
-
+        "input_empty": "First name is required"
       },
       "lastname_text_field": {
         "label": "Last name",
-        "input_empty": "Last name is required",
-        "lastname_not_valid": "Only letters is allowed in lastname"
-
+        "input_empty": "Last name is required"
       },
       "email_text_field": {
         "label": "Email",
         "input_empty": "Email is required",
         "email_not_valid": "Email must be valid"
-
       },
       "password_field": {
         "label": "Password",

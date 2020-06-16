@@ -44,6 +44,9 @@
         >
           <appereance-details></appereance-details>
         </v-tab-item>
+        <v-tab-item value="security">
+          <security-log></security-log>
+        </v-tab-item>
       </v-tabs>
     </v-container>
   </div>
@@ -106,10 +109,12 @@
 
   import privacyDetails from "../components/privacy-cmp"
   import appereanceDetails from "../components/appereance-cmp"
+  import securityLog from "../components/securityLog";
+
   export default {
     name: "settings",
 
-      components:{ accountDetails,privacyDetails,appereanceDetails },
+      components:{ accountDetails,privacyDetails,appereanceDetails,securityLog},
 
 
   }

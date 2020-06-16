@@ -250,7 +250,12 @@
     },
     "comments_card": {
       "no_comments": "コメントはまだない！ 最初のコメントになる",
-      "title": "コメント"
+      "title": "コメント",
+      "comment_menu": {
+        "delete_comment": "Delete Comment",
+        "edit_comment": "Edit Comment",
+        "report_comment": "Report Comment"
+      }
     }
   },
   "guest_layout": {

@@ -24,11 +24,11 @@
       "no_notifications": "没有通知",
       "post_liked": "%s喜欢了您的帖子",
       "post_disliked": "%s不喜欢您的帖子",
-      "post_commented": "%s nihao"
+      "post_commented": "%s commented on your post"
     },
     "friend_requests": {
       "no_friend_requests": "No friend requests",
-      "friend_request_title": "%s sent you a nihao request"
+      "friend_request_title": "%s sent you a friend request"
     },
     "developer_console_warning": {
       "line_1": "等一下！",
@@ -250,7 +250,12 @@
     },
     "comments_card": {
       "no_comments": "No comments yet! Be the first to create one",
-      "title": "Comments"
+      "title": "Comments",
+      "comment_menu": {
+        "delete_comment": "Delete Comment",
+        "edit_comment": "Edit Comment",
+        "report_comment": "Report Comment"
+      }
     }
   },
   "guest_layout": {

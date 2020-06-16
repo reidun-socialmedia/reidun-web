@@ -59,7 +59,7 @@
       "friends": "Freunde"
     },
     "change_avatar_dialog": {
-      "title": "Upload an image file: png, gif, or jpg",
+      "title": "Lade ein Bild hoch: png, gif oder jpg",
       "change_avatar": "Avatar ändern",
       "cancel": "Abbrechen",
       "file_input_label": "Wähle ein Bild aus"
@@ -157,7 +157,7 @@
           "label": "Passwort wiederholen"
         },
         "input_empty": "Passwort wird benötigt",
-        "password_mismatch": "Passwords don't match",
+        "password_mismatch": "Passwort stimmt nicht überein",
         "security_dialog": {
           "title": "Passwortverifizierung",
           "text": "Aus Sicherheitsgründen benötigen wir für das Ändern des Passworts die erneute Eingabe deines aktuellen Passworts",
@@ -250,7 +250,12 @@
     },
     "comments_card": {
       "no_comments": "Bisher keine Kommentare! Sei der Erste",
-      "title": "Kommentare"
+      "title": "Kommentare",
+      "comment_menu": {
+        "delete_comment": "Delete Comment",
+        "edit_comment": "Edit Comment",
+        "report_comment": "Report Comment"
+      }
     }
   },
   "guest_layout": {
