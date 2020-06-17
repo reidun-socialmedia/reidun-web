@@ -330,7 +330,7 @@
       content-class="dialogs"
     >
       <v-card>
-        <v-card-title class="headline">{{this.$t('session_user_page.change_banner_dialog.upload_Banner')}}</v-card-title>
+        <v-card-title class="headline">{{this.$t('session_user_page.change_banner_dialog.change_banner')}}</v-card-title>
 
         <v-card-text>
           <p>{{this.$t('session_user_page.change_avatar_dialog.title')}}</p>
@@ -360,7 +360,7 @@
             text
             @click="changeBanner(bannerFile)"
           >
-            {{$t('session_user_page.change_banner_dialog.save-button')}}
+            {{$t('session_user_page.change_banner_dialog.save_button')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -401,7 +401,7 @@
             text
             @click="changeAvatar(imageFile)"
           >
-            {{$t('session_user_page.change_avatar_dialog.change_avatar')}}
+            {{$t('session_user_page.change_avatar_dialog.save_button')}}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -679,8 +679,8 @@
         this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
         this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
         this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
-            this.$ws.$on('BANNER_UPDATED', (e) => this.getUser(this.loggedInUser.id))
-            this.$ws.$on('AVATAR_UPDATED', (e) => this.getUser(this.loggedInUser.id))
+        this.$ws.$on('BANNER_UPDATED', (e) => this.getUser(this.loggedInUser.id))
+        this.$ws.$on('AVATAR_UPDATED', (e) => this.getUser(this.loggedInUser.id))
 
 
         },
