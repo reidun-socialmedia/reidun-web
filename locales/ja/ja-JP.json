@@ -227,6 +227,19 @@
           }
         }
       }
+    },
+    "security_log_tab": {
+      "title": "Security Log",
+      "RowChooser": "Rows per page:",
+      "no_data": "No data",
+      "security_log_headers": {
+        "log_id": "log id",
+        "event_type": "event",
+        "log": "log",
+        "ip": "ip",
+        "date": "date",
+        "location": "location"
+      }
     }
   },
   "post_page": {
@@ -310,11 +323,13 @@
     "register_form": {
       "firstname_text_field": {
         "label": "名前",
-        "input_empty": "名前は必須"
+        "input_empty": "名前は必須",
+        "firstname_not_valid": "Firstname has to be valid"
       },
       "lastname_text_field": {
         "label": "名字",
-        "input_empty": "名字は必須"
+        "input_empty": "名字は必須",
+        "lastname_not_valid": "Lastname has to be valid"
       },
       "email_text_field": {
         "label": "メール",
