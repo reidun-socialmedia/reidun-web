@@ -62,7 +62,13 @@
       "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "Change Avatar",
       "cancel": "Cancel",
-      "file_input_label": "Choose Image"
+      "file_input_label": "Choose Image",
+      "save_button": "Save as avatar"
+    },
+    "change_banner_dialog": {
+      "change_banner": "Change banner",
+      "File_Input_label": "Upload an image file: png, gif, or jpg",
+      "save_button": "Save as banner"
     },
     "Wall": {
       "title": "Your Wall",
