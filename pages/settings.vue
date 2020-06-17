@@ -32,7 +32,6 @@
         <v-tab-item
           value="account"
         >
-
         <account-details>
         </account-details>
         </v-tab-item>

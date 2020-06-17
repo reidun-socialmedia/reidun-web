@@ -59,8 +59,7 @@
     },
     methods: {
       async search(input) {
-        let token = this.$auth.getToken('local')
-        this.$axios.get('/users/search',{ params: { q: input}}).then( res => {
+        await this.$axios.get('/users/search',{ params: { q: input}}).then( res => {
           this.users = res.data.data
 
         }).catch( error => {

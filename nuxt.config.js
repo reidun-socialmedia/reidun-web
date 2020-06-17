@@ -62,13 +62,24 @@ module.exports = {
     baseURL: process.env.NODE_ENV !== 'production' ? `http://${process.env.development_ip}/api` :  `https://${process.env.production_ip}/api`
   },
   auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/'
+    },
+    cookie: {
+      options: {
+        maxAge:7200
+      }
+    },
     strategies: {
       local: {
         endpoints: {
           login: { url: 'user/login', method: 'post', propertyName:'data.token'},
           user: { url: 'user', method: 'get', propertyName: 'data' },
           logout: false
-        }
+        },
       }
     }
   },

@@ -92,7 +92,7 @@
               <span>{{$t('home_page.post_creation_card.attach_file')}}</span>
             </v-tooltip>
             <twemoji-picker
-              style="z-index: 10;"
+              style="z-index: 5;"
               :emojiData="emojiDataAll"
               :theme="this.$vuetify.theme.dark"
               :emojiGroups="emojiGroups"
