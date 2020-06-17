@@ -227,6 +227,19 @@
           }
         }
       }
+    },
+    "security_log_tab": {
+      "title": "Security Log",
+      "RowChooser": "Rows per page:",
+      "no_data": "No data",
+      "security_log_headers": {
+        "log_id": "log id",
+        "event_type": "event",
+        "log": "log",
+        "ip": "ip",
+        "date": "date",
+        "location": "location"
+      }
     }
   },
   "post_page": {
@@ -310,11 +323,13 @@
     "register_form": {
       "firstname_text_field": {
         "label": "First Name",
-        "input_empty": "First name is required"
+        "input_empty": "First name is required",
+        "firstname_not_valid": "Firstname has to be valid"
       },
       "lastname_text_field": {
         "label": "Last name",
-        "input_empty": "Last name is required"
+        "input_empty": "Last name is required",
+        "lastname_not_valid": "Lastname has to be valid"
       },
       "email_text_field": {
         "label": "Email",
