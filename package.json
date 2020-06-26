@@ -8,7 +8,9 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@adonisjs/websocket-client": "^1.0.9",
@@ -30,9 +32,10 @@
     "vue-sanitize": "^0.2.0",
     "xregexp": "^4.3.0",
     "vue-native-notification": "latest",
-    "snyk": "^1.339.0"
+    "snyk": "^1.349.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0"
-  }
+  },
+  "snyk": true
 }
