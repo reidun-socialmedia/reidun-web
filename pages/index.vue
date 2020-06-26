@@ -29,7 +29,7 @@
             <p style="margin-left: 1rem; margin-bottom: 0;">{{loggedInUser.firstname + " " + loggedInUser.lastname}}</p>
           </v-card-title>
           <v-card-text>
-            <v-form v-model="valid">
+            <v-form v-model="valid"  ref="createPostForm">
               <v-textarea
                 :label="this.formatString(this.$t('home_page.post_creation_card.greeting'), [loggedInUser.firstname])"
                 v-model="postText"
@@ -92,10 +92,12 @@
               <span>{{$t('home_page.post_creation_card.attach_file')}}</span>
             </v-tooltip>
             <twemoji-picker
+              style="z-index: 5;"
               :emojiData="emojiDataAll"
+              :theme="this.$vuetify.theme.dark"
               :emojiGroups="emojiGroups"
               @emojiUnicodeAdded="selectEmoji"
-              :skinsSelection="false"
+              :skinsSelection="true"
               :searchEmojisFeat="true"
               :searchEmojiPlaceholder="this.$t('emoji_picker.search_bar')"
               :searchEmojiNotFound="this.$t('emoji_picker.not_found')"
@@ -166,7 +168,7 @@
             </v-card-title>
 
             <v-card-text @click="go('/post?id='+post.id)">
-              <p v-html="parseEmoji(post.text)"></p>
+              <p v-html="parsePost(post.text)"></p>
             </v-card-text>
             <v-row v-if="post.post_files.length !== 0">
               <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
@@ -254,8 +256,9 @@
     import {TwemojiPicker} from '@kevinfaguiar/vue-twemoji-picker';
     import EmojiAllData from '@kevinfaguiar/vue-twemoji-picker/emoji-data/en/emoji-all-groups.json';
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
+    const vsprintf = require('sprintf-js').vsprintf
     import tz from 'moment-timezone'
-
+    import XRegExp from 'xregexp'
     export default {
         components: {
             'twemoji-picker': TwemojiPicker
@@ -323,9 +326,22 @@
             selectEmoji(emoji) {
                 this.postText += emoji
             },
-            parseEmoji(input) {
-                let parsed = twemoji.parse(input)
-                return parsed
+            parseLink(input){
+                let regex = XRegExp("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:\/~+#-]*[\\w@?^=%&\/~+#-])");
+                return XRegExp.replace(input,regex, (match) => {
+                    return `<a target="_blank" href="${match}">${match}</a>`;
+                },'all')
+            },
+            parseEmoji(input){
+                return twemoji.parse(input)
+            },
+            parsePost(input){
+                input = this.parseLink(input)
+                input = this.parseEmoji(input)
+                return input
+            },
+            sanitizePost(){
+                this.postText = this.$sanitize(this.postText)
             },
             async createPost() {
                 const today = new Date();
@@ -333,7 +349,7 @@
                 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 const dateTime = date + ' ' + time;
                 let self = this;
-
+                this.sanitizePost()
                 if (this.Files.length !== 0) {
                     const formData = new FormData()
                     formData.append("poster", this.loggedInUser.id)
@@ -348,7 +364,7 @@
                             'Content-Type': 'multipart/form-data'
                         }
                     }).then(r => {
-                        this.postText = ''
+                        this.$refs.createPostForm.reset()
                         this.Files = []
                         this.isValid = false;
                         self.setSnackColor("success");
@@ -367,15 +383,15 @@
                     }
                     await this.$axios.post('post/create', Data).then(r => {
 
-                        self.setSnackColor("success");
                         this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_CREATE', {sender: this.loggedInUser})
-                        this.postText = ''
-                        this.isValid = false;
-                        self.setSnack("You post has successfully been created");
+                        this.$refs.createPostForm.reset()
+                      self.setSnackColor("success");
+                      self.setSnack("Your post has successfully been created");
 
                     }).catch(e => {
+                        console.log(e)
                         self.setSnackColor("error");
-                        self.setSnack(e.response.data.message);
+                        self.setSnack("");
                     })
                 }
             },
@@ -395,8 +411,7 @@
             },
 
             getFormattedDate(date) {
-              const postDate = moment(date)
-              return postDate.tz(Intl.DateTimeFormat().resolvedOptions().timeZone).format('DD-MM-YYYY HH:mm')
+              return moment(date).local().format("DD-MM-YYYY HH.mm")
 
             },
             go: function (action) {
@@ -496,13 +511,6 @@
                         arr[i] = newData
                     }
                 }
-            },
-            async getPost(postId) {
-                await this.$axios.get('/post/get?id=' + postId).then(res => {
-                    return res.data.data
-                }).catch(error => {
-
-                })
             },
             formatString(string, variables){
                 return vsprintf(string,variables)

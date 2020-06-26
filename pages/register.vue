@@ -132,6 +132,7 @@
 <script>
   import {mapGetters, mapMutations} from "vuex";
     import moment from 'moment'
+    import XRegExp from 'xregexp'
 
     export default {
         layout: 'guestlayout',
@@ -157,7 +158,7 @@
                   description: this.$t('register_page.slide_show.page_2.text')
                 },
               ],
-                passwordRules: [
+              passwordRules: [
                     v => {
                           return !!v || this.$t('register_page.register_form.password_field.input_empty')
                     }
@@ -167,17 +168,25 @@
                     return !!v || this.$t('register_page.register_form.email_text_field.input_empty')
                   },
                     v => {
-                          return /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+(?:[a-zA-Z]{2}|aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|local|space|dk|de)$/.test(v)
+                          return XRegExp('^[\\p{L}\\p{N}]+@\\p{L}+[.]\\p{L}+$').test(v)
                           || this.$t('register_page.register_form.email_text_field.email_not_valid')
                     }
                 ],
                 firstnameRules: [
+                  v =>  {
+                     return XRegExp('^\\p{L}*$').test(v) ||  this.$t('register_page.register_form.firstname_text_field.firstname_not_valid')
+
+                  },
                   v => {
                     return !!v || this.$t('register_page.register_form.firstname_text_field.input_empty')
                   }
 
                 ],
                 lastnameRules: [
+                  v =>  {
+                    return XRegExp('^\\p{L}*$').test(v) ||  this.$t('register_page.register_form.lastname_text_field.lastname_not_valid')
+
+                  },
                   v => {
                     return !!v || this.$t('register_page.register_form.lastname_text_field.input_empty')
                   }

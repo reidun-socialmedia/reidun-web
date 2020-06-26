@@ -1,10 +1,16 @@
 <template>
-    <v-card></v-card>
+    <securityLog>
+    </securityLog>
 </template>
 
 <script>
+    import securityLog from "../components/securityLog";
+
     export default {
-        name: "security-log"
+        name: "security-log",
+        components: {
+           securityLog
+        }
     }
 </script>
 
