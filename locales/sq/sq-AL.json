@@ -2,103 +2,109 @@
   "default_layout": {
     "navigation_drawer": {
       "Home": {
-        "title": "Faça e parë"
+        "title": "Home"
       }
     },
     "search_bar": {
-      "label": "Kerkimi i perdoruesit",
-      "no_results": "Nuk ka resultat"
+      "label": "Search users",
+      "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
-        "title": "Akonto"
+        "title": "Account"
       },
       "Settings": {
-        "title": "Parametrat"
+        "title": "Settings"
       },
       "Logout": {
-        "title": "Dalje"
+        "title": "Log Out"
       }
     },
     "notifications": {
-      "no_notifications": "Nuk ka notifikime",
-      "post_liked": "%s ta ka pelqyer postimin",
-      "post_disliked": "%s nuk ta ka pelqyer postimin",
-      "post_commented": "%s ta ka kommentuar postimin"
+      "no_notifications": "No notifications",
+      "post_liked": "%s liked your post",
+      "post_disliked": "%s disliked your post",
+      "post_commented": "%s commented on your post"
     },
     "friend_requests": {
-      "no_friend_requests": "S'ka kërkesa të miqëve",
-      "friend_request_title": "%s dërgoje kërkesen mikut"
+      "no_friend_requests": "No friend requests",
+      "friend_request_title": "%s sent you a friend request"
     },
     "developer_console_warning": {
-      "line_1": "Ndalo!",
-      "line_2": "Vendosja e kodit të dyshimtë këtu mund t'u jepte sulmuesve hyrjen në llogarinë tuaj.",
-      "line_3": "Nëse nuk e kuptoni saktësisht se çfarë po bëni, mbyllni këtë dritare dhe qëndroni të sigurt!"
+      "line_1": "Hold Up!",
+      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
+      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
     }
   },
   "home_page": {
     "post_creation_card": {
-      "greeting": "Tung, %s çfarë po ndodh sot?\n",
-      "post_creation_button": "Posto",
-      "attach_file": "Bashkangjit një dosje\n",
-      "input_empty": "Postimi nuk mund të jetë i zbrazet"
+      "greeting": "Hey %s, what's happening today?",
+      "post_creation_button": "Post",
+      "attach_file": "Attach a file",
+      "input_empty": "Post cannot be empty"
     },
     "post_card": {
-      "title": "Postimet",
+      "title": "Posts",
       "post_menu": {
-        "delete_post": "Fshije postimin\n",
-        "edit_post": "Redakto Postin\n",
-        "report": "Reportoje Postin"
+        "delete_post": "Delete Post",
+        "edit_post": "Edit Post",
+        "report": "Report Post"
       }
     }
   },
   "session_user_page": {
     "tab_menu": {
-      "wall": "Muri",
-      "about": "Për",
-      "friends": "Shokët/Shoqet"
+      "wall": "Wall",
+      "about": "About",
+      "friends": "Friends"
     },
     "change_avatar_dialog": {
-      "title": "Ngarko një dose imazhi: png, gif, ose jpg\n",
-      "change_avatar": "Ndrysho profilin",
-      "cancel": "Ndërpreje",
-      "file_input_label": "Zgjedh imazhin"
+      "title": "Upload an image file: png, gif, or jpg",
+      "change_avatar": "Change Avatar",
+      "cancel": "Cancel",
+      "file_input_label": "Choose Image",
+      "save_button": "Save as avatar"
+    },
+    "change_banner_dialog": {
+      "change_banner": "Change banner",
+      "File_Input_label": "Upload an image file: png, gif, or jpg",
+      "save_button": "Save as banner"
     },
     "Wall": {
-      "title": "Muri i juaj",
-      "posts": "Postimet",
-      "files_posted": "Dosjet e Postuara",
-      "no-posts": "Ju nuk keni postuar asgjë!",
-      "no-files": "Ju nuk keni ngarkuar asgjë!\n"
+      "title": "Your Wall",
+      "posts": "Posts",
+      "files_posted": "Files Posted",
+      "no-posts": "You haven't posted anything!",
+      "no-files": "You haven't uploaded anything!"
     },
     "About": {
-      "title": "Për ju",
+      "title": "About You",
       "info": {
-        "email": "E-mail",
-        "gender": "Gjini",
-        "birthday": "Ditëlindja"
+        "email": "Email",
+        "gender": "Gender",
+        "birthday": "Birthday"
       }
     },
     "Friends": {
-      "title": "Miqët te juaj",
-      "no-friends": "Ju nuk keni miqë 😟"
+      "title": "Your Friends",
+      "no-friends": "You have no friends 😟"
     }
   },
   "user_page": {
     "tab_menu": {
-      "wall": "Muri",
-      "about": "Për",
-      "friends": "Shokët/Shoqet"
+      "wall": "Wall",
+      "about": "About",
+      "friends": "Friends"
     },
     "user_menu": {
-      "block": "Blokim",
-      "remove_friend": "Largo mikun"
+      "block": "Block",
+      "remove_friend": "Remove Friend"
     },
     "friend_request_buttons": {
-      "add_friend": "Bashkangjite si mik",
-      "accept_request": "Pranoje kërkesen",
-      "deny_request": "Refuzo kërkesen",
-      "cancel_request": "Ndërpreje kërkesen",
+      "add_friend": "Add as friend",
+      "accept_request": "Accept Request",
+      "deny_request": "Deny Request",
+      "cancel_request": "Cancel Request",
       "unfriend": "Unfriend"
     },
     "Wall": {
@@ -191,78 +197,91 @@
         "label": "Change setting",
         "select_items": {
           "everyone": "Everyone",
-          "friends_of_friends": "Miq te miqëve",
-          "none": "Askush"
+          "friends_of_friends": "Friends of friends",
+          "none": "No one"
         }
       }
     },
     "appearance_settings_tab": {
-      "title": "Parametrat e paraqitjes",
+      "title": "Appearance Settings",
       "theme_setting": {
         "dark_theme_setting": {
-          "dark": "Tema e errët",
-          "light": "Tema e ndritur",
-          "System_theme": "Tema e sistemit",
-          "title": "Tema"
+          "dark": "Dark Theme",
+          "light": "Light Theme",
+          "System_theme": "System theme",
+          "title": "Theme"
         },
         "Display_language_setting": {
-          "title": "Gjuha e skermës\n",
+          "title": "Display Language",
           "display_language_select": {
-            "label": "Gjuha",
-            "albanian": "Shqipe",
-            "danish": "Gjuha daneze",
-            "chinese": "Gjuha kineze (thjeshtuar)",
-            "dutch": "Gjuha holandeze",
-            "english-uk": "Gjuha angleze (Mbrëteria e bashkuar)",
-            "english-us": "Gjuha angleze (Shtetet e bashkuara)",
-            "english-au": "Gjuha angleze (Australi)",
-            "french": "Gjuha françeze",
-            "german": "Gjuha gjermane",
-            "japanese": "Gjuha japoneze",
-            "norwegian-bokmal": "Gjuha norvegjeze (Bokmål)",
-            "norwegian-nynorsk": "Gjuha norvegjeze (Nynorsk)",
-            "serbian": "Gjuha serbe",
-            "spanish": "Gjuha spanjolle",
-            "swedish": "Gjuha suedeze"
+            "label": "Language",
+            "albanian": "Albanian",
+            "danish": "Danish",
+            "chinese": "Chinese (Simplified)",
+            "dutch": "Dutch",
+            "english-uk": "English (United Kingdom)",
+            "english-us": "English (United States)",
+            "english-au": "English (Australia)",
+            "french": "French",
+            "german": "German",
+            "japanese": "japanese",
+            "norwegian-bokmal": "Norwegian (Bokmal)",
+            "norwegian-nynorsk": "Norwegian (Nynorsk)",
+            "serbian": "Serbian",
+            "spanish": "Spanish",
+            "swedish": "Swedish"
           }
         }
+      }
+    },
+    "security_log_tab": {
+      "title": "Security Log",
+      "RowChooser": "Rows per page:",
+      "no_data": "No data",
+      "security_log_headers": {
+        "log_id": "log id",
+        "event_type": "event",
+        "log": "log",
+        "ip": "ip",
+        "date": "date",
+        "location": "location"
       }
     }
   },
   "post_page": {
     "post_card": {
       "post_menu": {
-        "delete_post": "Fshije postimin\n",
-        "edit_post": "Redakto Postin\n",
-        "report": "Reportoje Postin"
+        "delete_post": "Delete Post",
+        "edit_post": "Edit Post",
+        "report": "Report Post"
       },
-      "save_button": "Ruaje",
-      "cancel_button": "Ndërpreje"
+      "save_button": "Save",
+      "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Shkruaj komentin",
-        "input_empty": "Komenti nuk mund të jetë i zbrazet"
+        "label": "Type a comment",
+        "input_empty": "Comment cannot be empty"
       },
       "create_button": {
-        "label": "Koment"
+        "label": "Comment"
       }
     },
     "comments_card": {
-      "no_comments": "Nuk ka komente tash! Banu i pari me kriju një ",
-      "title": "Komentet",
+      "no_comments": "No comments yet! Be the first to create one",
+      "title": "Comments",
       "comment_menu": {
-        "delete_comment": "Fshije komentin",
-        "edit_comment": "Redakto komentin",
-        "report_comment": "Raporto komentin"
+        "delete_comment": "Delete Comment",
+        "edit_comment": "Edit Comment",
+        "report_comment": "Report Comment"
       }
     }
   },
   "guest_layout": {
     "developer_console_warning": {
-      "line_1": "Ndalo!",
-      "line_2": "Vendosja e kodit të dyshimtë këtu mund t'u jepte sulmuesve hyrjen në llogarinë tuaj.",
-      "line_3": "Nëse nuk e kuptoni saktësisht se çfarë po bëni, mbyllni këtë dritare dhe qëndroni të sigurt!"
+      "line_1": "Hold Up!",
+      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
+      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
     }
   },
   "login_page": {
@@ -270,17 +289,17 @@
     "slide_show": {
       "page_1": {
         "title": "Reidun",
-        "text": "Media sociale të lira, me burim të hapur\n"
+        "text": "Free, open-source social media"
       },
       "page_2": {
-        "title": "Reidun në mobil",
-        "text": "Vepro? Mos u shqetësoni, shkarkoni një version vendas"
+        "title": "Reidun on mobile",
+        "text": "On the go? Don't worry, download a native version"
       }
     },
     "login_form": {
       "email_text_field": {
-        "label": "E-mail",
-        "input_empty": "Email kerkohet\n",
+        "label": "Email",
+        "input_empty": "Email is required",
         "email_not_valid": "Email must be valid"
       },
       "password_field": {
@@ -310,11 +329,13 @@
     "register_form": {
       "firstname_text_field": {
         "label": "First Name",
-        "input_empty": "First name is required"
+        "input_empty": "First name is required",
+        "firstname_not_valid": "Firstname has to be valid"
       },
       "lastname_text_field": {
         "label": "Last name",
-        "input_empty": "Last name is required"
+        "input_empty": "Last name is required",
+        "lastname_not_valid": "Lastname has to be valid"
       },
       "email_text_field": {
         "label": "Email",
