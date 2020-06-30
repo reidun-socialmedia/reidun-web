@@ -15,7 +15,7 @@
       <v-img id="img" :src="'/media/post/'+overlayImg"/>
 
     </v-dialog>
-    <v-card v-if="this.hasUser">
+    <v-card v-if="!this.hasUser">
       <v-card-title>
         error
       </v-card-title>
@@ -23,8 +23,13 @@
     </v-card>
 
     <v-card v-else-if="this.user.firstname !== undefined">
-      <v-img width="1200" height="200"
-             :src="this.user.headerimg !== undefined ? this.user.headerimg : 'defaultpost.jpg'"/>
+
+      <v-img width="100%" height="200"
+             :src="'/media/user'+loggedInUser.banner.path"
+             @click="showCarousel = true"
+      >
+
+      </v-img>
       <v-card-title style="position:relative; z-index: 1; top: -50px;">
         <v-avatar @click="avatarModal = true" style="width: 6rem; height: 6rem; margin-right: 1rem">
           <v-img :src="'/media/avatar/'+this.user.avatar.path"/>
@@ -32,12 +37,15 @@
         <p style="position:relative; top: 1rem">{{this.user.firstname + " " + this.user.lastname}}</p>
         <v-spacer></v-spacer>
         <div class="buttons">
+
           <v-btn
             v-if="user.privacy.who_can_add === 'friends_of_friends' && hasMutualFriends"
             @click="addFriend(user.id)"
           >
             {{this.$t("user_page.friend_request_buttons.add_friend")}}
           </v-btn >
+
+
           <v-btn
             v-if="user.privacy.who_can_add === 'everyone'  && relation.status === undefined"
             @click="addFriend(user.id)"
@@ -57,7 +65,7 @@
           <v-btn
             v-else-if="user.privacy.who_can_add === 'everyone' && relation.status === 0 && relation.last_action_user_id !== loggedInUser.id"
             @click="acceptFriendRequest(user.id)"
-            color="primary"
+            color="success"
           >
             {{this.$t("user_page.friend_request_buttons.accept_request")}}
           </v-btn>
@@ -214,6 +222,7 @@
                         </nuxt-link>
                         <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(post.dateposted)}}
+                          <span v-if="post.edited === 1">(Edited)</span>
                      </span>
                         <v-spacer>
                         </v-spacer>
@@ -244,7 +253,7 @@
                       </v-card-title>
 
                       <v-card-text @click="go('/post?id='+post.id)">
-                        <p v-html="parseEmoji(post.text)"></p>
+                        <p v-html="parsePost(post.text)"></p>
                       </v-card-text>
                       <v-row v-if="post.post_files.length !== 0">
                         <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
@@ -410,20 +419,21 @@
       max-width="800"
     >
       <v-card>
-        <v-carousel>
+        <v-carousel slide showControls>
           <v-carousel-item
             v-for="(item,i) in userAvatars"
 
             :key="i"
             :src="'/media/avatar/'+item.path"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
+
           ></v-carousel-item>
         </v-carousel>
 
       </v-card>
     </v-dialog>
-
+    <v-dialog v-model="showCarousel" max-width="800">
+      <banner-carousel :targetUserId="this.user.id"/>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -432,21 +442,24 @@
   import twemoji from 'twemoji'
   import moment from 'moment'
   import axios from "../.nuxt/axios";
-
+  import bannerCarousel from "../components/bannerCarousel";
+  import XRegExp from 'xregexp'
   export default {
     name: "user",
+      components:{bannerCarousel},
     data() {
       return {
         user: {},
         relation: {},
         avatarModal: false,
+          showCarousel: false,
         userAvatars: [],
         userFriends: [],
         page: 1,
         dialog: false,
         overlayImg: '',
         posts: [],
-          hasUser: false,
+          hasUser: true,
         finishedLoading: false,
           hasMutualFriends: false,
         userFiles: []
@@ -463,9 +476,9 @@
 
         await this.$axios.get('/user/' + userId).then(res => {
           this.user = res.data.data
-          this.hasUser = false;
+
         }).catch(error => {
-            this.hasUser = true;
+            this.hasUser = false;
         })
       },
       getGenderIcon(sentGender) {
@@ -502,6 +515,14 @@
 
       },
       checkUser(userId) {
+          //check if parameters are invalid
+          console.log(userId)
+          if (userId === "" || userId === undefined || userId === null){
+              this.$router.push({
+                  path: '/'
+              })
+          }
+        //Check if the parameters is my own id or else
         if (userId === this.loggedInUser.id) {
           this.$router.push({
             path: '/me'
@@ -520,12 +541,16 @@
         }
         await this.$axios.post('/friends/relation', data).then(res => {
           this.relation = res.data.data
+            // status code 204 means that the user and target user dont have a relationship.
+            // status code 200 means that the user and target user have a relationship
           if (res.status === 204) {
             this.getUser(this.$route.query.id)
             this.getUserAvatars(this.$route.query.id)
 
             this.relation = {}
-          } else {
+          }
+
+          else {
             this.getUser(id)
             this.getUserAvatars(id)
             this.getUserPostFiles(id)
@@ -671,9 +696,20 @@
         this.overlayImg = img
 
       },
-      parseEmoji(input) {
-        return twemoji.parse(input)
-      },
+        parseLink(input){
+            let regex = XRegExp("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:\/~+#-]*[\\w@?^=%&\/~+#-])");
+            return XRegExp.replace(input,regex, (match) => {
+                return `<a target="_blank" href="${match}">${match}</a>`;
+            },'all')
+        },
+        parseEmoji(input){
+            return twemoji.parse(input)
+        },
+        parsePost(input){
+            input = this.parseLink(input)
+            input = this.parseEmoji(input)
+            return input
+        },
 
       async likePost(postId, userId) {
         self = this

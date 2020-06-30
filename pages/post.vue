@@ -27,8 +27,9 @@
                        :to="'/user?id='+this.post.poster_id">{{this.post.poster.firstname + " " +
               this.post.poster.lastname}}
             </nuxt-link>
-            <span style="font-size: 0.8rem">
+            <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(this.post.dateposted)}}
+              <span v-if="this.post.edited === 1">(Edited)</span>
         </span>
             <v-spacer>
             </v-spacer>
@@ -64,7 +65,7 @@
 
           <v-card-text >
             <div v-if="!editPostState">
-              <p v-html="parseEmoji(this.post.text)"></p>
+              <p v-html="parsePost(this.post.text)"></p>
 
             </div>
             <div v-else>
@@ -156,7 +157,7 @@
         </v-card>
         <v-card>
           <v-card-text>
-            <v-form v-model="isValid">
+            <v-form v-model="isValid" ref="createCommentForm">
               <v-textarea
                 :label="this.$t('post_page.comment_creation_card.comment_input.label')"
                 v-model="commentContent"
@@ -210,9 +211,12 @@
                 </v-avatar>
                 <p style="margin-left: 1rem; margin-right: 1rem">{{comment.user.firstname + " " +
                   comment.user.lastname}}</p>
-                <span style="font-size: 0.8rem">
+                <span style="font-size: 0.8rem; color: #c7c5c7">
                    {{getFormattedDate(comment.dateposted)}}
+                  <span v-if="comment.edited === 1">(Edited)</span>
                </span>
+
+
                 <v-spacer></v-spacer>
 
                 <!-- Delete and Edit Comment -->
@@ -227,24 +231,24 @@
                     <v-list-item @click="deleteComment(comment.id)">
                       <v-list-item-title>
                         <v-icon>mdi-delete</v-icon>
-                        {{$t('post_page.post_card.post_menu.delete_post')}}
+                        {{$t('post_page.comments_card.comment_menu.delete_comment')}}
                       </v-list-item-title>
                     </v-list-item>
                     <v-list-item @click="editChosenCommentId = comment.id, editCommentInputField = comment.comment_content">
                       <v-list-item-title>
                         <v-icon>edit</v-icon>
-                        {{$t('post_page.post_card.post_menu.edit_post')}}
+                        {{$t('post_page.comments_card.comment_menu.edit_comment')}}
                       </v-list-item-title>
                     </v-list-item>
                     <v-list-item v-if="comment.user.id !== loggedInUser.id">
-                      <v-list-item-title>{{$t('post_page.post_card.post_menu.report')}}</v-list-item-title>
+                      <v-list-item-title>{{$t('post_page.comments_card.comment_menu.report_comment')}}</v-list-item-title>
                     </v-list-item>
                   </v-list>
                 </v-menu>
 
               </v-card-title>
 
-              <v-card-text  v-if="editChosenCommentId !== comment.id" v-html="parseEmoji(comment.comment_content)"></v-card-text>
+              <v-card-text  v-if="editChosenCommentId !== comment.id" v-html="parsePost(comment.comment_content)"></v-card-text>
               <div v-else>
                 <v-textarea
 
@@ -284,12 +288,12 @@
     import EmojiGroups from '@kevinfaguiar/vue-twemoji-picker/emoji-data/emoji-groups.json';
     import {mapGetters, mapMutations} from "vuex";
     import axios from "../.nuxt/axios";
-    import Default from "../layouts/default";
 
+    import XRegExp from 'xregexp'
     export default {
         name: "post",
         components: {
-            Default,
+
             'twemoji-picker': TwemojiPicker
         },
         data() {
@@ -352,9 +356,11 @@
 
             },
             saveEditedComment(commentId){
+
+                let sanitizedComment = this.$sanitize(this.editCommentInputField)
                 let data = {
                     commentId: commentId,
-                    newText: this.editCommentInputField
+                    newText: sanitizedComment
                 }
 
 
@@ -374,10 +380,11 @@
                 this.editPostState = false;
             },
             async saveEditedPost(postId){
+                let sanitizedPost = this.$sanitize(this.editPostInput)
                 let data = {
                     postId: postId,
                     userId: this.loggedInUser.id,
-                    newText: this.editPostInput
+                    newText: sanitizedPost
                 }
 
                 await this.$axios.patch('/post/update',data).then(res => {
@@ -439,8 +446,19 @@
                 return moment(date).locale(this.userLocale).fromNow();
 
             },
-            parseEmoji(input) {
+            parseLink(input){
+                let regex = XRegExp("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:\/~+#-]*[\\w@?^=%&\/~+#-])");
+                return XRegExp.replace(input,regex, (match) => {
+                    return `<a target="_blank" href="${match}">${match}</a>`;
+                },'all')
+            },
+            parseEmoji(input){
                 return twemoji.parse(input)
+            },
+            parsePost(input){
+                input = this.parseLink(input)
+                input = this.parseEmoji(input)
+                return input
             },
             async createComment() {
                 self = this;
@@ -448,14 +466,15 @@
                 const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
                 const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
                 const dateTime = date + ' ' + time;
-
+                let sanitizedComment = this.$sanitize(this.commentContent)
                 let data = {
                     'postId': this.$route.query.id,
-                    'commentContent': this.commentContent,
+                    'commentContent': sanitizedComment,
                     'userId': this.loggedInUser.id,
                     'datePosted': dateTime
                 }
                 await this.$axios.post('/post/comment/create', data).then(res => {
+                    this.$refs.createCommentForm.reset()
                     self.setSnackColor("success");
                     this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'COMMENT_CREATE', {sender: this.loggedInUser, postId: this.$route.query.id})
                     self.setSnack("You comment has successfully been created");

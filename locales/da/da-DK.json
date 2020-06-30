@@ -96,8 +96,8 @@
     },
     "friend_request_buttons": {
       "add_friend": "Tilføj som ven",
-      "accept_request": "Annuller",
-      "deny_request": "Afvis andmodning",
+      "accept_request": "Godkend anmodning",
+      "deny_request": "Afvis anmodning",
       "cancel_request": "Annuller anmodning",
       "unfriend": "Fjern som ven"
     },
@@ -144,7 +144,7 @@
       "account_security_log": "Bruger Sikkerhedslog"
     },
     "account_settings_tab": {
-      "title": "Konto Indstillinger",
+      "title": "Bruger Indstillinger",
       "information": {
         "title": "Ændre oplysninger"
       },
@@ -250,7 +250,12 @@
     },
     "comments_card": {
       "no_comments": "Ingen kommentar! Vær' den første til at oprette en",
-      "title": "Kommentarer"
+      "title": "Kommentarer",
+      "comment_menu": {
+        "delete_comment": "Slet kommentar",
+        "edit_comment": "Ændré kommentar",
+        "report_comment": "Anmeld kommentar"
+      }
     }
   },
   "guest_layout": {

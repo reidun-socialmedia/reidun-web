@@ -62,7 +62,15 @@
       "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "Change Avatar",
       "cancel": "Cancel",
-      "file_input_label": "Choose Image"
+      "file_input_label": "Choose Image",
+      "save_button": "Save as avatar"
+
+    },
+    "change_banner_dialog":{
+      "change_banner": "Change banner",
+      "File_Input_label": "Upload an image file: png, gif, or jpg",
+      "save_button": "Save as banner"
+
     },
     "Wall": {
       "title": "Your Wall",
@@ -96,7 +104,7 @@
     },
     "friend_request_buttons": {
       "add_friend": "Add as friend",
-      "accept_request": "Cancel",
+      "accept_request": "Accept Request",
       "deny_request": "Deny Request",
       "cancel_request": "Cancel Request",
       "unfriend": "Unfriend"
@@ -227,6 +235,19 @@
           }
         }
       }
+    },
+    "security_log_tab":{
+      "title": "Security Log",
+      "RowChooser": "Rows per page:",
+      "no_data": "No data",
+      "security_log_headers": {
+        "log_id": "log id",
+        "event_type": "event",
+        "log": "log",
+        "ip": "ip",
+        "date": "date",
+        "location": "location"
+      }
     }
   },
   "post_page": {
@@ -250,7 +271,12 @@
     },
     "comments_card": {
       "no_comments": "No comments yet! Be the first to create one",
-      "title": "Comments"
+      "title": "Comments",
+      "comment_menu": {
+        "delete_comment": "Delete Comment",
+        "edit_comment": "Edit Comment",
+        "report_comment": "Report Comment"
+      }
     }
   },
   "guest_layout": {
@@ -305,11 +331,14 @@
     "register_form": {
       "firstname_text_field": {
         "label": "First Name",
-        "input_empty": "First name is required"
+        "input_empty": "First name is required",
+        "firstname_not_valid": "Firstname has to be valid"
       },
       "lastname_text_field": {
         "label": "Last name",
-        "input_empty": "Last name is required"
+        "input_empty": "Last name is required",
+         "lastname_not_valid": "Lastname has to be valid"
+
       },
       "email_text_field": {
         "label": "Email",

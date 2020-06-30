@@ -17,8 +17,16 @@
 
     </v-dialog>
     <v-card>
-      <v-img width="1200" height="200"
-             :src="loggedInUser.headerimg !== undefined ? loggedInUser.headerimg : 'defaultpost.jpg'"/>
+      <v-img  width="100%" height="200"  @mouseenter="editBanner = true" @click="showCarousel = !bannerChangeDialog"
+             @mouseleave="editBanner = false"
+             :src="'/media/user'+loggedInUser.banner.path">
+
+        <v-btn style="margin: 2rem" v-show="editBanner" icon @click="bannerChangeDialog = true">
+          <v-icon style="filter: drop-shadow(0px 0px 3px rgba(23,23,23,0.80));">edit</v-icon>
+        </v-btn>
+
+
+      </v-img>
       <v-card-title style="position:relative; z-index: 1; top: -50px; ">
         <v-avatar style="width: 6rem; height: 6rem; margin-right: 0.2rem" @mouseenter="editIcon = true"
                   @mouseleave="editIcon = false">
@@ -146,6 +154,7 @@
                         </nuxt-link>
                         <span style="font-size: 0.8rem; color: #c7c5c7">
                              {{getFormattedDate(post.dateposted)}}
+                          <span v-if="post.edited === 1">(Edited)</span>
                             </span>
                         <v-spacer>
                         </v-spacer>
@@ -176,7 +185,7 @@
                       </v-card-title>
 
                       <v-card-text @click="go('/post?id='+post.id)">
-                        <p v-html="parseEmoji(post.text)"></p>
+                        <p v-html="parsePost(post.text)"></p>
                       </v-card-text>
                       <v-row v-if="post.post_files.length !== 0">
                         <v-col class="col-auto mr-auto" style="margin: 0 !important; padding: 0 1rem 1rem 1rem"
@@ -308,24 +317,26 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-            <v-card-text v-else v-html="parseEmoji(this.$t('session_user_page.Friends.no-friends'))"></v-card-text>
+            <v-card-text v-else v-html="parsePost(this.$t('session_user_page.Friends.no-friends'))"></v-card-text>
           </v-card>
         </v-tab-item>
 
       </v-tabs>
     </v-card>
+
+    <!-- Banner -->
     <v-dialog
-      v-model="avatarChangeDialog"
-      max-width="290"
+      v-model="bannerChangeDialog"
+      content-class="dialogs"
     >
       <v-card>
-        <v-card-title class="headline">Change Avatar</v-card-title>
+        <v-card-title class="headline">{{this.$t('session_user_page.change_banner_dialog.change_banner')}}</v-card-title>
 
         <v-card-text>
-          <p>Upload a image file, png, gif, jpg</p>
+          <p>{{this.$t('session_user_page.change_avatar_dialog.title')}}</p>
           <v-file-input
-            label="Choose image"
-            v-model="imageFile"
+            :label="this.$t('session_user_page.change_avatar_dialog.file_input_label')"
+            v-model="bannerFile"
             show-size
             accept=".png,.gif,.jpg,.jfif"
             :rules="imageRules"
@@ -339,9 +350,50 @@
           <v-btn
             color="green darken-1"
             text
+            @click="bannerChangeDialog = false"
+          >
+            {{$t('session_user_page.change_avatar_dialog.cancel')}}
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="changeBanner(bannerFile)"
+          >
+            {{$t('session_user_page.change_banner_dialog.save_button')}}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Avatar -->
+    <v-dialog
+      v-model="avatarChangeDialog"
+    >
+      <v-card
+
+      >
+        <v-card-title class="headline">{{this.$t('session_user_page.change_avatar_dialog.change_avatar')}}</v-card-title>
+
+        <v-card-text>
+          <p>{{this.$t('session_user_page.change_avatar_dialog.title')}}</p>
+          <v-file-input
+            :label="this.$t('session_user_page.change_avatar_dialog.file_input_label')"
+            v-model="imageFile"
+            show-size
+            accept=".png,.gif,.jpg,.jfif"
+            :rules="imageRules"
+          ></v-file-input>
+
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn
+            color="green darken-1"
+            text
             @click="avatarChangeDialog = false"
           >
-            Cancel
+            {{$t('session_user_page.change_avatar_dialog.cancel')}}
           </v-btn>
 
           <v-btn
@@ -349,29 +401,41 @@
             text
             @click="changeAvatar(imageFile)"
           >
-            Save Avatar
+            {{$t('session_user_page.change_avatar_dialog.save_button')}}
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="showCarousel" max-width="800">
+      <banner-carousel :targetUserId="this.loggedInUser.id"/>
+    </v-dialog>
   </div>
+
 </template>
 
 <script>
     import {mapGetters, mapMutations} from "vuex";
     import twemoji from 'twemoji'
     import moment from 'moment'
-
+    import bannerCarousel from "../components/bannerCarousel";
+    import XRegExp from 'xregexp'
     export default {
         name: "me",
+        components:{
+            bannerCarousel
+        },
         data: function () {
             return {
+                showCarousel:false,
                 editIcon: false,
+                editBanner: false,
                 avatarChangeDialog: false,
+                bannerChangeDialog: false,
                 imageRules: [
                     v => !!v || 'Image file is required'
                 ],
                 imageFile: null,
+                bannerFile: null,
                 sorting: 'sort_by_date',
                 postSortSettings: [
                     {
@@ -430,13 +494,41 @@
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
+                    }).then(res => {
+                        this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'AVATAR_UPDATED', {sender: this.loggedInUser})
+                        this.avatarChangeDialog = false
+                        self.setSnackColor("success");
+                        self.setSnack("You have successfully changed avatar");
                     })
-                    this.avatarChangeDialog = false
-                    self.setSnackColor("success");
-                    self.setSnack("You have successfully changed avatar, however you need to reload webapp");
+
                 } catch (e) {
                     self.setSnackColor("error");
                     self.setSnack("Failed to change avatar");
+                }
+            },
+            async changeBanner(bannerFile) {
+                const formData = new FormData();
+                formData.append("userid", this.loggedInUser.id)
+                formData.append("image", bannerFile);
+                let self = this;
+                try {
+                    await this.$axios.post('user/changebanner', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }).then(res => {
+                        this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'BANNER_UPDATED', {
+                            sender: this.loggedInUser
+                        })
+
+                        this.bannerChangeDialog = false
+                        self.setSnackColor("success");
+                        self.setSnack("You have successfully changed banner");
+                    })
+
+                } catch (e) {
+                    self.setSnackColor("error");
+                    self.setSnack("Failed to change banner");
                 }
             },
             ...mapMutations({
@@ -472,8 +564,19 @@
                 this.overlayImg = img
 
             },
-            parseEmoji(input) {
+            parseLink(input){
+                let regex = XRegExp("(http|https)://([\\w_-]+(?:(?:\\.[\\w_-]+)+))([\\w.,@?^=%&:\/~+#-]*[\\w@?^=%&\/~+#-])");
+                return XRegExp.replace(input,regex, (match) => {
+                    return `<a target="_blank" href="${match}">${match}</a>`;
+                },'all')
+            },
+            parseEmoji(input){
                 return twemoji.parse(input)
+            },
+            parsePost(input){
+                input = this.parseLink(input)
+                input = this.parseEmoji(input)
+                return input
             },
             async likePost(postId,userId) {
                 self = this
@@ -558,11 +661,27 @@
                     self.setSnack("could not un-dislike post");
                 })
             },
+            async getUser(){
+                await this.$axios.get(`/user`).then(res => {
+
+                    this.$store.commit('UpdateUser',res.data.data)
+                })
+            }
         },
         beforeMount() {
             this.getUserFriends(this.loggedInUser.id)
             this.getUserPostFiles(this.loggedInUser.id)
             this.getUserPosts(this.loggedInUser.id)
+
+        },
+        mounted(){
+        this.$ws.$on('POST_LIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+        this.$ws.$on('POST_UNLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+        this.$ws.$on('POST_DISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+        this.$ws.$on('POST_UNDISLIKED', (e) => this.getUserPosts(this.loggedInUser.id))
+        this.$ws.$on('BANNER_UPDATED', (e) => this.getUser(this.loggedInUser.id))
+        this.$ws.$on('AVATAR_UPDATED', (e) => this.getUser(this.loggedInUser.id))
+
 
         },
         computed: {
@@ -573,5 +692,6 @@
 </script>
 
 <style scoped>
+
 
 </style>

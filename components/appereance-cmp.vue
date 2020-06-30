@@ -29,7 +29,7 @@
           <v-select
             :items="languages"
             @change="changeLang"
-            label="Language"
+            :label="this.$t('settings.appearance_settings_tab.theme_setting.Display_language_setting.display_language_select.label')"
             v-model="userSpecifiedLang"
             item-text="text"
             item-value="value"
