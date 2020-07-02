@@ -8,32 +8,33 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@adonisjs/websocket-client": "^1.0.9",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@kevinfaguiar/vue-twemoji-picker": "^5.7.4",
-    "@nuxtjs/auth": "^4.8.5",
+    "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "adonis-vue-websocket": "^2.0.2",
     "dotenv": "^8.2.0",
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
-    "nuxt": "^2.0.0",
-    "sprintf-js": "latest",
-    "twemoji": "^12.1.5",
-    "video.js": "^7.6.6",
-    "vue-i18n": "^8.17.3",
-    "vue-native-websocket": "^2.0.14",
+    "nuxt": "^2.12.2",
+    "sprintf-js": "^1.1.2",
+    "twemoji": "^12.1.6",
+    "video.js": "^7.8.1",
+    "vue-i18n": "^8.18.0",
     "vue-sanitize": "^0.2.0",
-    "vuex": "^3.1.2",
     "xregexp": "^4.3.0",
     "vue-native-notification": "latest",
-    "snyk": "^1.339.0"
+    "snyk": "^1.349.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0"
-  }
+  },
+  "snyk": true
 }
