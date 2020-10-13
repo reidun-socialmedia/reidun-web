@@ -23,11 +23,11 @@
     "dotenv": "^8.2.0",
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
-    "nuxt": "^2.12.2",
+    "nuxt": "^2.13.0",
     "sprintf-js": "^1.1.2",
     "twemoji": "^12.1.6",
-    "video.js": "^7.8.1",
     "vue-i18n": "^8.21.1",
+    "video.js": "^7.8.3"
     "vue-sanitize": "^0.2.0",
     "xregexp": "^4.3.0",
     "vue-native-notification": "latest",
