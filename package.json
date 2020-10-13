@@ -31,7 +31,7 @@
     "vue-sanitize": "^0.2.0",
     "xregexp": "^4.3.0",
     "vue-native-notification": "latest",
-    "snyk": "^1.352.1"
+    "snyk": "^1.413.3"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0"
