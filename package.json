@@ -27,7 +27,7 @@
     "sprintf-js": "^1.1.2",
     "twemoji": "^12.1.6",
     "vue-i18n": "^8.21.1",
-    "video.js": "^7.8.3"
+    "video.js": "^7.8.3",
     "vue-sanitize": "^0.2.0",
     "xregexp": "^4.3.0",
     "vue-native-notification": "latest",
