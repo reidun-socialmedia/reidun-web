@@ -18,7 +18,7 @@
     "@kevinfaguiar/vue-twemoji-picker": "^5.7.4",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.10.3",
-    "@nuxtjs/pwa": "^3.0.0-beta.19",
+    "@nuxtjs/pwa": "^3.2.2",
     "adonis-vue-websocket": "^2.0.2",
     "dotenv": "^8.2.0",
     "moment": "^2.27.0",
