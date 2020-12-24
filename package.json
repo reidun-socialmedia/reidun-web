@@ -17,7 +17,7 @@
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@kevinfaguiar/vue-twemoji-picker": "^5.7.4",
     "@nuxtjs/auth": "^4.9.1",
-    "@nuxtjs/axios": "^5.10.3",
+    "@nuxtjs/axios": "^5.12.3",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "adonis-vue-websocket": "^2.0.2",
     "dotenv": "^8.2.0",
