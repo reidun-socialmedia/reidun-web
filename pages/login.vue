@@ -151,18 +151,24 @@
               this.$router.push('/')
             } catch (err) {
 
+              if (err.response.data.status === 500) {
+                self.setSnackColor("error");
+                self.setSnack('can\'t login api issue');
+              }
               if (err.response.data) {
-                if (err.response.data[0].field === 'email' || err.response.data[0].field === "password") {
-                  self.setSnackColor("error");
-                  self.setSnack('Email or password incorrect');
-                } else {
-                  self.setSnackColor("error");
-                  self.setSnack(`${err.response.data[0].message}`);
-                }
+                  if (err.response.data[0].field === 'email' || err.response.data[0].field === "password") {
+                    self.setSnackColor("error");
+                    self.setSnack('Email or password incorrect');
+                  } else {
+                    self.setSnackColor("error");
+                    self.setSnack(`${err.response.data[0].message}`);
+                  }
+
                 if (err.response.status === 502) {
                   self.setSnackColor("error");
                   self.setSnack("Can't login, gateway error");
                 }
+
 
               } else {
                 self.setSnackColor("error");
