@@ -227,7 +227,7 @@
           <v-list-item
             v-for="(n,i) in notifications"
             :key="i"
-            :style="n.is_read === 0 ? 'background: #6d8dc2':''"
+            :style="{background:n.is_read === 0 ? '#6d8dc2':''}"
             v-else
           >
             <v-list-item-avatar>
@@ -292,11 +292,17 @@
         <snackbar></snackbar>
       </v-container>
     </v-main>
+      <v-layout  style="z-index:3" align-end justify-end>
+        <chat-friend-list  style="width: 20rem">
+
+        </chat-friend-list>
+      </v-layout>
+
+
     <v-bottom-navigation
       v-model="bottomNav"
       v-if="$vuetify.breakpoint.smAndDown"
       :style="{background: $vuetify.theme.themes[getTheme].buttomNavbackground}"
-
       fixed
     >
       <v-btn @click="go('/')" value="Home">
@@ -325,6 +331,7 @@
 <script>
   import {mapGetters, mapMutations} from 'vuex'
   import Snackbar from "../components/Snackbar";
+  import chatFriendList from "../components/chatFriendList";
   import WsSubscriptions from '../assets/WsSubscriptions'
 
 
@@ -334,7 +341,8 @@
 
     middleware: "auth",
     components: {
-      Snackbar
+      Snackbar,
+      chatFriendList,
     },
     data() {
       return {
