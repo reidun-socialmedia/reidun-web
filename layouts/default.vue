@@ -292,7 +292,7 @@
         <snackbar></snackbar>
       </v-container>
     </v-main>
-      <v-layout  style="z-index:3" align-end justify-end>
+      <v-layout  style="position: fixed; z-index:3" align-end justify-end>
         <chat-friend-list  style="width: 20rem">
 
         </chat-friend-list>

@@ -1,7 +1,7 @@
 <template>
-  <v-expansion-panels mandatory >
+  <v-expansion-panels >
     <v-expansion-panel>
-      <v-expansion-panel-header disable-icon-rotate expand-icon=""  style="height:4rem; background-color: #e3314c !important;"><v-card-title>Friends</v-card-title></v-expansion-panel-header>
+      <v-expansion-panel-header disable-icon-rotate expand-icon=""  style="height:4rem; background-color: #e3314c !important;">Friends</v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-list>
           <!--   <v-list-item v-for="(friend, i) of friendsOnline">
