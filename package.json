@@ -14,24 +14,23 @@
   },
   "dependencies": {
     "@adonisjs/websocket-client": "^1.0.9",
-    "@fortawesome/fontawesome-free": "^5.13.0",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "@kevinfaguiar/vue-twemoji-picker": "^5.7.4",
     "@nuxtjs/auth": "^4.9.1",
-    "@nuxtjs/axios": "^5.10.3",
-    "@nuxtjs/pwa": "^3.0.0-beta.19",
+    "@nuxtjs/axios": "^5.12.2",
     "adonis-vue-websocket": "^2.0.2",
     "dotenv": "^8.2.0",
-    "moment": "^2.26.0",
+    "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
-    "nuxt": "^2.12.2",
+    "nuxt": "^2.14.7",
+    "snyk": "^1.425.1",
     "sprintf-js": "^1.1.2",
     "twemoji": "^12.1.6",
-    "video.js": "^7.8.1",
-    "vue-i18n": "^8.18.0",
-    "vue-sanitize": "^0.2.0",
-    "xregexp": "^4.3.0",
+    "video.js": "^7.10.2",
+    "vue-i18n": "^8.22.1",
     "vue-native-notification": "latest",
-    "snyk": "^1.349.0"
+    "vue-sanitize": "^0.2.1",
+    "xregexp": "^4.4.0"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0"

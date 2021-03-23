@@ -481,30 +481,30 @@
 
                 })
             },
-            async undislikePost(postId) {
-                self = this
-               const data = {
-                    postId: postId,
-                    userId: this.loggedInUser.id
-                }
-                await this.$axios.delete('/post/undislike', {
-                    data: {
-                        postId: postId,
-                        userId: this.loggedInUser.id
-                    }
-                }).then(res => {
-                    self.setSnackColor("success");
-                    this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNDISLIKED', {
-                        sender: this.loggedInUser,
-                        postId: postId
-                    })
-                    self.setSnack("un-disliked post");
+          undislikePost: async function (postId) {
+            self = this
+            const config  = {}
+            await this.$axios.delete('/post/undislike', {
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+              },
+              data: {
+                postId: postId,
+                userId: this.loggedInUser.id
+              }
+            }).then(res => {
+              self.setSnackColor("success");
+              this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'POST_UNDISLIKED', {
+                sender: this.loggedInUser,
+                postId: postId
+              })
+              self.setSnack("un-disliked post");
 
-                }).catch(error => {
-                    self.setSnackColor("error");
-                    self.setSnack("could not un-dislike post");
-                })
-            },
+            }).catch(error => {
+              self.setSnackColor("error");
+              self.setSnack("could not un-dislike post");
+            })
+          },
             updateElement(arr, propName, propValue, newData) {
                 for (let i = 0; i < arr.length; i++) {
                     if (arr[i][propName] === propValue) {
