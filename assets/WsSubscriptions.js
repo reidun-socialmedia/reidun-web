@@ -8,6 +8,12 @@ const eventTopicSubscriptions = (id)=> {
     eventSubscription = Vue.ws.subscribe(`event:${id}`);
 
   }
+  let friendSubscription = Vue.ws.socket.getSubscription(`friends:${id}`);
+
+  if (!friendSubscription) {
+    friendSubscription = Vue.ws.subscribe(`friends:${id}`);
+
+  }
 };
 
 export default async (id) => {

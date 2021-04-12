@@ -2,160 +2,154 @@
   "default_layout": {
     "navigation_drawer": {
       "Home": {
-        "title": "Home"
+        "title": "Accueil"
       }
     },
     "search_bar": {
-      "label": "Search users",
+      "label": "Rechercher des utilisateurs",
       "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
-        "title": "Account"
+        "title": "Compte"
       },
       "Settings": {
-        "title": "Settings"
+        "title": "Paramètres"
       },
       "Logout": {
-        "title": "Log Out"
+        "title": "Se déconnecter"
       }
     },
     "notifications": {
-      "no_notifications": "No notifications",
-      "post_liked": "%s liked your post",
-      "post_disliked": "%s disliked your post",
-      "post_commented": "%s commented on your post"
+      "no_notifications": "Aucune notification",
+      "post_liked": "%s a aimé votre publication",
+      "post_disliked": "%s n'aime pas votre publication",
+      "post_commented": "%s a commenté votre publication"
     },
     "friend_requests": {
-      "no_friend_requests": "No friend requests",
-      "friend_request_title": "%s sent you a friend request"
+      "no_friend_requests": "Aucune demande d'ami",
+      "friend_request_title": "%s vous a envoyé une demande d'ami"
     },
     "developer_console_warning": {
-      "line_1": "Hold Up!",
-      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
-      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+      "line_1": "Attention!",
+      "line_2": "Coller du code suspect ici pourrait accorder l’accès a votre compte a des personnes malveillantes.",
+      "line_3": "A moins de savoir exactement ce que vous faites, fermez cette fenêtre et restez en sécurité!"
     }
   },
   "home_page": {
     "post_creation_card": {
-      "greeting": "Hey %s, what's happening today?",
-      "post_creation_button": "Post",
-      "attach_file": "Attach a file",
-      "input_empty": "Post cannot be empty"
+      "greeting": "Salut %s, que se passe-t-il aujourd'hui?",
+      "post_creation_button": "Publication",
+      "attach_file": "Ajouter un fichier",
+      "input_empty": "Votre publication ne peut pas être vide"
     },
     "post_card": {
-      "title": "Posts",
+      "title": "Publications",
       "post_menu": {
-        "delete_post": "Delete Post",
-        "edit_post": "Edit Post",
-        "report": "Report Post"
+        "delete_post": "Supprimer la publication",
+        "edit_post": "Modifier la publication",
+        "report": "Signaler la publication"
       }
     }
   },
   "session_user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "Mur",
+      "about": "A propos",
+      "friends": "Amis"
     },
     "change_avatar_dialog": {
       "title": "Upload an image file: png, gif, or jpg",
-      "change_avatar": "Change Avatar",
-      "cancel": "Cancel",
-      "file_input_label": "Choose Image",
-      "save_button": "Save as avatar"
-    },
-    "change_banner_dialog": {
-      "change_banner": "Change banner",
-      "File_Input_label": "Upload an image file: png, gif, or jpg",
-      "save_button": "Save as banner"
+      "change_avatar": "Change ton Avatar",
+      "cancel": "Annuler",
+      "file_input_label": "Choisis une image"
     },
     "Wall": {
-      "title": "Your Wall",
-      "posts": "Posts",
-      "files_posted": "Files Posted",
-      "no-posts": "You haven't posted anything!",
-      "no-files": "You haven't uploaded anything!"
+      "title": "Ton mur",
+      "posts": "Publications",
+      "files_posted": "Fichiers publiés",
+      "no-posts": "Tu n'as rien publié!",
+      "no-files": "Tu n'as rien mis en ligne!"
     },
     "About": {
-      "title": "About You",
+      "title": "A propos de toi",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "E-mail",
+        "gender": "Sexe",
+        "birthday": "Anniversaire"
       }
     },
     "Friends": {
-      "title": "Your Friends",
-      "no-friends": "You have no friends 😟"
+      "title": "Tes amis",
+      "no-friends": "Tu n'a pas d'ami 😟"
     }
   },
   "user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "Mur",
+      "about": "A propos",
+      "friends": "Amis"
     },
     "user_menu": {
-      "block": "Block",
-      "remove_friend": "Remove Friend"
+      "block": "Bloquer",
+      "remove_friend": "Retirer l'ami"
     },
     "friend_request_buttons": {
-      "add_friend": "Add as friend",
+      "add_friend": "Ajouter comme ami",
       "accept_request": "Accept Request",
-      "deny_request": "Deny Request",
-      "cancel_request": "Cancel Request",
+      "deny_request": "Ignorer la demande",
+      "cancel_request": "Annuler la demande",
       "unfriend": "Unfriend"
     },
     "Wall": {
-      "title": "%s's wall",
-      "not_friends_message": "You need to be friends with %s to view their wall",
-      "posts": "Posts",
-      "files_posted": "Files Posted",
-      "no-posts": "%s has not posted anything",
-      "no-files": "%s has not uploaded anything"
+      "title": "Mur de %s",
+      "not_friends_message": "Tu as besoin d'ètre ami avec %s pour voir son mur",
+      "posts": "Publications",
+      "files_posted": "Fichiers publiés",
+      "no-posts": "%s n'a rien publié",
+      "no-files": "%s n'a rien mis en ligne"
     },
     "About": {
-      "title": "About %s",
-      "not_friends_message": "You need to be friends with %s to view their information",
+      "title": "A propos de %s",
+      "not_friends_message": "Tu as besoin d'être ami avec %s pour voir ses informations",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "E-mail",
+        "gender": "Sexe",
+        "birthday": "Anniversaire"
       }
     },
     "Friends": {
-      "title": "%s's friends",
-      "not_friends_message": "You need to be friends with %s to view their friends",
+      "title": "Amis de %s",
+      "not_friends_message": "Tu as besoin d'être ami avec %s pour voir ses amis",
       "user_no_friends": "User have no friends"
     }
   },
   "search_page_mobile": {
-    "title": "Search for users",
+    "title": "Rechercher des utilisateurs",
     "search_bar": {
-      "label": "Search users"
+      "label": "Rechercher des utilisateurs"
     },
-    "list_empty": "Type in the search bar to see results"
+    "list_empty": "Écris dans la barre de recherche pour voir les résultats"
   },
   "notifications_page_mobile": {
     "title": "Notifications",
-    "no_notifications": "No notifications",
-    "markAsRead": "Mark as read"
+    "no_notifications": "Aucune notification",
+    "markAsRead": "Marquer comme lu"
   },
   "settings": {
     "settings_tab": {
-      "account_details": "Account Details",
-      "privacy": "Privacy",
-      "appearance": "Appearance",
-      "account_security_log": "Account Security Log"
+      "account_details": "Détails du compte",
+      "privacy": "Vie privée ",
+      "appearance": "Apparence",
+      "account_security_log": "Détails sur la sécurité du compte"
     },
     "account_settings_tab": {
       "title": "Account settings",
       "information": {
-        "title": "Change information"
+        "title": "Changer les informations"
       },
       "password": {
-        "title": "Change password",
+        "title": "Change de mot de passe",
         "new_password_input": {
           "label": "New password"
         },
@@ -203,7 +197,7 @@
       }
     },
     "appearance_settings_tab": {
-      "title": "Appearance Settings",
+      "title": "Paramètres d'apparence",
       "theme_setting": {
         "dark_theme_setting": {
           "dark": "Dark Theme",
@@ -212,48 +206,35 @@
           "title": "Theme"
         },
         "Display_language_setting": {
-          "title": "Display Language",
+          "title": "Afficher la langue ",
           "display_language_select": {
-            "label": "Language",
-            "albanian": "Albanian",
-            "danish": "Danish",
-            "chinese": "Chinese (Simplified)",
-            "dutch": "Dutch",
-            "english-uk": "English (United Kingdom)",
-            "english-us": "English (United States)",
+            "label": "Langage",
+            "albanian": "Albanais",
+            "danish": "Danois",
+            "chinese": "Chinois (Simplifié)",
+            "dutch": "Néerlandais",
+            "english-uk": "Anglais (Royaume-Unis)",
+            "english-us": "Anglais (Etats-Unis)",
             "english-au": "English (Australia)",
-            "french": "French",
-            "german": "German",
+            "french": "Français",
+            "german": "Allemand",
             "japanese": "japanese",
-            "norwegian-bokmal": "Norwegian (Bokmal)",
-            "norwegian-nynorsk": "Norwegian (Nynorsk)",
-            "serbian": "Serbian",
-            "spanish": "Spanish",
-            "swedish": "Swedish"
+            "norwegian-bokmal": "Norvégien (Bokmal)",
+            "norwegian-nynorsk": "Norvégien (Nynorsk)",
+            "serbian": "Serbe",
+            "spanish": "Espagnol",
+            "swedish": "Suèdois"
           }
         }
-      }
-    },
-    "security_log_tab": {
-      "title": "Security Log",
-      "RowChooser": "Rows per page:",
-      "no_data": "No data",
-      "security_log_headers": {
-        "log_id": "log id",
-        "event_type": "event",
-        "log": "log",
-        "ip": "ip",
-        "date": "date",
-        "location": "location"
       }
     }
   },
   "post_page": {
     "post_card": {
       "post_menu": {
-        "delete_post": "Delete Post",
-        "edit_post": "Edit Post",
-        "report": "Report Post"
+        "delete_post": "Supprimer la publication",
+        "edit_post": "Modifier la publication",
+        "report": "Signaler la publication"
       },
       "save_button": "Save",
       "cancel_button": "Cancel"
@@ -261,15 +242,15 @@
     "comment_creation_card": {
       "comment_input": {
         "label": "Type a comment",
-        "input_empty": "Comment cannot be empty"
+        "input_empty": "Votre commentaire ne peut pas être vide"
       },
       "create_button": {
-        "label": "Comment"
+        "label": "Commenter"
       }
     },
     "comments_card": {
       "no_comments": "No comments yet! Be the first to create one",
-      "title": "Comments",
+      "title": "Commentaires",
       "comment_menu": {
         "delete_comment": "Delete Comment",
         "edit_comment": "Edit Comment",
@@ -279,111 +260,109 @@
   },
   "guest_layout": {
     "developer_console_warning": {
-      "line_1": "Hold Up!",
-      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
-      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+      "line_1": "Attention!",
+      "line_2": "Coller du code suspect ici pourrait accorder l’accès a votre compte a des personnes malveillantes.",
+      "line_3": "A moins de savoir exactement ce que vous faites, fermez cette fenêtre et restez en sécurité!"
     }
   },
   "login_page": {
-    "title": "Reidun - Login",
+    "title": "Reidun - Connexion ",
     "slide_show": {
       "page_1": {
         "title": "Reidun",
-        "text": "Free, open-source social media"
+        "text": "Réseau social open-source, gratuit"
       },
       "page_2": {
-        "title": "Reidun on mobile",
-        "text": "On the go? Don't worry, download a native version"
+        "title": "Reidun sur mobile",
+        "text": "Pret à partir? Ne vous inquiétez pas, téléchargez une version native"
       }
     },
     "login_form": {
       "email_text_field": {
-        "label": "Email",
-        "input_empty": "Email is required",
-        "email_not_valid": "Email must be valid"
+        "label": "E-mail",
+        "input_empty": "E-mail requis",
+        "email_not_valid": "L'e-mail dois être valide"
       },
       "password_field": {
-        "label": "Password",
-        "input_empty": "Password is required"
+        "label": "Mot de passe",
+        "input_empty": "Mot de passe requis"
       },
       "login_button": {
-        "label": "Login"
+        "label": "Connexion"
       },
       "register_button": {
-        "label": "Register"
+        "label": "Inscription"
       }
     }
   },
   "register_page": {
-    "title": "Reidun - Register",
+    "title": "Reidun - Inscription",
     "slide_show": {
       "page_1": {
         "title": "Reidun",
-        "text": "Free, open-source social media"
+        "text": "Réseau social open-source, gratuit"
       },
       "page_2": {
-        "title": "Reidun on mobile",
-        "text": "On the go? Don't worry, download a native version"
+        "title": "Reidun sur mobile",
+        "text": "Pret à partir? Ne vous inquiétez pas, téléchargez une version native"
       }
     },
     "register_form": {
       "firstname_text_field": {
-        "label": "First Name",
-        "input_empty": "First name is required",
-        "firstname_not_valid": "Firstname has to be valid"
+        "label": "Prénom",
+        "input_empty": "Prénom requis"
       },
       "lastname_text_field": {
-        "label": "Last name",
-        "input_empty": "Last name is required",
-        "lastname_not_valid": "Lastname has to be valid"
+        "label": "Nom",
+        "input_empty": "Nom requis"
       },
       "email_text_field": {
-        "label": "Email",
-        "input_empty": "Email is required",
-        "email_not_valid": "Email must be valid"
+        "label": "E-mail",
+        "input_empty": "E-mail requis",
+        "email_not_valid": "L'e-mail dois être valide"
       },
       "password_field": {
-        "label": "Password",
-        "input_empty": "Password is required"
+        "label": "Mot de passe",
+        "input_empty": "Mot de passe requis"
       },
       "repeat_password_field": {
-        "label": "Repeat password",
-        "password_mismatch": "Password must match"
+        "label": "Confirmer mot de passe",
+        "password_mismatch": "Les mots de passes doivent concordé"
       },
       "gender_selection": {
-        "label": "Gender",
-        "input_empty": "Gender is required",
+        "label": "Genre",
+        "input_empty": "Genre requis",
         "genders": {
-          "male": "Male",
-          "female": "Female",
-          "other": "Other"
+          "male": "Homme",
+          "female": "Femme",
+          "other": "Autres"
         }
       },
       "birthday": {
-        "label": "Birthday",
-        "input_empty": "Birthday is required",
+        "label": "Anniversaire",
+        "input_empty": "Anniversaire requis",
         "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
-          "cancel": "Cancel",
+          "cancel": "Annulé",
           "ok": "OK"
         }
       },
       "register_button": {
-        "label": "Register"
+        "label": "Inscription"
       },
       "back_button": {
-        "label": "Back"
+        "label": "Retour"
       }
     }
   },
   "emoji_picker": {
-    "search_bar": "Search here",
-    "not_found": "Emoji(s) not found",
-    "loading": "Loading"
+    "search_bar": "Chercher ici",
+    "not_found": "Emoji(s) non trouvé",
+    "loading": "Chargement"
   },
   "snackbar": {
     "error_messages": {
-      "credentials_incorrect": "Email or Password is incorrect",
+      "credentials_incorrect": "E-mail ou mot de passe erroné ",
       "registration_fail": "Failed to register account",
       "post_creation_fail": "Failed to create post",
       "post_deletion_fail": "Failed to delete post",
@@ -391,7 +370,7 @@
       "post_unlike_fail": "Failed to remove like from post",
       "post_dislike_fail": "Failed to dislike post",
       "post_un_dislike_fail": "Failed to remove dislike for post",
-      "post_edit_fail": "Failed to edit post",
+      "post_edit_fail": "Échec de la modification de publication",
       "comment_creation_fail": "Failed to create comment",
       "comment_delete_fail": "Failed to delete comment",
       "comment_edit_fail": "Failed to edit comment",
@@ -402,19 +381,19 @@
       "post_deletion_success": "Post deleted",
       "post_like_success": "Liked post",
       "post_unlike_success": "Removed like for post",
-      "post_dislike_success": "Disliked post",
-      "post_un_dislike_success": "Removed dislike for post",
-      "post_edit_success": "Edited post",
-      "comment_creation_success": "Created comment",
-      "comment_delete_success": "Deleted comment",
-      "comment_edit_success": "Edited comment"
+      "post_dislike_success": "N'aime pas la publication",
+      "post_un_dislike_success": "\"Vous n'aimez pas\" supprimer",
+      "post_edit_success": "Publication modifié",
+      "comment_creation_success": "Commentaire créer",
+      "comment_delete_success": "Commentaire supprimer",
+      "comment_edit_success": "Commentaire modifié"
     }
   },
   "error_page": {
-    "error_title": "error",
-    "exception_thrown": "This is most likely an exception thrown in the webapp and not the system itself",
+    "error_title": "érreur",
+    "exception_thrown": "Il s'agit très probablement d'une exception levée dans l'application Web et non dans le système lui-même",
     "not_found_title": "404 Not Found",
-    "not_found": "This page does not exist"
+    "not_found": "Cette page n'éxiste pas"
   }
 }
 

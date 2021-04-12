@@ -62,13 +62,7 @@
       "title": "Upload an image file: png, gif, or jpg",
       "change_avatar": "Change Avatar",
       "cancel": "Cancel",
-      "file_input_label": "Choose Image",
-      "save_button": "Save as avatar"
-    },
-    "change_banner_dialog": {
-      "change_banner": "Change banner",
-      "File_Input_label": "Upload an image file: png, gif, or jpg",
-      "save_button": "Save as banner"
+      "file_input_label": "Choose Image"
     },
     "Wall": {
       "title": "Your Wall",
@@ -233,19 +227,6 @@
           }
         }
       }
-    },
-    "security_log_tab": {
-      "title": "Security Log",
-      "RowChooser": "Rows per page:",
-      "no_data": "No data",
-      "security_log_headers": {
-        "log_id": "log id",
-        "event_type": "event",
-        "log": "log",
-        "ip": "ip",
-        "date": "date",
-        "location": "location"
-      }
     }
   },
   "post_page": {
@@ -329,13 +310,11 @@
     "register_form": {
       "firstname_text_field": {
         "label": "First Name",
-        "input_empty": "First name is required",
-        "firstname_not_valid": "Firstname has to be valid"
+        "input_empty": "First name is required"
       },
       "lastname_text_field": {
         "label": "Last name",
-        "input_empty": "Last name is required",
-        "lastname_not_valid": "Lastname has to be valid"
+        "input_empty": "Last name is required"
       },
       "email_text_field": {
         "label": "Email",

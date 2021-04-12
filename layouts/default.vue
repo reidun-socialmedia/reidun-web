@@ -13,14 +13,14 @@
       <v-list>
         <v-list-item>
           <v-list-item-avatar>
-            <v-img  :src="'/media/avatar/'+loggedInUser.avatar.path"/>
+            <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>
-              {{loggedInUser.firstname + " " + loggedInUser.lastname}}
+              {{ loggedInUser.firstname + " " + loggedInUser.lastname }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              {{this.loggedInUser.email}}
+              {{ this.loggedInUser.email }}
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -48,7 +48,7 @@
       >
         <v-spacer></v-spacer>
         <v-btn @click="logout" v-on="on" icon>
-              <v-icon>exit_to_app</v-icon>
+          <v-icon>exit_to_app</v-icon>
         </v-btn>
       </v-footer>
     </v-navigation-drawer>
@@ -134,7 +134,7 @@
           </v-list-item>
         </v-list>
         <v-card v-else>
-          <v-card-text>{{this.$t('default_layout.search_bar.no_results')}}</v-card-text>
+          <v-card-text>{{ this.$t('default_layout.search_bar.no_results') }}</v-card-text>
         </v-card>
       </v-menu>
       <v-spacer/>
@@ -167,7 +167,7 @@
         <v-list>
           <v-list-item v-if="friendRequests.length === 0"
           >
-            {{ this.$t('default_layout.friend_requests.no_friend_requests')}}
+            {{ this.$t('default_layout.friend_requests.no_friend_requests') }}
           </v-list-item>
           <v-list-item
             v-if="friendRequests.length !== 0"
@@ -175,8 +175,10 @@
             :key="index"
           >
             <v-list-item-title>
-              {{ formatString($t('default_layout.friend_requests.friend_request_title'),
-              [item.sender.firstname])}}
+              {{
+                formatString($t('default_layout.friend_requests.friend_request_title'),
+                  [item.sender.firstname])
+              }}
             </v-list-item-title>
             <v-list-item-action>
               <v-btn
@@ -222,7 +224,7 @@
         <v-list>
           <v-list-item v-if="notificationCount === 0"
           >
-            {{ this.$t('default_layout.notifications.no_notifications')}}
+            {{ this.$t('default_layout.notifications.no_notifications') }}
           </v-list-item>
           <v-list-item
             v-for="(n,i) in notifications"
@@ -233,9 +235,9 @@
             <v-list-item-avatar>
               <v-img :src="'/media/avatar/'+n.sender.avatar.path"></v-img>
             </v-list-item-avatar>
-            <v-list-item-title>{{getMessage(n.type, n.sender.firstname)}}</v-list-item-title>
+            <v-list-item-title>{{ getMessage(n.type, n.sender.firstname) }}</v-list-item-title>
             <v-btn @click="ReadNotification(n.id)" text>
-              {{$t('notifications_page_mobile.markAsRead')}}
+              {{ $t('notifications_page_mobile.markAsRead') }}
             </v-btn>
           </v-list-item>
         </v-list>
@@ -258,7 +260,8 @@
             <v-avatar style="margin-right: .2rem">
               <v-img :src="'/media/avatar/'+loggedInUser.avatar.path"/>
             </v-avatar>
-            <p style="margin-left: 1rem; margin-bottom: 0;">{{loggedInUser.firstname + " " + loggedInUser.lastname}}</p>
+            <p style="margin-left: 1rem; margin-bottom: 0;">
+              {{ loggedInUser.firstname + " " + loggedInUser.lastname }}</p>
           </v-btn>
 
         </template>
@@ -270,7 +273,7 @@
             @click="go(item.action)"
           >
             <v-list-item-title>
-              <v-icon>{{item.icon}}</v-icon>
+              <v-icon>{{ item.icon }}</v-icon>
               {{ item.title }}
             </v-list-item-title>
           </v-list-item>
@@ -279,7 +282,7 @@
           >
             <v-list-item-title>
               <v-icon>exit_to_app</v-icon>
-              {{$t("default_layout.profile_drop_menu.Logout.title")}}
+              {{ $t("default_layout.profile_drop_menu.Logout.title") }}
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -292,11 +295,12 @@
         <snackbar></snackbar>
       </v-container>
     </v-main>
-      <v-layout  style="position: fixed; z-index:3" align-end justify-end>
-        <chat-friend-list  style="width: 20rem">
 
-        </chat-friend-list>
-      </v-layout>
+    <div class="chatBox">
+      <chat-friend-list :friends-online="this.onlineFriends" style="width: 20rem">
+
+      </chat-friend-list>
+    </div>
 
 
     <v-bottom-navigation
@@ -329,276 +333,288 @@
 </template>
 
 <script>
-  import {mapGetters, mapMutations} from 'vuex'
-  import Snackbar from "../components/Snackbar";
-  import chatFriendList from "../components/chatFriendList";
-  import WsSubscriptions from '../assets/WsSubscriptions'
+import {mapGetters, mapMutations} from 'vuex'
+import Snackbar from "../components/Snackbar";
+import chatFriendList from "../components/chatFriendList";
+import WsSubscriptions from '../assets/WsSubscriptions'
 
 
-  const vsprintf = require('sprintf-js').vsprintf
+const vsprintf = require('sprintf-js').vsprintf
 
-  export default {
+export default {
 
-    middleware: "auth",
-    components: {
-      Snackbar,
-      chatFriendList,
-    },
-    data() {
-      return {
-        theme: {},
-        dark: false,
-        title: 'Reidun',
-        bottomNav: 'recent',
-        drawer: null,
-        expandOnHover: true,
-        searchInput: '',
-        descriptionLimit: 60,
-        isLoading: false,
-        model: null,
-        search: null,
-        users: [],
-        mobileDrawer: false,
-        items:[
-          {
+  middleware: "auth",
+  components: {
+    Snackbar,
+    chatFriendList,
+  },
+  data() {
+    return {
+      theme: {},
+      dark: false,
+      title: 'Reidun',
+      bottomNav: 'recent',
+      drawer: null,
+      expandOnHover: true,
+      searchInput: '',
+      descriptionLimit: 60,
+      isLoading: false,
+      model: null,
+      search: null,
+      users: [],
+      mobileDrawer: false,
+      items: [
+        {
           icon: 'home',
           title: this.$t("default_layout.navigation_drawer.Home.title"),
-            to: '/'
+          to: '/'
         }
-        ],
-        mobileDrawerItems: [
-          {
-            icon: 'mdi-account-box',
-            title: this.$t("default_layout.profile_drop_menu.account.title"),
-            to: '/me'
-          },
-          {
-            icon: 'settings',
-            title: this.$t("default_layout.profile_drop_menu.Settings.title"),
-            to: '/settings'
-          },
-        ],
-        notifications: [],
-        friendRequests: [],
-
-        profilemenuitems: [
-          {icon: 'account_box', title: this.$t("default_layout.profile_drop_menu.account.title"), action: "/me"},
-          {icon: 'settings', title: this.$t("default_layout.profile_drop_menu.Settings.title"), action: "/settings"},
-
-
-        ],
-        notificationCount: 0,
-        friendRequestCount: 0,
-      }
-    },
-    watch: {
-      searchInput(newVal, oldVal) {
-        this.isLoading = true
-        if (newVal !== '') {
-          this.$axios.get('/users/search', {params: {q: newVal}}).then(res => {
-            this.users = res.data.data
-          }).catch(error => {
-            this.users = []
-          }).finally(() => (this.isLoading = false))
-        } else {
-          this.users = []
-        }
-      }
-    },
-    created() {
-      console.log("%c" + this.$t("default_layout.developer_console_warning.line_1"), "color: red; font-size:40px")
-      console.log("%c" + this.$t("default_layout.developer_console_warning.line_2"), "color: red; font-size: 30px")
-      console.log("%c" + this.$t("default_layout.developer_console_warning.line_3"), "color: red; font-size: 30px")
-
-    },
-    beforeMount() {
-      this.getNotifications()
-      this.getFriendRequest()
-      this.getUnreadNotifications()
-      WsSubscriptions(this.loggedInUser.id)
-
-    },
-    mounted() {
-
-      this.$ws.$on('disconnect', (e) => this.onDisconnect(e))
-      this.$ws.$on('FRIEND_REQUEST_ACCEPTED', (e) => this.getFriendRequest(this.loggedInUser.id))
-      this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getFriendRequest(this.loggedInUser.id))
-      this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getFriendRequest(this.loggedInUser.id))
-      this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
-        this.$ws.$on('fullNameChanged', (e) => this.changeFullName())
-
-      if (!localStorage.theme) {
-        let defaultTheme = {
-          text: 'System Theme',
-          value: 'systemTheme'
-        }
-        localStorage.theme = JSON.stringify(defaultTheme)
-      } else {
-        this.theme = JSON.parse(localStorage.theme)
-        if(this.theme.value === "dark"){
-          this.dark = true
-        }else{
-          this.dark = false
-        }
-
-      }
-      this.theme = JSON.parse(localStorage.theme)
-      if (this.theme.value === 'systemTheme') {
-
-        this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          this.dark = e.matches
-        });
-      }
-      this.$ws.$on('theme-changed', (e) => this.changeTheme(e))
-    },
-    methods: {
-        async changeFullName(){
-            await this.$axios.get('/user').then(res => {
-                this.$store.commit('UpdateUser',res.data.data);
-            }).catch(err => {
-
-            })
+      ],
+      mobileDrawerItems: [
+        {
+          icon: 'mdi-account-box',
+          title: this.$t("default_layout.profile_drop_menu.account.title"),
+          to: '/me'
         },
-      async logout() {
-        await this.$auth.logout();
-        this.$ws.disconnect()
-        await this.$router.push('/login')
-      },
-      ...mapMutations({
-        setSnack: 'snackbar/setSnack',
-        setSnackTop: 'snackbar/setSnackTop',
-        setSnackColor: 'snackbar/setSnackColor'
-      }),
-      async onDisconnect(e) {
-        await this.$axios.get('/user').then(res => {
+        {
+          icon: 'settings',
+          title: this.$t("default_layout.profile_drop_menu.Settings.title"),
+          to: '/settings'
+        },
+      ],
+      notifications: [],
+      friendRequests: [],
+      onlineFriends:[],
+      profilemenuitems: [
+        {icon: 'account_box', title: this.$t("default_layout.profile_drop_menu.account.title"), action: "/me"},
+        {icon: 'settings', title: this.$t("default_layout.profile_drop_menu.Settings.title"), action: "/settings"},
 
-        }).catch(err => {
-          this.logout()
-        })
-      },
-      async getUnreadNotifications() {
-        await this.$axios.get('/notifications/unread').then(res => {
-          this.notificationCount = res.data.notification_count
 
-        }).catch(err => {
-          this.notificationCount = 0
-        })
-      },
-      async getNotifications() {
-        await this.$axios.get('/notifications/all').then(res => {
-
-          this.notifications = res.data.data
-
-        }).catch(err => {
-
-        })
-      },
-      async acceptFriendRequest(senderId) {
-        let self = this;
-        let data = {
-          senderId: senderId,
-        }
-        await this.$axios.post('/friends/request/accept', data).then(res => {
-          self.setSnackColor("success");
-          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'ACCEPTED_INCOMING_REQUEST', {
-            sender: this.loggedInUser.id,
-            targetUserId: senderId
-          })
-          self.setSnack("Accepted friend request");
-
+      ],
+      notificationCount: 0,
+      friendRequestCount: 0,
+    }
+  },
+  watch: {
+    searchInput(newVal, oldVal) {
+      this.isLoading = true
+      if (newVal !== '') {
+        this.$axios.get('/users/search', {params: {q: newVal}}).then(res => {
+          this.users = res.data.data
         }).catch(error => {
-            console.log(error);
-          self.setSnackColor("error");
-          self.setSnack("Something went wrong")
-        })
-      },
-      async denyFriendRequest(senderId) {
-        let self = this;
-        let data = {
-          senderId: senderId,
-        }
-
-        await this.$axios.post('/friends/request/deny', data).then(res => {
-          self.setSnackColor("success");
-          this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'DENIED_INCOMING_REQUEST', {
-            sender: this.loggedInUser.id,
-            targetUserId: senderId
-          })
-          self.setSnack("Denied friend request");
-
-        }).catch(error => {
-          self.setSnackColor("error");
-          self.setSnack("Something went wrong")
-        })
-      },
-      go: function (action) {
-        this.$router.push({
-          path: action
-        })
-      },
-      getFriendRequest: async function () {
-
-        await this.$axios.get('/friends/request/all').then(res => {
-          this.friendRequests = res.data.data
-            console.log(this.friendRequests);
-        }).catch(err => {
-          this.friendRequests = []
-        })
-      },
-      getMessage(type, name) {
-        switch (type) {
-          case 'POST_LIKED':
-            return this.formatString(this.$t('default_layout.notifications.post_liked'), [name])
-          case 'POST_DISLIKED':
-            return this.formatString(this.$t('default_layout.notifications.post_disliked'), [name])
-          case 'POST_COMMENTED':
-            return this.formatString(this.$t('default_layout.notifications.post_commented'), [name])
-        }
-      },
-
-
-      formatString(string, variables) {
-        return vsprintf(string, variables)
-      },
-
-      async ReadNotification(notificationId) {
-
-      },
-      async changeTheme(e) {
-        const theme = JSON.parse(localStorage.theme)
-        switch (theme.value) {
-          case 'dark':
-            this.dark = true
-            break;
-          case 'light':
-            this.dark = false
-            break;
-          case 'systemTheme':
-            this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
-            break;
-        }
+          this.users = []
+        }).finally(() => (this.isLoading = false))
+      } else {
+        this.users = []
       }
-    },
-    computed: {
-      getTheme() {
-        return (this.$vuetify.theme.dark) ? 'dark' : 'light'
-      },
-      setTheme() {
-        return (this.$vuetify.theme.dark = this.dark)
-      },
-      getitemvalue() {
-        return this.model.id
-      },
-      searchItems() {
-        return this.users
-      },
-      ...mapGetters(['isAuthenticated', 'loggedInUser', 'userLocale']),
+    }
+  },
+  created() {
+    console.log("%c" + this.$t("default_layout.developer_console_warning.line_1"), "color: red; font-size:40px")
+    console.log("%c" + this.$t("default_layout.developer_console_warning.line_2"), "color: red; font-size: 30px")
+    console.log("%c" + this.$t("default_layout.developer_console_warning.line_3"), "color: red; font-size: 30px")
+
+  },
+  beforeMount() {
+    this.getNotifications()
+    this.getFriendRequest()
+    this.getUnreadNotifications()
+    this.getFriendsWithStatus(this.loggedInUser.id)
+    WsSubscriptions(this.loggedInUser.id)
+
+  },
+  mounted() {
+
+    this.$ws.$on('disconnect', (e) => this.onDisconnect(e))
+    this.$ws.$on('FRIEND_REQUEST_ACCEPTED', (e) => this.getFriendRequest(this.loggedInUser.id))
+    this.$ws.$on('FRIEND_REQUEST_DENIED', (e) => this.getFriendRequest(this.loggedInUser.id))
+    this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getFriendRequest(this.loggedInUser.id))
+    this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
+    this.$ws.$on('fullNameChanged', (e) => this.changeFullName())
+    //this.$ws.$on('FRIEND_ONLINE', (message) => this.getFriendsWithStatus(this.loggedInUser.id))
+
+    if (!localStorage.theme) {
+      let defaultTheme = {
+        text: 'System Theme',
+        value: 'systemTheme'
+      }
+      localStorage.theme = JSON.stringify(defaultTheme)
+    } else {
+      this.theme = JSON.parse(localStorage.theme)
+      if (this.theme.value === "dark") {
+        this.dark = true
+      } else {
+        this.dark = false
+      }
 
     }
-  }
+    this.theme = JSON.parse(localStorage.theme)
+    if (this.theme.value === 'systemTheme') {
+
+      this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        this.dark = e.matches
+      });
+    }
+    this.$ws.$on('theme-changed', (e) => this.changeTheme(e))
+  },
+  methods: {
+    async changeFullName() {
+      await this.$axios.get('/user').then(res => {
+        this.$store.commit('UpdateUser', res.data.data);
+      }).catch(err => {
+
+      })
+    },
+    async logout() {
+      await this.$auth.logout();
+      this.$ws.disconnect()
+      await this.$router.push('/login')
+    },
+    ...mapMutations({
+      setSnack: 'snackbar/setSnack',
+      setSnackTop: 'snackbar/setSnackTop',
+      setSnackColor: 'snackbar/setSnackColor'
+    }),
+    async onDisconnect(e) {
+      await this.$axios.get('/user').then(res => {
+
+      }).catch(err => {
+        this.logout()
+      })
+    },
+    async getUnreadNotifications() {
+      await this.$axios.get('/notifications/unread').then(res => {
+        this.notificationCount = res.data.notification_count
+
+      }).catch(err => {
+        this.notificationCount = 0
+      })
+    },
+    async getNotifications() {
+      await this.$axios.get('/notifications/all').then(res => {
+
+        this.notifications = res.data.data
+
+      }).catch(err => {
+
+      })
+    },
+    async acceptFriendRequest(senderId) {
+      let self = this;
+      let data = {
+        senderId: senderId,
+      }
+      await this.$axios.post('/friends/request/accept', data).then(res => {
+        self.setSnackColor("success");
+        this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'ACCEPTED_INCOMING_REQUEST', {
+          sender: this.loggedInUser.id,
+          targetUserId: senderId
+        })
+        self.setSnack("Accepted friend request");
+
+      }).catch(error => {
+        console.log(error);
+        self.setSnackColor("error");
+        self.setSnack("Something went wrong")
+      })
+    },
+    async denyFriendRequest(senderId) {
+      let self = this;
+      let data = {
+        senderId: senderId,
+      }
+
+      await this.$axios.post('/friends/request/deny', data).then(res => {
+        self.setSnackColor("success");
+        this.$ws.$emitToServer(`event:${this.loggedInUser.id}`, 'DENIED_INCOMING_REQUEST', {
+          sender: this.loggedInUser.id,
+          targetUserId: senderId
+        })
+        self.setSnack("Denied friend request");
+
+      }).catch(error => {
+        self.setSnackColor("error");
+        self.setSnack("Something went wrong")
+      })
+    },
+    go: function (action) {
+      this.$router.push({
+        path: action
+      })
+    },
+    getFriendRequest: async function () {
+
+      await this.$axios.get('/friends/request/all').then(res => {
+        this.friendRequests = res.data.data
+        console.log(this.friendRequests);
+      }).catch(err => {
+        this.friendRequests = []
+      })
+    },
+    getMessage(type, name) {
+      switch (type) {
+        case 'POST_LIKED':
+          return this.formatString(this.$t('default_layout.notifications.post_liked'), [name])
+        case 'POST_DISLIKED':
+          return this.formatString(this.$t('default_layout.notifications.post_disliked'), [name])
+        case 'POST_COMMENTED':
+          return this.formatString(this.$t('default_layout.notifications.post_commented'), [name])
+      }
+    },
+
+
+    formatString(string, variables) {
+      return vsprintf(string, variables)
+    },
+
+    async ReadNotification(notificationId) {
+
+    },
+    async changeTheme(e) {
+      const theme = JSON.parse(localStorage.theme)
+      switch (theme.value) {
+        case 'dark':
+          this.dark = true
+          break;
+        case 'light':
+          this.dark = false
+          break;
+        case 'systemTheme':
+          this.dark = window.matchMedia('(prefers-color-scheme: dark)').matches
+          break;
+      }
+    },
+    async getFriendsWithStatus(message) {
+      const res = await this.$axios.$get("/friends/status")
+      console.log(res)
+      this.onlineFriends = res.data.data;
+    }
+  },
+  computed: {
+    getTheme() {
+      return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+    },
+    setTheme() {
+      return (this.$vuetify.theme.dark = this.dark)
+    },
+    getitemvalue() {
+      return this.model.id
+    },
+    searchItems() {
+      return this.users
+    },
+    ...mapGetters(['isAuthenticated', 'loggedInUser', 'userLocale']),
+
+  },
+
+}
 </script>
 <style scoped>
-
+.chatBox {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
 
 </style>

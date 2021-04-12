@@ -2,274 +2,255 @@
   "default_layout": {
     "navigation_drawer": {
       "Home": {
-        "title": "Home"
+        "title": "Startseite"
       }
     },
     "search_bar": {
-      "label": "Search users",
+      "label": "Benutzer suchen",
       "no_results": "No results"
     },
     "profile_drop_menu": {
       "account": {
-        "title": "Account"
+        "title": "Benutzerkonto"
       },
       "Settings": {
-        "title": "Settings"
+        "title": "Einstellungen"
       },
       "Logout": {
-        "title": "Log Out"
+        "title": "Abmelden"
       }
     },
     "notifications": {
-      "no_notifications": "No notifications",
-      "post_liked": "%s liked your post",
-      "post_disliked": "%s disliked your post",
-      "post_commented": "%s commented on your post"
+      "no_notifications": "Keine Benachrichtigungen",
+      "post_liked": "%s gefällt dein Beitrag",
+      "post_disliked": "%s gefällt dein Beitrag nicht",
+      "post_commented": "%s hat deinen Beitrag kommentiert"
     },
     "friend_requests": {
-      "no_friend_requests": "No friend requests",
-      "friend_request_title": "%s sent you a friend request"
+      "no_friend_requests": "Keine Freundschaftsanfragen",
+      "friend_request_title": "%s hat dir eine Freundschaftsanfrage geschickt"
     },
     "developer_console_warning": {
-      "line_1": "Hold Up!",
-      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
-      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+      "line_1": "Warte kurz!",
+      "line_2": "Die leichtsinnige Eingabe von Code könnte Angreifern Zugang zu deinem Benutzerkonto ermöglichen.",
+      "line_3": "Bleibe besser auf der sicheren Seite und schließe dieses Fenster, außer du weißt genau was du tust!"
     }
   },
   "home_page": {
     "post_creation_card": {
-      "greeting": "Hey %s, what's happening today?",
-      "post_creation_button": "Post",
-      "attach_file": "Attach a file",
-      "input_empty": "Post cannot be empty"
+      "greeting": "Hey %s, was steht heute an?",
+      "post_creation_button": "Beitrag",
+      "attach_file": "Füge eine Datei hinzu",
+      "input_empty": "Der Beitrag darf nicht leer sein"
     },
     "post_card": {
-      "title": "Posts",
+      "title": "Beiträge",
       "post_menu": {
-        "delete_post": "Delete Post",
-        "edit_post": "Edit Post",
-        "report": "Report Post"
+        "delete_post": "Beitrag löschen",
+        "edit_post": "Beitrag bearbeiten",
+        "report": "Beitrag melden"
       }
     }
   },
   "session_user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "Alle Beiträge",
+      "about": "Über",
+      "friends": "Freunde"
     },
     "change_avatar_dialog": {
-      "title": "Upload an image file: png, gif, or jpg",
-      "change_avatar": "Change Avatar",
-      "cancel": "Cancel",
-      "file_input_label": "Choose Image",
-      "save_button": "Save as avatar"
-    },
-    "change_banner_dialog": {
-      "change_banner": "Change banner",
-      "File_Input_label": "Upload an image file: png, gif, or jpg",
-      "save_button": "Save as banner"
+      "title": "Lade ein Bild hoch: png, gif oder jpg",
+      "change_avatar": "Avatar ändern",
+      "cancel": "Abbrechen",
+      "file_input_label": "Wähle ein Bild aus"
     },
     "Wall": {
-      "title": "Your Wall",
-      "posts": "Posts",
-      "files_posted": "Files Posted",
-      "no-posts": "You haven't posted anything!",
-      "no-files": "You haven't uploaded anything!"
+      "title": "Deine Beiträge",
+      "posts": "Beiträge",
+      "files_posted": "Veröffentlichte Dateien",
+      "no-posts": "Du hast bisher nichts veröffentlicht!",
+      "no-files": "Du hast bisher nichts hochgeladen!"
     },
     "About": {
-      "title": "About You",
+      "title": "Über dich",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "E-Mail",
+        "gender": "Geschlecht",
+        "birthday": "Geburtstag"
       }
     },
     "Friends": {
-      "title": "Your Friends",
-      "no-friends": "You have no friends 😟"
+      "title": "Deine Freunde",
+      "no-friends": "Du hast keine Freunde 😟"
     }
   },
   "user_page": {
     "tab_menu": {
-      "wall": "Wall",
-      "about": "About",
-      "friends": "Friends"
+      "wall": "Alle Beiträge",
+      "about": "Über",
+      "friends": "Freunde"
     },
     "user_menu": {
-      "block": "Block",
-      "remove_friend": "Remove Friend"
+      "block": "Blockieren",
+      "remove_friend": "Freund entfernen"
     },
     "friend_request_buttons": {
-      "add_friend": "Add as friend",
+      "add_friend": "Als Freund hinzufügen",
       "accept_request": "Accept Request",
-      "deny_request": "Deny Request",
-      "cancel_request": "Cancel Request",
+      "deny_request": "Anfrage ablehnen",
+      "cancel_request": "Anfrage abbrechen",
       "unfriend": "Unfriend"
     },
     "Wall": {
-      "title": "%s's wall",
-      "not_friends_message": "You need to be friends with %s to view their wall",
-      "posts": "Posts",
-      "files_posted": "Files Posted",
-      "no-posts": "%s has not posted anything",
-      "no-files": "%s has not uploaded anything"
+      "title": "%s's Beiträge",
+      "not_friends_message": "Du musst mit %s befreundet sein, um seine/ihre Beiträge zu sehen",
+      "posts": "Beiträge",
+      "files_posted": "Veröffentlichte Dateien",
+      "no-posts": "%s hat bisher nichts veröffentlicht",
+      "no-files": "%s hat bisher nichts hochgeladen"
     },
     "About": {
-      "title": "About %s",
-      "not_friends_message": "You need to be friends with %s to view their information",
+      "title": "Über %s",
+      "not_friends_message": "Du musst mit %s befreundet sein, um ihre/seine Informationen einzusehen",
       "info": {
-        "email": "Email",
-        "gender": "Gender",
-        "birthday": "Birthday"
+        "email": "E-Mail",
+        "gender": "Geschlecht",
+        "birthday": "Geburtstag"
       }
     },
     "Friends": {
-      "title": "%s's friends",
-      "not_friends_message": "You need to be friends with %s to view their friends",
+      "title": "%s's Freunde",
+      "not_friends_message": "Du musst mit %s befreundet sein, um seine/ihre Freunde zu sehen",
       "user_no_friends": "User have no friends"
     }
   },
   "search_page_mobile": {
-    "title": "Search for users",
+    "title": "Nach Benutzern suchen",
     "search_bar": {
-      "label": "Search users"
+      "label": "Benutzer suchen"
     },
-    "list_empty": "Type in the search bar to see results"
+    "list_empty": "Suchbegriff in der Suchleiste eingeben, um Ergebnisse zu sehen"
   },
   "notifications_page_mobile": {
-    "title": "Notifications",
-    "no_notifications": "No notifications",
-    "markAsRead": "Mark as read"
+    "title": "Benachrichtigungen",
+    "no_notifications": "Keine Benachrichtigungen",
+    "markAsRead": "Als gelesen markieren"
   },
   "settings": {
     "settings_tab": {
-      "account_details": "Account Details",
-      "privacy": "Privacy",
-      "appearance": "Appearance",
-      "account_security_log": "Account Security Log"
+      "account_details": "Benutzerkonto",
+      "privacy": "Privatsphäre",
+      "appearance": "Benutzeroberfläche",
+      "account_security_log": "Sicherheitshistorie"
     },
     "account_settings_tab": {
-      "title": "Account settings",
+      "title": "Benutzerkontoeinstellungen",
       "information": {
-        "title": "Change information"
+        "title": "Informationen anpassen"
       },
       "password": {
-        "title": "Change password",
+        "title": "Passwort ändern",
         "new_password_input": {
-          "label": "New password"
+          "label": "Neues Passwort"
         },
         "repeat_password_input": {
-          "label": "Repeat password"
+          "label": "Passwort wiederholen"
         },
-        "input_empty": "Password is required",
-        "password_mismatch": "Passwords don't match",
+        "input_empty": "Passwort wird benötigt",
+        "password_mismatch": "Passwort stimmt nicht überein",
         "security_dialog": {
-          "title": "Password verification",
-          "text": "Before we can let you change your password, we need you to type your current password in again, for safety measures",
+          "title": "Passwortverifizierung",
+          "text": "Aus Sicherheitsgründen benötigen wir für das Ändern des Passworts die erneute Eingabe deines aktuellen Passworts",
           "password_input": {
-            "label": "Type password",
-            "password_incorrect": "Password is incorrect"
+            "label": "Passwort eingeben",
+            "password_incorrect": "Passwort ist falsch"
           }
         },
         "buttons": {
-          "authorize": "Authorize",
-          "cancel": "Cancel",
-          "save": "Save",
+          "authorize": "Authorisieren",
+          "cancel": "Abbrechen",
+          "save": "Speichern",
           "ok": "Ok"
         }
       }
     },
     "privacy_tab": {
-      "title": "Privacy Settings",
+      "title": "Privatsphäre-Einstellungen",
       "profile_privacy": {
         "title": "Profile viewing setting",
         "description": "Choose who can see your profile",
         "label": "Change setting",
         "select_items": {
-          "everyone": "Everyone",
-          "friends": "Friends"
+          "everyone": "Alle",
+          "friends": "Freunde"
         }
       },
       "friend_request_privacy": {
-        "title": "Friend requests",
+        "title": "Freundschaftsanfragen",
         "description": "Choose who can add you as friend",
-        "label": "Change setting",
+        "label": "Einstellung ändern",
         "select_items": {
-          "everyone": "Everyone",
-          "friends_of_friends": "Friends of friends",
-          "none": "No one"
+          "everyone": "Alle",
+          "friends_of_friends": "Freunde von Freunden",
+          "none": "Keiner"
         }
       }
     },
     "appearance_settings_tab": {
-      "title": "Appearance Settings",
+      "title": "Einstellen der Benutzeroberfläche",
       "theme_setting": {
         "dark_theme_setting": {
-          "dark": "Dark Theme",
-          "light": "Light Theme",
-          "System_theme": "System theme",
-          "title": "Theme"
+          "dark": "Dunkler Stil",
+          "light": "Heller Stil",
+          "System_theme": "Systemstil",
+          "title": "Stil"
         },
         "Display_language_setting": {
-          "title": "Display Language",
+          "title": "Anzeigesprache",
           "display_language_select": {
-            "label": "Language",
-            "albanian": "Albanian",
-            "danish": "Danish",
-            "chinese": "Chinese (Simplified)",
-            "dutch": "Dutch",
-            "english-uk": "English (United Kingdom)",
-            "english-us": "English (United States)",
+            "label": "Sprache",
+            "albanian": "Albanisch",
+            "danish": "Dänisch",
+            "chinese": "Chinesisch (Vereinfacht)",
+            "dutch": "Niederländisch",
+            "english-uk": "Englisch (Vereinigtes Königreich)",
+            "english-us": "Englisch (Vereinigte Staaten)",
             "english-au": "English (Australia)",
-            "french": "French",
-            "german": "German",
+            "french": "Französisch",
+            "german": "Deutsch",
             "japanese": "japanese",
-            "norwegian-bokmal": "Norwegian (Bokmal)",
-            "norwegian-nynorsk": "Norwegian (Nynorsk)",
-            "serbian": "Serbian",
-            "spanish": "Spanish",
-            "swedish": "Swedish"
+            "norwegian-bokmal": "Norwegisch (Bokmal)",
+            "norwegian-nynorsk": "Norwegisch (Nynorsk)",
+            "serbian": "Serbisch",
+            "spanish": "Spanisch",
+            "swedish": "Schwedisch"
           }
         }
-      }
-    },
-    "security_log_tab": {
-      "title": "Security Log",
-      "RowChooser": "Rows per page:",
-      "no_data": "No data",
-      "security_log_headers": {
-        "log_id": "log id",
-        "event_type": "event",
-        "log": "log",
-        "ip": "ip",
-        "date": "date",
-        "location": "location"
       }
     }
   },
   "post_page": {
     "post_card": {
       "post_menu": {
-        "delete_post": "Delete Post",
-        "edit_post": "Edit Post",
-        "report": "Report Post"
+        "delete_post": "Beitrag löschen",
+        "edit_post": "Beitrag bearbeiten",
+        "report": "Beitrag melden"
       },
       "save_button": "Save",
       "cancel_button": "Cancel"
     },
     "comment_creation_card": {
       "comment_input": {
-        "label": "Type a comment",
-        "input_empty": "Comment cannot be empty"
+        "label": "Kommentar eingeben",
+        "input_empty": "Kommentar darf nicht leer sein"
       },
       "create_button": {
-        "label": "Comment"
+        "label": "Kommentar"
       }
     },
     "comments_card": {
-      "no_comments": "No comments yet! Be the first to create one",
-      "title": "Comments",
+      "no_comments": "Bisher keine Kommentare! Sei der Erste",
+      "title": "Kommentare",
       "comment_menu": {
         "delete_comment": "Delete Comment",
         "edit_comment": "Edit Comment",
@@ -279,111 +260,109 @@
   },
   "guest_layout": {
     "developer_console_warning": {
-      "line_1": "Hold Up!",
-      "line_2": "Pasting suspicious code in here could give attackers access to your account.",
-      "line_3": "Unless you understand exactly what you are doing, close this window and stay safe!"
+      "line_1": "Warte kurz!",
+      "line_2": "Die leichtsinnige Eingabe von Code könnte Angreifern Zugang zu deinem Benutzerkonto ermöglichen.",
+      "line_3": "Bleibe besser auf der sicheren Seite und schließe dieses Fenster, außer du weißt genau was du tust!"
     }
   },
   "login_page": {
-    "title": "Reidun - Login",
+    "title": "Reidun - Anmelden",
     "slide_show": {
       "page_1": {
         "title": "Reidun",
-        "text": "Free, open-source social media"
+        "text": "Ein soziales Netzwerk, kostenlos und Open-Source"
       },
       "page_2": {
-        "title": "Reidun on mobile",
-        "text": "On the go? Don't worry, download a native version"
+        "title": "Reidun für mobile",
+        "text": "Du bist unterwegs? Kein Problem, lade dir die App herunter"
       }
     },
     "login_form": {
       "email_text_field": {
-        "label": "Email",
-        "input_empty": "Email is required",
-        "email_not_valid": "Email must be valid"
+        "label": "E-Mail",
+        "input_empty": "Eingabe der E-Mail ist verpflichtend",
+        "email_not_valid": "Die E-Mail muss gültig sein"
       },
       "password_field": {
-        "label": "Password",
-        "input_empty": "Password is required"
+        "label": "Passwort",
+        "input_empty": "Eingabe des Passworts ist verpflichtend"
       },
       "login_button": {
-        "label": "Login"
+        "label": "Anmelden"
       },
       "register_button": {
-        "label": "Register"
+        "label": "Registrieren"
       }
     }
   },
   "register_page": {
-    "title": "Reidun - Register",
+    "title": "Reidun - Registrieren",
     "slide_show": {
       "page_1": {
         "title": "Reidun",
-        "text": "Free, open-source social media"
+        "text": "Ein soziales Netzwerk, kostenlos und Open-Source"
       },
       "page_2": {
-        "title": "Reidun on mobile",
-        "text": "On the go? Don't worry, download a native version"
+        "title": "Reidun für mobile",
+        "text": "Du bist unterwegs? Kein Problem, lade dir die App herunter"
       }
     },
     "register_form": {
       "firstname_text_field": {
-        "label": "First Name",
-        "input_empty": "First name is required",
-        "firstname_not_valid": "Firstname has to be valid"
+        "label": "Vorname",
+        "input_empty": "Eingabe des Vornamens ist verpflichtend"
       },
       "lastname_text_field": {
-        "label": "Last name",
-        "input_empty": "Last name is required",
-        "lastname_not_valid": "Lastname has to be valid"
+        "label": "Nachname",
+        "input_empty": "Eingabe des Nachnamens ist verpflichtend"
       },
       "email_text_field": {
-        "label": "Email",
-        "input_empty": "Email is required",
-        "email_not_valid": "Email must be valid"
+        "label": "E-Mail",
+        "input_empty": "Eingabe der E-Mail ist verpflichtend",
+        "email_not_valid": "Die E-Mail muss gültig sein"
       },
       "password_field": {
-        "label": "Password",
-        "input_empty": "Password is required"
+        "label": "Passwort",
+        "input_empty": "Eingabe des Passworts ist verpflichtend"
       },
       "repeat_password_field": {
-        "label": "Repeat password",
-        "password_mismatch": "Password must match"
+        "label": "Passwort wiederholen",
+        "password_mismatch": "Passwort muss übereinstimmen"
       },
       "gender_selection": {
-        "label": "Gender",
-        "input_empty": "Gender is required",
+        "label": "Geschlecht",
+        "input_empty": "Eingabe des Geschlechts ist verpflichtend",
         "genders": {
-          "male": "Male",
-          "female": "Female",
-          "other": "Other"
+          "male": "Männlich",
+          "female": "Weiblich",
+          "other": "Anderes"
         }
       },
       "birthday": {
-        "label": "Birthday",
-        "input_empty": "Birthday is required",
+        "label": "Geburtstag",
+        "input_empty": "Eingabe des Geburtstags wird benötigt",
         "younger_than_16": "Must be 16 or older",
         "dialog_buttons": {
-          "cancel": "Cancel",
+          "cancel": "Abbrechen",
           "ok": "OK"
         }
       },
       "register_button": {
-        "label": "Register"
+        "label": "Registrieren"
       },
       "back_button": {
-        "label": "Back"
+        "label": "Zurück"
       }
     }
   },
   "emoji_picker": {
-    "search_bar": "Search here",
-    "not_found": "Emoji(s) not found",
-    "loading": "Loading"
+    "search_bar": "Suche",
+    "not_found": "Emoji(s) nicht gefunden",
+    "loading": "Laden"
   },
   "snackbar": {
     "error_messages": {
-      "credentials_incorrect": "Email or Password is incorrect",
+      "credentials_incorrect": "E-Mail oder Passwort ist falsch",
       "registration_fail": "Failed to register account",
       "post_creation_fail": "Failed to create post",
       "post_deletion_fail": "Failed to delete post",
@@ -391,30 +370,30 @@
       "post_unlike_fail": "Failed to remove like from post",
       "post_dislike_fail": "Failed to dislike post",
       "post_un_dislike_fail": "Failed to remove dislike for post",
-      "post_edit_fail": "Failed to edit post",
+      "post_edit_fail": "Bearbeiten des Beitrags fehlgeschlagen",
       "comment_creation_fail": "Failed to create comment",
       "comment_delete_fail": "Failed to delete comment",
       "comment_edit_fail": "Failed to edit comment",
       "password_change_failed": "Failed to change password"
     },
     "success_messages": {
-      "post_creation_success": "Post created",
-      "post_deletion_success": "Post deleted",
+      "post_creation_success": "Beitrag erstellt",
+      "post_deletion_success": "Beitrag wurde gelöscht",
       "post_like_success": "Liked post",
       "post_unlike_success": "Removed like for post",
-      "post_dislike_success": "Disliked post",
-      "post_un_dislike_success": "Removed dislike for post",
-      "post_edit_success": "Edited post",
-      "comment_creation_success": "Created comment",
-      "comment_delete_success": "Deleted comment",
-      "comment_edit_success": "Edited comment"
+      "post_dislike_success": "Beitrag negativ bewertet",
+      "post_un_dislike_success": "Negative Bewertung wurde entfernt",
+      "post_edit_success": "Beitrag wurde bearbeitet",
+      "comment_creation_success": "Kommentar wurde erstellt",
+      "comment_delete_success": "Kommentar wurde gelöscht",
+      "comment_edit_success": "Kommentar wurde bearbeitet"
     }
   },
   "error_page": {
-    "error_title": "error",
-    "exception_thrown": "This is most likely an exception thrown in the webapp and not the system itself",
-    "not_found_title": "404 Not Found",
-    "not_found": "This page does not exist"
+    "error_title": "Fehler",
+    "exception_thrown": "Dies ist höchst wahrscheinlich ein Ausnahmefall, der in der Web-Applikation aufgetreten ist und nicht im zugrunde liegenden System",
+    "not_found_title": "404 Seite nicht gefunden",
+    "not_found": "Diese Seite existiert nicht"
   }
 }
 
