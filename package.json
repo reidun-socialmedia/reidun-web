@@ -20,7 +20,7 @@
     "@nuxtjs/axios": "^5.12.2",
     "adonis-vue-websocket": "^2.0.2",
     "dotenv": "^8.2.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.31",
     "nuxt": "^2.14.7",
     "snyk": "^1.425.1",
