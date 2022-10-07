@@ -23,7 +23,7 @@
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
     "nuxt": "^2.14.7",
-    "snyk": "^1.425.1",
+    "snyk": "^1.1025.0",
     "sprintf-js": "^1.1.2",
     "twemoji": "^12.1.6",
     "video.js": "^7.10.2",
