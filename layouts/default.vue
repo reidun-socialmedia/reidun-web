@@ -431,7 +431,7 @@ export default {
     this.$ws.$on('FRIEND_REQUEST_CANCELLED', (e) => this.getFriendRequest(this.loggedInUser.id))
     this.$ws.$on('SENT_REQUEST', (e) => this.getFriendRequest(this.loggedInUser.id))
     this.$ws.$on('fullNameChanged', (e) => this.changeFullName())
-    //this.$ws.$on('FRIEND_ONLINE', (message) => this.getFriendsWithStatus(this.loggedInUser.id))
+    this.$ws.$on('FRIEND_ONLINE', (message) => this.getFriendsWithStatus(this.loggedInUser.id))
 
     if (!localStorage.theme) {
       let defaultTheme = {
@@ -586,9 +586,17 @@ export default {
       }
     },
     async getFriendsWithStatus(message) {
-      const res = await this.$axios.$get("/friends/status")
-      console.log(res)
-      this.onlineFriends = res.data.data;
+      try {
+        const res = await this.$axios.$get("/friends/status")
+        if (res.data.length !== 0) {
+          console.log(res)
+          this.onlineFriends = res.data;
+        } else {
+          this.onlineFriends = [];
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   computed: {
@@ -603,6 +611,9 @@ export default {
     },
     searchItems() {
       return this.users
+    },
+    getUserFriendListForChat(){
+      return this.onlineFriends;
     },
     ...mapGetters(['isAuthenticated', 'loggedInUser', 'userLocale']),
 
